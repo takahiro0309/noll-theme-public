@@ -1,0 +1,271 @@
+{% comment %} noll PDP — gallery + selectors + ATC. Standalone replacement for product-information. {% endcomment %}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign images = product.images -%}
+
+<nav class="crumbs" aria-label="breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a><span>/</span>
+  <a href="{{ routes.collections_url }}">Shop</a><span>/</span>
+  {{ product.title }}
+</nav>
+
+<section class="pdp" data-noll-pdp>
+  <div class="pdp__media">
+    <div class="pdp__main reveal">
+      <button class="pdp__zoom" aria-label="Zoom" type="button">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><line x1="15.5" y1="15.5" x2="20" y2="20"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </button>
+      {%- if images[0] -%}
+        <img src="{{ images[0] | image_url: width: 1400 }}" alt="{{ product.title | escape }}" id="pdpMainImage" data-noll-pdp-main>
+      {%- endif -%}
+      <div class="pdp__main-dots">
+        {%- for img in images -%}
+          <span class="pdp__dot{% if forloop.first %} is-active{% endif %}"></span>
+        {%- endfor -%}
+      </div>
+    </div>
+    <div class="pdp__thumbs reveal" data-reveal-delay="1">
+      {%- for img in images -%}
+        <button class="pdp__thumb{% if forloop.first %} is-active{% endif %}" data-img="{{ img | image_url: width: 1400 }}" aria-label="View {{ forloop.index }}" type="button">
+          <img src="{{ img | image_url: width: 200 }}" alt="">
+        </button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="pdp__info">
+    <p class="pdp__brand reveal">{{ section.settings.brand_label | default: 'NOLL · Performance Footgear' }}</p>
+    <h1 class="pdp__title reveal" data-reveal-delay="1">{{ product.title }}</h1>
+    <p class="pdp__price reveal" data-reveal-delay="2" data-noll-pdp-price>
+      {{ current_variant.price | money }}
+      <span style="font-size:11px; color:var(--c-muted); font-weight:400;">{{ section.settings.tax_label | default: '税込' }}</span>
+    </p>
+    <p class="pdp__tax reveal" data-reveal-delay="2">
+      {{ section.settings.shipping_note | default: '国内送料無料' }}
+      {%- assign release = product.metafields.tech.release_date.value -%}
+      {%- if release != blank -%} / {{ release }}{%- endif -%}
+    </p>
+
+    <div class="pdp__rating reveal" data-reveal-delay="3">
+      <span class="pdp__stars">★★★★★</span>
+      <span>{{ section.settings.rating | default: '4.8 / 5.0 · 128 reviews' }}</span>
+    </div>
+
+    <p class="pdp__desc reveal" data-reveal-delay="3">
+      {{ section.settings.description | default: '指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。' }}
+    </p>
+
+    {%- form 'product', product, class: 'pdp__form', id: 'noll-pdp-form' -%}
+      <input type="hidden" name="id" value="{{ current_variant.id }}" data-noll-variant-id>
+
+      {%- for option in product.options_with_values -%}
+        {%- assign option_name_lower = option.name | downcase -%}
+        {%- assign is_color = false -%}
+        {%- if option_name_lower contains 'color' or option.name == 'カラー' -%}{%- assign is_color = true -%}{%- endif -%}
+        {%- assign is_size = false -%}
+        {%- if option_name_lower contains 'size' or option.name == 'サイズ' -%}{%- assign is_size = true -%}{%- endif -%}
+
+        <div class="pdp__group reveal">
+          <div class="pdp__group-label">
+            <span>{{ option.name }} : <span data-noll-option-display="{{ option.position }}">{{ option.selected_value }}</span></span>
+            {%- if is_size -%}<a href="#" style="font-size:11px; color:var(--c-muted); border-bottom: 1px solid currentColor; padding-bottom:1px;">サイズを選ぶ</a>{%- endif -%}
+          </div>
+          {%- if is_color -%}
+            <div class="pdp__colors" role="radiogroup" aria-label="{{ option.name }}">
+              {%- for value in option.values -%}
+                {%- assign swatch = '#111' -%}
+                {%- if value contains 'White' or value contains 'Ivory' -%}{%- assign swatch = '#f5f1e8' -%}{%- endif -%}
+                {%- if value contains 'Olive' -%}{%- assign swatch = '#5a6a3f' -%}{%- endif -%}
+                <button type="button" class="pdp__color{% if value == option.selected_value %} is-active{% endif %}" style="--swatch:{{ swatch }};" aria-label="{{ value }}" data-noll-option="{{ option.position }}" data-noll-value="{{ value | escape }}"></button>
+              {%- endfor -%}
+            </div>
+          {%- else -%}
+            <div class="pdp__sizes" role="radiogroup" aria-label="{{ option.name }}">
+              {%- for value in option.values -%}
+                {%- assign variant_for_value = nil -%}
+                {%- for variant in product.variants -%}
+                  {%- if variant.options[forloop.index0 | plus: 0] contains value or variant.option1 == value or variant.option2 == value or variant.option3 == value -%}
+                    {%- assign variant_for_value = variant -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- assign is_out = false -%}
+                {%- if variant_for_value and variant_for_value.available == false and product.variants.first.inventory_policy != 'continue' -%}{%- assign is_out = true -%}{%- endif -%}
+                {%- assign display = value | replace: 'US ', '' -%}
+                <button type="button" class="pdp__size{% if value == option.selected_value %} is-active{% endif %}{% if is_out %} is-out{% endif %}"{% if is_out %} disabled{% endif %} data-noll-option="{{ option.position }}" data-noll-value="{{ value | escape }}">{{ display }}</button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+
+      <div class="pdp__group reveal">
+        <div class="pdp__group-label"><span>数量</span></div>
+        <div class="pdp__qty">
+          <button type="button" id="qtyMinus" aria-label="Decrease" data-noll-qty-minus>−</button>
+          <input type="text" name="quantity" value="1" id="qtyInput" aria-label="Quantity" readonly data-noll-qty-input>
+          <button type="button" id="qtyPlus" aria-label="Increase" data-noll-qty-plus>+</button>
+        </div>
+      </div>
+
+      <div class="pdp__atc reveal">
+        <button type="submit" class="btn btn--solid-dark btn--full" id="atcBtn" data-noll-atc>カートに追加</button>
+        <div class="pdp__pay">
+          {{ form | payment_button }}
+        </div>
+      </div>
+    {%- endform -%}
+
+    <div class="pdp__trust reveal">
+      <div class="pdp__trust-item">
+        <svg viewBox="0 0 24 24"><path d="M3 7h13l5 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+        国内送料<br>無料
+      </div>
+      <div class="pdp__trust-item">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5c0 4-4 8-9 8s-9-4-9-8a9 9 0 0 1 9-9c2 0 4 .8 5.5 2"/><polyline points="14 3.5 18 3.5 18 7.5"/></svg>
+        30日間<br>返品保証
+      </div>
+      <div class="pdp__trust-item">
+        <svg viewBox="0 0 24 24"><path d="M12 3 L 4 7 V 13 C 4 17 7.5 20 12 21 C 16.5 20 20 17 20 13 V 7 Z"/><polyline points="9 12 11 14 15 10"/></svg>
+        1年保証<br>付き
+      </div>
+    </div>
+
+    <div class="pdp__accordion">
+      <details>
+        <summary>仕様 / Specifications</summary>
+        <div class="pdp__accordion-body">
+          {%- assign weight = product.metafields.tech.weight.value -%}
+          {%- assign drop = product.metafields.tech.drop.value -%}
+          {%- assign upper = product.metafields.tech.upper.value -%}
+          {%- assign outsole = product.metafields.tech.outsole.value -%}
+          {%- assign origin = product.metafields.tech.origin.value -%}
+          {%- assign care = product.metafields.tech.care.value -%}
+          {%- if weight -%}重量: {{ weight }} / {%- endif -%}
+          {%- if drop -%}Drop: {{ drop }} / {%- endif -%}
+          {%- if upper -%}Upper: {{ upper }} / {%- endif -%}
+          {%- if outsole -%}Outsole: {{ outsole }} / {%- endif -%}
+          {%- if origin -%}Origin: {{ origin }}{%- endif -%}
+        </div>
+      </details>
+      <details>
+        <summary>素材 / Materials</summary>
+        <div class="pdp__accordion-body">
+          アッパーは{{ upper | default: '再生ポリエステル100%' }}。ソールは{{ outsole | default: '特殊配合のラバー' }}。中敷きは取り外し可能。
+        </div>
+      </details>
+      <details>
+        <summary>ケア / Care</summary>
+        <div class="pdp__accordion-body">{{ care | default: '湿らせた布で表面を拭く。直射日光と乾燥機を避ける。インソールは取り外して乾燥。' }}</div>
+      </details>
+      <details>
+        <summary>FAQ</summary>
+        <div class="pdp__accordion-body">
+          よくある質問は <a href="{{ blogs.journal.url | default: '/blogs/journal' }}" style="color:var(--c-fg); border-bottom:1px solid currentColor;">こちら</a> から。
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var pdp = document.querySelector('[data-noll-pdp]');
+    if (!pdp) return;
+    var form = pdp.querySelector('form');
+    var variantInput = pdp.querySelector('[data-noll-variant-id]');
+    var priceEl = pdp.querySelector('[data-noll-pdp-price]');
+
+    // Variants from server
+    var variants = {{ product.variants | json }};
+
+    // Selected options state (1-indexed by position)
+    var selected = {};
+    {% for option in product.options_with_values %}
+      selected[{{ option.position }}] = {{ option.selected_value | json }};
+    {% endfor %}
+
+    function findVariant() {
+      return variants.find(function(v) {
+        return Object.keys(selected).every(function(pos) {
+          var idx = parseInt(pos) - 1;
+          var optKey = 'option' + pos;
+          return (v.options && v.options[idx] === selected[pos]) || v[optKey] === selected[pos];
+        });
+      });
+    }
+
+    function updateVariant() {
+      var v = findVariant();
+      if (!v) return;
+      variantInput.value = v.id;
+      // Update price
+      var price = (v.price / 100).toLocaleString('ja-JP', { style: 'currency', currency: '{{ shop.currency }}' });
+      if (priceEl) {
+        priceEl.innerHTML = price + ' <span style="font-size:11px; color:var(--c-muted); font-weight:400;">税込</span>';
+      }
+      // Update displays
+      Object.keys(selected).forEach(function(pos) {
+        var disp = pdp.querySelector('[data-noll-option-display="' + pos + '"]');
+        if (disp) disp.textContent = selected[pos];
+      });
+      // Update URL (optional)
+      if (history.replaceState) {
+        var url = new URL(window.location);
+        url.searchParams.set('variant', v.id);
+        history.replaceState(null, '', url.toString());
+      }
+    }
+
+    pdp.querySelectorAll('[data-noll-option]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        if (btn.disabled) return;
+        var pos = parseInt(btn.dataset.nollOption);
+        var val = btn.dataset.nollValue;
+        selected[pos] = val;
+        // Toggle active class within group
+        var group = btn.closest('.pdp__colors, .pdp__sizes');
+        if (group) {
+          group.querySelectorAll('[data-noll-option]').forEach(function(b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+        }
+        updateVariant();
+      });
+    });
+
+    // Quantity stepper
+    var qtyInput = pdp.querySelector('[data-noll-qty-input]');
+    pdp.querySelector('[data-noll-qty-minus]').addEventListener('click', function() {
+      qtyInput.value = Math.max(1, parseInt(qtyInput.value, 10) - 1);
+    });
+    pdp.querySelector('[data-noll-qty-plus]').addEventListener('click', function() {
+      qtyInput.value = Math.min(9, parseInt(qtyInput.value, 10) + 1);
+    });
+
+    // Thumb gallery
+    var main = pdp.querySelector('[data-noll-pdp-main]');
+    pdp.querySelectorAll('.pdp__thumb').forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        var src = thumb.getAttribute('data-img');
+        if (!src || !main) return;
+        main.style.opacity = '0';
+        setTimeout(function() { main.src = src; main.style.opacity = '1'; }, 220);
+        pdp.querySelectorAll('.pdp__thumb').forEach(function(t) { t.classList.remove('is-active'); });
+        thumb.classList.add('is-active');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "noll PDP",
+  "settings": [
+    { "type": "text", "id": "brand_label", "label": "Brand label", "default": "NOLL · Performance Footgear" },
+    { "type": "text", "id": "tax_label", "label": "Tax label", "default": "税込" },
+    { "type": "text", "id": "shipping_note", "label": "Shipping note", "default": "国内送料無料" },
+    { "type": "text", "id": "rating", "label": "Rating display", "default": "4.8 / 5.0 · 128 reviews" },
+    { "type": "textarea", "id": "description", "label": "Short description override" }
+  ],
+  "presets": [{ "name": "noll PDP" }]
+}
+{% endschema %}

@@ -1,0 +1,70 @@
+{% comment %} noll Article — journal article layout {% endcomment %}
+
+<nav class="crumbs" aria-label="breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a><span>/</span>
+  <a href="{{ blogs.journal.url | default: blog.url }}">Journal</a><span>/</span>
+  {{ article.title }}
+</nav>
+
+<article>
+  <div class="journal-hero">
+    <p class="journal-hero__cat reveal">Journal{%- if article.tags.first != blank -%} · {{ article.tags.first }}{%- endif -%}</p>
+    <h1 class="journal-hero__title reveal" data-reveal-delay="1">{{ article.title }}</h1>
+    {%- if article.user.image != blank or article.author != blank -%}
+      <div class="journal-hero__author reveal" data-reveal-delay="2">
+        {%- if article.user.image -%}
+          <span class="journal-hero__avatar"><img src="{{ article.user.image | image_url: width: 80 }}" alt=""></span>
+        {%- endif -%}
+        <span class="journal-hero__author-name">{{ article.author }}</span>
+      </div>
+    {%- endif -%}
+    <div class="journal-hero__meta reveal" data-reveal-delay="2">
+      {{ article.published_at | date: '%Y.%m.%d' }} · {{ section.settings.read_time | default: '6 min read' }}
+    </div>
+  </div>
+
+  {%- if article.image != blank -%}
+    <div class="journal-hero__media reveal">
+      <div class="journal-hero__media-inner">
+        <img src="{{ article.image | image_url: width: 1600 }}" alt="{{ article.image.alt | default: article.title | escape }}">
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="article">
+    {{ article.content }}
+  </div>
+</article>
+
+{%- if blog.articles.size > 1 -%}
+  <section class="journal-related">
+    <h2>{{ section.settings.related_title | default: '関連するジャーナル' }}</h2>
+    <div class="journal-related__grid">
+      {%- assign related_count = 0 -%}
+      {%- for related in blog.articles -%}
+        {%- if related.handle != article.handle and related_count < 3 -%}
+          <a href="{{ related.url }}" class="journal-card reveal"{% if related_count > 0 %} data-reveal-delay="{{ related_count }}"{% endif %} data-cursor="view">
+            {%- if related.image -%}
+              <div class="journal-card__media"><img src="{{ related.image | image_url: width: 800 }}" alt=""></div>
+            {%- endif -%}
+            <p class="journal-card__cat">{{ related.tags.first | default: 'Journal' }}</p>
+            <h3 class="journal-card__title">{{ related.title }}</h3>
+            <p class="journal-card__date">{{ related.published_at | date: '%Y.%m.%d' }}</p>
+          </a>
+          {%- assign related_count = related_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "noll Article",
+  "settings": [
+    { "type": "text", "id": "read_time", "label": "Read time", "default": "6 min read" },
+    { "type": "text", "id": "related_title", "label": "Related section title", "default": "関連するジャーナル" }
+  ],
+  "presets": [{ "name": "noll Article" }]
+}
+{% endschema %}

@@ -1,0 +1,58 @@
+{% comment %} noll PDP Tech — 4 technology cards {% endcomment %}
+
+<section class="pdp-tech">
+  <div class="pdp-tech__head">
+    <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Technology' }}</p>
+    <h2 class="reveal" data-reveal-delay="1">{{ section.settings.title | default: 'noll One のテクノロジー' }}</h2>
+  </div>
+  <div class="pdp-tech__grid">
+    {%- for block in section.blocks -%}
+      <div class="pdp-tech__card reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} {{ block.shopify_attributes }}>
+        <div class="pdp-tech__card-img">
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 800 }}" alt="">
+          {%- elsif product.images[forloop.index] -%}
+            <img src="{{ product.images[forloop.index] | image_url: width: 800 }}" alt="">
+          {%- else -%}
+            <img src="{{ block.settings.fallback_image | default: 'product_angle_1.jpg' | asset_url }}" alt="">
+          {%- endif -%}
+        </div>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.body }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll PDP Tech",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technology" },
+    { "type": "text", "id": "title", "label": "Title", "default": "noll One のテクノロジー" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Tech card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback_image", "label": "Fallback asset filename" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll PDP Tech",
+      "blocks": [
+        { "type": "card", "settings": { "title": "解剖学的ラスト", "body": "指先5本が独立して動く広さを確保。", "fallback_image": "product_angle_1.jpg" } },
+        { "type": "card", "settings": { "title": "3Dクレードル", "body": "かかとを包み、軸がぶれない着地。", "fallback_image": "product_angle_2.jpg" } },
+        { "type": "card", "settings": { "title": "フレックス溝", "body": "中足部の自然な蹴り出しを支える。", "fallback_image": "product_angle_3.jpg" } },
+        { "type": "card", "settings": { "title": "軽量ミッドソール", "body": "片足210g。1日2万歩でも疲れにくい。", "fallback_image": "product_angle_4.jpg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

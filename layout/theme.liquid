@@ -27,6 +27,7 @@
     {%- render 'meta-tags' -%}
     {%- render 'stylesheets' -%}
     {%- render 'fonts' -%}
+    {%- render 'noll-fonts' -%}
     {%- render 'scripts' -%}
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-schemes' -%}
@@ -132,5 +133,9 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    <div class="cursor" id="customCursor" aria-hidden="true"></div>
+    <div class="page-transition" id="pageTransition" aria-hidden="true"></div>
+    <script src="{{ 'noll-motion.js' | asset_url }}" defer></script>
   </body>
 </html>

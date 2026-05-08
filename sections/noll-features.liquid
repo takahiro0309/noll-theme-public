@@ -1,0 +1,62 @@
+{% comment %} noll Features — 3 feature cards (number + image + body) {% endcomment %}
+
+<section class="features" id="{{ section.settings.anchor | default: 'features' }}">
+  <div class="features__head">
+    <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Why noll' }}</p>
+    <h2 class="features__title reveal" data-reveal-delay="1">{{ section.settings.title | default: '日常の一歩から、身体と思考を整える。' }}</h2>
+    <p class="features__intro reveal" data-reveal-delay="2">{{ section.settings.intro | default: '足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。' }}</p>
+  </div>
+  <div class="features__grid">
+    {%- for block in section.blocks -%}
+      <article class="feature reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} {{ block.shopify_attributes }}>
+        <div class="feature__img">
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 800 }}" alt="">
+          {%- else -%}
+            <img src="{{ block.settings.fallback_image | default: 'journal_1.jpg' | asset_url }}" alt="">
+          {%- endif -%}
+        </div>
+        <div class="feature__text">
+          <span class="feature__num">{{ block.settings.number | default: forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <h3 class="feature__title">{{ block.settings.title }}</h3>
+          <p class="feature__body">{{ block.settings.body }}</p>
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Features",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "features" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why noll" },
+    { "type": "text", "id": "title", "label": "Title", "default": "日常の一歩から、身体と思考を整える。" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback_image", "label": "Fallback asset filename" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll Features",
+      "blocks": [
+        { "type": "feature", "settings": { "number": "01", "title": "左右の動きに、強い。", "body": "サイドに張り出した広いラスト形状。横方向のブレを抑え、足首と膝の負担を逃がす。", "fallback_image": "journal_1.jpg" } },
+        { "type": "feature", "settings": { "number": "02", "title": "長く、歩き続けられる。", "body": "中足部のフレックス溝が自然な蹴り出しを支える。1日2万歩でも疲労を蓄積させない設計。", "fallback_image": "journal_2.jpg" } },
+        { "type": "feature", "settings": { "number": "03", "title": "安定感のある、走り。", "body": "かかとを包む3Dヒールクレードル。着地から蹴り出しまで、軸がぶれない。軽量・限定生産。", "fallback_image": "journal_3.jpg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

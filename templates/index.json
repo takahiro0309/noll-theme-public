@@ -1,288 +1,139 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
- {
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
-      "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
-          "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
-        },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
-          "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
-      ],
-      "name": "t:names.hero",
+    "hero": {
+      "type": "noll-hero",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "link": "",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "crumb_1": "TECHNOLOGY",
+        "crumb_2": "BY NOLL",
+        "title_en_1": "Performance",
+        "title_en_2": "footgear",
+        "title_ja": "歩行で、思考を、研ぎ澄ます。",
+        "lead": "指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。",
+        "cta_1_text": "今すぐ購入する",
+        "cta_1_link": "/products/noll-one",
+        "cta_2_text": "noll One について",
+        "cta_2_link": "#mission"
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "marquee": {
+      "type": "noll-marquee",
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
-          "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
-        },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
-        }
+        "p1": { "type": "phrase", "settings": { "en": "A foot is a thinking organ.", "ja": "足は、思考する器官である。" } },
+        "p2": { "type": "phrase", "settings": { "en": "Designed for 20,000 steps a day.", "ja": "1日2万歩を、整える。" } },
+        "p3": { "type": "phrase", "settings": { "en": "Made in Japan, by hand.", "ja": "日本製・手仕事。" } }
       },
-      "name": "t:names.featured_collection",
+      "block_order": ["p1", "p2", "p3"]
+    },
+    "angles": {
+      "type": "noll-product-angles",
+      "settings": { "product_url": "/products/noll-one" },
+      "blocks": {
+        "a1": { "type": "angle", "settings": { "label": "解剖学的ラスト", "fallback_image": "product_angle_1.jpg", "link": "/products/noll-one" } },
+        "a2": { "type": "angle", "settings": { "label": "3Dクレードル", "fallback_image": "product_angle_2.jpg", "link": "/products/noll-one" } },
+        "a3": { "type": "angle", "settings": { "label": "フレックス溝", "fallback_image": "product_angle_3.jpg", "link": "/products/noll-one" } },
+        "a4": { "type": "angle", "settings": { "label": "軽量ミッドソール", "fallback_image": "product_angle_4.jpg", "link": "/products/noll-one" } }
+      },
+      "block_order": ["a1", "a2", "a3", "a4"]
+    },
+    "features": {
+      "type": "noll-features",
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "anchor": "features",
+        "eyebrow": "Why noll",
+        "title": "日常の一歩から、身体と思考を整える。",
+        "intro": "足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。"
+      },
+      "blocks": {
+        "f1": { "type": "feature", "settings": { "number": "01", "title": "左右の動きに、強い。", "body": "サイドに張り出した広いラスト形状。横方向のブレを抑え、足首と膝の負担を逃がす。", "fallback_image": "journal_1.jpg" } },
+        "f2": { "type": "feature", "settings": { "number": "02", "title": "長く、歩き続けられる。", "body": "中足部のフレックス溝が自然な蹴り出しを支える。1日2万歩でも疲労を蓄積させない設計。", "fallback_image": "journal_2.jpg" } },
+        "f3": { "type": "feature", "settings": { "number": "03", "title": "安定感のある、走り。", "body": "かかとを包む3Dヒールクレードル。着地から蹴り出しまで、軸がぶれない。軽量・限定生産。", "fallback_image": "journal_3.jpg" } }
+      },
+      "block_order": ["f1", "f2", "f3"]
+    },
+    "showcase": {
+      "type": "noll-product-showcase",
+      "settings": {
+        "product": "noll-one",
+        "fallback_link": "/products/noll-one",
+        "eyebrow": "Our product",
+        "rating": "4.8 / 5.0",
+        "description": "指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。",
+        "cta_text": "商品詳細を見る"
+      }
+    },
+    "lifestyle": {
+      "type": "noll-lifestyle",
+      "settings": { "eyebrow": "Field stories", "title": "歩く、を試したくなる場所。" },
+      "blocks": {
+        "l1": { "type": "image", "settings": { "fallback_image": "lifestyle_1.jpg", "alt": "Walking trail" } },
+        "l2": { "type": "image", "settings": { "fallback_image": "lifestyle_2.jpg", "alt": "Standing on rocks" } },
+        "l3": { "type": "image", "settings": { "fallback_image": "lifestyle_3.jpg", "alt": "Sunset coast" } }
+      },
+      "block_order": ["l1", "l2", "l3"]
+    },
+    "mission": {
+      "type": "noll-mission-dark",
+      "settings": {
+        "anchor": "mission",
+        "eyebrow": "Our mission",
+        "title": "AI時代に、人類のパフォーマンスを最大化する。",
+        "lead": "テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。足元から整える。歩きが整う。思考が冴える。",
+        "cta_text": "Read manifesto →",
+        "cta_link": "/blogs/journal"
+      }
+    },
+    "knowmore": {
+      "type": "noll-knowmore",
+      "settings": {
+        "eyebrow": "Insight",
+        "title": "多くを、知ることができる。",
+        "lead": "<p>歩くことは、最古にして最強の思考整理法かもしれない。スタンフォード大学の研究では、歩行中の発散的思考の生産量は座位の60%増しだった。私たちは、歩きを「設計対象」にした初めてのフットギアブランドである。</p>",
+        "cta_text": "Read journal →",
+        "cta_link": "/blogs/journal"
+      }
+    },
+    "media": {
+      "type": "noll-media-row",
+      "settings": { "label": "As featured in" },
+      "blocks": {
+        "m1": { "type": "media", "settings": { "name": "Tarzan", "style": "sans" } },
+        "m2": { "type": "media", "settings": { "name": "BRUTUS" } },
+        "m3": { "type": "media", "settings": { "name": "POPEYE", "style": "sans" } },
+        "m4": { "type": "media", "settings": { "name": "Forbes", "style": "serif" } },
+        "m5": { "type": "media", "settings": { "name": "Curve", "style": "script" } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4", "m5"]
+    },
+    "reviews": {
+      "type": "noll-home-reviews",
+      "settings": { "eyebrow": "Customer reviews", "title": "お客様の声", "score": "4.8", "review_count": "128" },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "stars": "★★★★★", "title": "歩いていて、足が軽い。", "body": "仕事で1日中歩き回るが、夕方の足の重さが半減した。指先の自由度が想像以上で、もうこれ以外履けない。", "meta": "Yusuke T. · Tokyo · 2026.04" } },
+        "r2": { "type": "review", "settings": { "stars": "★★★★★", "title": "姿勢が変わった。", "body": "ヒールが低いのに安定感があるのが新鮮。立ち姿勢が自然と整う感覚があり、長時間のデスクワークでも疲れにくい。", "meta": "Mika S. · Kyoto · 2026.04" } },
+        "r3": { "type": "review", "settings": { "stars": "★★★★☆", "title": "デザインも秀逸。", "body": "機能だけかと思いきや、合わせやすい。スーツでも休日でも違和感なく履けるミニマルさが嬉しい。", "meta": "Daiki H. · Osaka · 2026.03" } }
+      },
+      "block_order": ["r1", "r2", "r3"]
+    },
+    "insta": {
+      "type": "noll-insta-grid",
+      "settings": { "handle": "@noll_japan", "handle_url": "https://www.instagram.com/noll_japan" },
+      "blocks": {
+        "i1": { "type": "tile", "settings": { "fallback_image": "insta_1.jpg" } },
+        "i2": { "type": "tile", "settings": { "fallback_image": "insta_2.jpg" } },
+        "i3": { "type": "tile", "settings": { "fallback_image": "insta_3.jpg" } },
+        "i4": { "type": "tile", "settings": { "fallback_image": "insta_4.jpg" } },
+        "i5": { "type": "tile", "settings": { "fallback_image": "insta_5.jpg" } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4", "i5"]
+    },
+    "news": {
+      "type": "noll-news-strip",
+      "settings": {
+        "anchor": "contact",
+        "title": "noll Letter — 月1回のブランドレター",
+        "body": "ローンチ日・先行枠・最新アップデートを優先配信します。"
       }
     }
   },
-  "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
-  ]
+  "order": ["hero", "marquee", "angles", "features", "showcase", "lifestyle", "mission", "knowmore", "media", "reviews", "insta", "news"]
 }

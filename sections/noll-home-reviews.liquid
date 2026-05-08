@@ -1,0 +1,61 @@
+{% comment %} noll Home reviews — averaged rating + 3 review cards {% endcomment %}
+
+<section class="home-reviews">
+  <div class="home-reviews__inner">
+    <div class="home-reviews__head">
+      <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Customer reviews' }}</p>
+      <h2 class="home-reviews__title reveal" data-reveal-delay="1">{{ section.settings.title | default: 'お客様の声' }}</h2>
+    </div>
+    <div class="home-reviews__avg reveal" data-reveal-delay="2">
+      <span class="home-reviews__score">{{ section.settings.score | default: '4.8' }}</span>
+      <div>
+        <div class="pdp__stars" style="font-size:18px; margin-bottom:4px;">★★★★★</div>
+        <div style="font-size:11px; color:var(--c-muted);">{{ section.settings.review_count | default: '128' }} 件のレビュー</div>
+      </div>
+    </div>
+    <div class="home-reviews__list">
+      {%- for block in section.blocks -%}
+        <article class="review reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} {{ block.shopify_attributes }}>
+          <div class="review__stars">{{ block.settings.stars | default: '★★★★★' }}</div>
+          <h3 class="review__title">{{ block.settings.title }}</h3>
+          <p class="review__body">{{ block.settings.body }}</p>
+          <p class="review__meta">{{ block.settings.meta }}</p>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Home Reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Customer reviews" },
+    { "type": "text", "id": "title", "label": "Title", "default": "お客様の声" },
+    { "type": "text", "id": "score", "label": "Avg score", "default": "4.8" },
+    { "type": "text", "id": "review_count", "label": "Review count", "default": "128" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "stars", "label": "Stars", "default": "★★★★★" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" },
+        { "type": "text", "id": "meta", "label": "Meta (name · location · date)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll Home Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "stars": "★★★★★", "title": "歩いていて、足が軽い。", "body": "仕事で1日中歩き回るが、夕方の足の重さが半減した。指先の自由度が想像以上で、もうこれ以外履けない。", "meta": "Yusuke T. · Tokyo · 2026.04" } },
+        { "type": "review", "settings": { "stars": "★★★★★", "title": "姿勢が変わった。", "body": "ヒールが低いのに安定感があるのが新鮮。立ち姿勢が自然と整う感覚があり、長時間のデスクワークでも疲れにくい。", "meta": "Mika S. · Kyoto · 2026.04" } },
+        { "type": "review", "settings": { "stars": "★★★★☆", "title": "デザインも秀逸。", "body": "機能だけかと思いきや、合わせやすい。スーツでも休日でも違和感なく履けるミニマルさが嬉しい。", "meta": "Daiki H. · Osaka · 2026.03" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

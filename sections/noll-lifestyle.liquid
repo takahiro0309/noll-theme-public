@@ -1,0 +1,50 @@
+{% comment %} noll Lifestyle grid — 3 image cards {% endcomment %}
+
+<section class="lifestyle">
+  <div class="lifestyle__head">
+    <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Field stories' }}</p>
+    <h2 class="lifestyle__title reveal" data-reveal-delay="1">{{ section.settings.title | default: '歩く、を試したくなる場所。' }}</h2>
+  </div>
+  <div class="lifestyle__grid">
+    {%- for block in section.blocks -%}
+      <figure class="lifestyle__card reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} data-cursor="view" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.alt | escape }}">
+        {%- else -%}
+          <img src="{{ block.settings.fallback_image | default: 'lifestyle_1.jpg' | asset_url }}" alt="{{ block.settings.alt | escape }}">
+        {%- endif -%}
+      </figure>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Lifestyle",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Field stories" },
+    { "type": "text", "id": "title", "label": "Title", "default": "歩く、を試したくなる場所。" }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback_image", "label": "Fallback asset filename" },
+        { "type": "text", "id": "alt", "label": "Alt text" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll Lifestyle",
+      "blocks": [
+        { "type": "image", "settings": { "fallback_image": "lifestyle_1.jpg", "alt": "Walking trail" } },
+        { "type": "image", "settings": { "fallback_image": "lifestyle_2.jpg", "alt": "Standing on rocks" } },
+        { "type": "image", "settings": { "fallback_image": "lifestyle_3.jpg", "alt": "Sunset coast" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,87 @@
+{% comment %}
+  noll Header
+  Editorial DTC header. Logo center-left, primary nav center, utility right.
+{% endcomment %}
+
+<header class="site-header" id="siteHeader">
+  <div class="site-header__inner">
+    <div class="site-header__left">
+      <button class="site-header__menu" aria-label="Menu" type="button" data-noll-mobile-toggle>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="17" x2="20" y2="17"></line>
+        </svg>
+      </button>
+      <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }}">
+        {{ section.settings.logo_text | default: 'noll' }}
+      </a>
+    </div>
+
+    <nav class="site-header__nav" aria-label="primary">
+      {%- assign menu = linklists[section.settings.menu] -%}
+      {%- if menu != blank -%}
+        {%- for link in menu.links -%}
+          <a href="{{ link.url }}" class="site-header__nav-link{% if link.active %} is-active{% endif %}">{{ link.title }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="{{ routes.collections_url }}" class="site-header__nav-link">Shop</a>
+        <a href="{{ blogs.journal.url | default: '/blogs/journal' }}" class="site-header__nav-link">Journal</a>
+        <a href="/pages/about" class="site-header__nav-link">About</a>
+        <a href="/pages/contact-us" class="site-header__nav-link">Contact</a>
+      {%- endif -%}
+    </nav>
+
+    <div class="site-header__utility">
+      {%- if section.settings.show_locale -%}
+        <span class="locale-pill">JP / EN</span>
+      {%- endif -%}
+
+      {%- if section.settings.show_search -%}
+        <a href="{{ routes.search_url }}" class="utility-btn" aria-label="{{ 'general.search.search' | t }}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+          </svg>
+        </a>
+      {%- endif -%}
+
+      <a href="/pages/wishlist" class="utility-btn" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"></path>
+        </svg>
+      </a>
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="utility-btn{% if customer %} is-active{% endif %}" aria-label="{% if customer %}{{ customer.first_name | default: customer.email }}{% else %}{{ 'customer.login_link' | t }}{% endif %}">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"></path>
+          </svg>
+          {%- if customer -%}<span class="utility-btn__dot" aria-hidden="true"></span>{%- endif -%}
+        </a>
+      {%- endif -%}
+
+      <a href="{{ routes.cart_url }}" class="utility-btn" aria-label="{{ 'general.cart.title' | t }}">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 7h14l-1.5 11a2 2 0 0 1-2 1.8h-7A2 2 0 0 1 6.5 18L5 7z"></path>
+          <path d="M9 7V5a3 3 0 0 1 6 0v2"></path>
+        </svg>
+        <span class="cart-count" data-noll-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "noll Header",
+  "settings": [
+    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "noll" },
+    { "type": "link_list", "id": "menu", "label": "Primary menu", "default": "main-menu" },
+    { "type": "checkbox", "id": "show_search", "label": "Show search icon", "default": true },
+    { "type": "checkbox", "id": "show_locale", "label": "Show locale pill", "default": true }
+  ],
+  "presets": [{ "name": "noll Header" }]
+}
+{% endschema %}

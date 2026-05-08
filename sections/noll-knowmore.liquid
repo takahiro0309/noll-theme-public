@@ -1,0 +1,36 @@
+{% comment %} noll Knowmore — insight section (media + copy + CTA) {% endcomment %}
+
+<section class="knowmore">
+  <div class="knowmore__inner">
+    <div class="knowmore__media reveal" data-cursor="view">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="">
+      {%- else -%}
+        <img src="{{ 'journal_1.jpg' | asset_url }}" alt="Walking quietly">
+      {%- endif -%}
+    </div>
+    <div class="knowmore__copy">
+      <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Insight' }}</p>
+      <h2 class="knowmore__title reveal" data-reveal-delay="1">{{ section.settings.title | default: '多くを、知ることができる。' }}</h2>
+      <p class="knowmore__lead reveal" data-reveal-delay="2">{{ section.settings.lead | default: '歩くことは、最古にして最強の思考整理法かもしれない。スタンフォード大学の研究では、歩行中の発散的思考の生産量は座位の60%増しだった。私たちは、歩きを「設計対象」にした初めてのフットギアブランドである。' }}</p>
+      {%- if section.settings.cta_text != blank -%}
+        <a href="{{ section.settings.cta_link | default: '/blogs/journal' }}" class="btn reveal" data-reveal-delay="3">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Knowmore",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Insight" },
+    { "type": "textarea", "id": "title", "label": "Title", "default": "多くを、知ることができる。" },
+    { "type": "richtext", "id": "lead", "label": "Lead" },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Read journal →" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "presets": [{ "name": "noll Knowmore" }]
+}
+{% endschema %}

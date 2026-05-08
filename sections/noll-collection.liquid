@@ -1,0 +1,63 @@
+{% comment %} noll Collection — search bar + product cards {% endcomment %}
+
+<div class="search-bar">
+  <div class="search-bar__inner">
+    <svg class="search-bar__icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+    <input type="text" class="search-bar__input" value="{{ collection.title | default: 'noll' }}" aria-label="Search">
+    <button class="search-bar__close" type="button">×</button>
+  </div>
+</div>
+
+<p class="collection-result reveal">{{ section.settings.result_label | default: '検索結果' }} {{ collection.products_count }}件</p>
+
+<div class="collection-toolbar">
+  <span>{{ section.settings.filter_label | default: '絞り込み' }}</span>
+  <select aria-label="Sort">
+    <option>並び順 : 人気順</option>
+    <option>新着順</option>
+    <option>価格: 安い順</option>
+    <option>価格: 高い順</option>
+  </select>
+</div>
+
+{%- for product in collection.products -%}
+  <a href="{{ product.url }}" class="collection-pcard reveal" data-cursor="view">
+    <div class="collection-pcard__media">
+      {%- if product.featured_image -%}
+        <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}">
+      {%- endif -%}
+    </div>
+    <div>
+      <h2 class="collection-pcard__name">{{ product.title }}</h2>
+      <div class="collection-pcard__rating">
+        <span class="pdp__stars">★★★★★</span>
+        <span>{{ section.settings.rating_default | default: '4.8 / 5.0 · 128 reviews' }}</span>
+      </div>
+      <p class="collection-pcard__price">{{ product.price | money }}</p>
+      <p class="collection-pcard__tax">{{ section.settings.tax_label | default: '税込 / 国内送料無料' }}</p>
+      <p class="collection-pcard__desc">{{ product.description | strip_html | truncate: 80 }}</p>
+      <div class="collection-pcard__color">
+        <span>カラー : All Black</span>
+        <span class="swatch"></span>
+      </div>
+    </div>
+    <div class="collection-pcard__cta">
+      <span class="btn btn--solid-dark">{{ section.settings.cta_text | default: '商品詳細を見る' }}</span>
+      <span style="text-align:center; font-size:11px; color:var(--c-muted);">♡ お気に入り</span>
+    </div>
+  </a>
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "noll Collection",
+  "settings": [
+    { "type": "text", "id": "result_label", "label": "Result label", "default": "検索結果" },
+    { "type": "text", "id": "filter_label", "label": "Filter label", "default": "絞り込み" },
+    { "type": "text", "id": "rating_default", "label": "Rating default", "default": "4.8 / 5.0 · 128 reviews" },
+    { "type": "text", "id": "tax_label", "label": "Tax label", "default": "税込 / 国内送料無料" },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "商品詳細を見る" }
+  ],
+  "presets": [{ "name": "noll Collection" }]
+}
+{% endschema %}

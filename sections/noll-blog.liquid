@@ -1,0 +1,55 @@
+{% comment %} noll Blog (Journal) — article list {% endcomment %}
+
+<nav class="crumbs" aria-label="breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a><span>/</span>
+  Journal
+</nav>
+
+{%- assign main = blog.articles.first -%}
+{%- if main -%}
+  <article>
+    <div class="journal-hero">
+      <p class="journal-hero__cat reveal">Journal · {{ main.tags.first | default: 'Essay' }}</p>
+      <h1 class="journal-hero__title reveal" data-reveal-delay="1">{{ main.title }}</h1>
+      <div class="journal-hero__meta reveal" data-reveal-delay="2">
+        {{ main.published_at | date: '%Y.%m.%d' }} · {{ main.author }}
+      </div>
+    </div>
+    {%- if main.image != blank -%}
+      <div class="journal-hero__media reveal">
+        <div class="journal-hero__media-inner">
+          <img src="{{ main.image | image_url: width: 1600 }}" alt="{{ main.title | escape }}">
+        </div>
+      </div>
+    {%- endif -%}
+    <div style="text-align:center; margin: 32px 0 64px;">
+      <a href="{{ main.url }}" class="btn btn--solid-dark">記事を読む →</a>
+    </div>
+  </article>
+{%- endif -%}
+
+<section class="journal-related">
+  <h2>{{ section.settings.list_title | default: 'すべての記事' }}</h2>
+  <div class="journal-related__grid">
+    {%- for art in blog.articles offset: 1 limit: 12 -%}
+      <a href="{{ art.url }}" class="journal-card reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} data-cursor="view">
+        {%- if art.image -%}
+          <div class="journal-card__media"><img src="{{ art.image | image_url: width: 800 }}" alt="{{ art.title | escape }}"></div>
+        {%- endif -%}
+        <p class="journal-card__cat">{{ art.tags.first | default: 'Journal' }}</p>
+        <h3 class="journal-card__title">{{ art.title }}</h3>
+        <p class="journal-card__date">{{ art.published_at | date: '%Y.%m.%d' }}</p>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Blog",
+  "settings": [
+    { "type": "text", "id": "list_title", "label": "List title", "default": "すべての記事" }
+  ],
+  "presets": [{ "name": "noll Blog" }]
+}
+{% endschema %}

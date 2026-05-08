@@ -1,0 +1,37 @@
+{% comment %} noll Mission Dark — dark background + text + media + CTA {% endcomment %}
+
+<section class="mission-dark" id="{{ section.settings.anchor | default: 'mission' }}">
+  <div class="mission-dark__inner">
+    <div class="mission-dark__copy">
+      <p class="mission-dark__eyebrow reveal">{{ section.settings.eyebrow | default: 'Our mission' }}</p>
+      <h2 class="mission-dark__title reveal" data-reveal-delay="1">{{ section.settings.title | default: 'AI時代に、人類のパフォーマンスを最大化する。' }}</h2>
+      <p class="mission-dark__lead reveal" data-reveal-delay="2">{{ section.settings.lead | default: 'テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。足元から整える。歩きが整う。思考が冴える。' }}</p>
+      {%- if section.settings.cta_text != blank -%}
+        <a href="{{ section.settings.cta_link | default: '/blogs/journal' }}" class="btn btn--ghost-light reveal" data-reveal-delay="3">{{ section.settings.cta_text }}</a>
+      {%- endif -%}
+    </div>
+    <div class="mission-dark__media reveal" data-reveal-delay="2">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 1200 }}" alt="">
+      {%- else -%}
+        <img src="{{ 'human_perf_bg.jpg' | asset_url }}" alt="Human performance">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Mission Dark",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "mission" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our mission" },
+    { "type": "textarea", "id": "title", "label": "Title", "default": "AI時代に、人類のパフォーマンスを最大化する。" },
+    { "type": "textarea", "id": "lead", "label": "Lead", "default": "テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。足元から整える。歩きが整う。思考が冴える。" },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Read manifesto →" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" },
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "presets": [{ "name": "noll Mission Dark" }]
+}
+{% endschema %}

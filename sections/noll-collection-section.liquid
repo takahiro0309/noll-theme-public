@@ -1,0 +1,53 @@
+{% comment %} noll Collection mini-cards section (related technology, etc.) {% endcomment %}
+
+<section class="collection-section">
+  <h2>{{ section.settings.title | default: '関連するテクノロジー' }} {%- if section.settings.cta_link != blank -%} <a href="{{ section.settings.cta_link }}">{{ section.settings.cta_text | default: 'すべて見る →' }}</a>{%- endif -%}</h2>
+  <div class="collection-section__grid">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link | default: section.settings.cta_link }}" class="col-mini-card" {{ block.shopify_attributes }}>
+        <div class="col-mini-card__media" style="aspect-ratio:1/1; background:var(--c-soft); display:flex;align-items:center;justify-content:center;">
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="" style="width:80%; height:80%; object-fit:contain;">
+          {%- else -%}
+            <img src="{{ block.settings.fallback_image | default: 'product_angle_1.jpg' | asset_url }}" alt="" style="width:80%; height:80%; object-fit:contain;">
+          {%- endif -%}
+        </div>
+        <h3 class="col-mini-card__title">{{ block.settings.title }}</h3>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Mini Cards",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "関連するテクノロジー" },
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "すべて見る →" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "fallback_image", "label": "Fallback asset filename" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll Mini Cards",
+      "blocks": [
+        { "type": "card", "settings": { "title": "解剖学的ラスト", "fallback_image": "product_angle_1.jpg" } },
+        { "type": "card", "settings": { "title": "3Dクレードル", "fallback_image": "product_angle_2.jpg" } },
+        { "type": "card", "settings": { "title": "フレックス溝", "fallback_image": "product_angle_3.jpg" } },
+        { "type": "card", "settings": { "title": "軽量ミッドソール", "fallback_image": "product_angle_4.jpg" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

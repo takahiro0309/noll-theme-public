@@ -1,0 +1,90 @@
+{% comment %}
+  noll Footer
+  4 column links + brand + social + bottom row.
+{% endcomment %}
+
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="site-footer__top">
+      <div>
+        <p class="site-footer__brand">{{ section.settings.brand_name | default: 'noll' }}</p>
+        <p class="site-footer__tag">{{ section.settings.brand_tag | default: 'Performance footgear / 思考を研ぎ澄ますフットギア・ブランド。Coming June 2026.' }}</p>
+        <div class="site-footer__social">
+          {%- if section.settings.instagram != blank -%}
+            <a href="{{ section.settings.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.x != blank -%}
+            <a href="{{ section.settings.x }}" target="_blank" rel="noopener noreferrer" aria-label="X">
+              <svg viewBox="0 0 24 24"><path d="M4 4 L 20 20 M 20 4 L 4 20"/></svg>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.youtube != blank -%}
+            <a href="{{ section.settings.youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="3"/><polygon points="11,9 15,12 11,15" fill="currentColor"/></svg>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'link_column' -%}
+          <div class="site-footer__col" {{ block.shopify_attributes }}>
+            <h4>{{ block.settings.title }}</h4>
+            <ul>
+              {%- assign list = linklists[block.settings.menu] -%}
+              {%- if list != blank -%}
+                {%- for link in list.links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              {%- endif -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</span>
+      <span>{{ section.settings.locale_label | default: '日本 / JPY ¥ — 日本語' }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "noll Footer",
+  "settings": [
+    { "type": "text", "id": "brand_name", "label": "Brand name", "default": "noll" },
+    { "type": "textarea", "id": "brand_tag", "label": "Brand tagline", "default": "Performance footgear / 思考を研ぎ澄ますフットギア・ブランド。Coming June 2026." },
+    { "type": "header", "content": "Social" },
+    { "type": "url", "id": "instagram", "label": "Instagram URL", "default": "https://www.instagram.com/noll_japan" },
+    { "type": "url", "id": "x", "label": "X URL" },
+    { "type": "url", "id": "youtube", "label": "YouTube URL" },
+    { "type": "header", "content": "Bottom" },
+    { "type": "text", "id": "locale_label", "label": "Locale label", "default": "日本 / JPY ¥ — 日本語" }
+  ],
+  "blocks": [
+    {
+      "type": "link_column",
+      "name": "Link column",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll Footer",
+      "blocks": [
+        { "type": "link_column", "settings": { "title": "Shop", "menu": "footer" } },
+        { "type": "link_column", "settings": { "title": "Brand" } },
+        { "type": "link_column", "settings": { "title": "Support" } },
+        { "type": "link_column", "settings": { "title": "Legal" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

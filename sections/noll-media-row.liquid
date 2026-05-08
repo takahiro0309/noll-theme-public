@@ -1,0 +1,46 @@
+{% comment %} noll Media row — As featured in {% endcomment %}
+
+<section class="media-row">
+  <p class="media-row__label">{{ section.settings.label | default: 'As featured in' }}</p>
+  <div class="media-row__list">
+    {%- for block in section.blocks -%}
+      <span class="media-row__item{% if block.settings.style != blank %} media-row__item--{{ block.settings.style }}{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.name }}</span>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Media Row",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Label", "default": "As featured in" }
+  ],
+  "blocks": [
+    {
+      "type": "media",
+      "name": "Media outlet",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name" },
+        { "type": "select", "id": "style", "label": "Type style", "options": [
+          { "value": "", "label": "Default" },
+          { "value": "sans", "label": "Sans" },
+          { "value": "serif", "label": "Serif" },
+          { "value": "script", "label": "Script" }
+        ], "default": "" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll Media Row",
+      "blocks": [
+        { "type": "media", "settings": { "name": "Tarzan", "style": "sans" } },
+        { "type": "media", "settings": { "name": "BRUTUS" } },
+        { "type": "media", "settings": { "name": "POPEYE", "style": "sans" } },
+        { "type": "media", "settings": { "name": "Forbes", "style": "serif" } },
+        { "type": "media", "settings": { "name": "Curve", "style": "script" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

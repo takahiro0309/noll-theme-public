@@ -1,0 +1,31 @@
+{% comment %} noll News strip — newsletter signup {% endcomment %}
+
+<section class="news-strip" id="{{ section.settings.anchor | default: 'contact' }}"{% if section.settings.margin_top %} style="margin-top:40px;"{% endif %}>
+  <div class="news-strip__inner">
+    <div class="news-strip__copy">
+      <h3>{{ section.settings.title | default: 'noll Letter — 月1回のブランドレター' }}</h3>
+      <p>{{ section.settings.body | default: 'ローンチ日・先行枠・最新アップデートを優先配信します。' }}</p>
+    </div>
+    {%- form 'customer', class: 'news-strip__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="email" name="contact[email]" required placeholder="{{ section.settings.placeholder | default: 'メールアドレス' }}" aria-label="email">
+      <button type="submit">{%- if form.posted_successfully? -%}{{ section.settings.thanks | default: '✓ Thanks' }}{%- else -%}{{ section.settings.submit | default: '登録する' }}{%- endif -%}</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll News Strip",
+  "settings": [
+    { "type": "text", "id": "anchor", "label": "Anchor id", "default": "contact" },
+    { "type": "text", "id": "title", "label": "Title", "default": "noll Letter — 月1回のブランドレター" },
+    { "type": "text", "id": "body", "label": "Body", "default": "ローンチ日・先行枠・最新アップデートを優先配信します。" },
+    { "type": "text", "id": "placeholder", "label": "Placeholder", "default": "メールアドレス" },
+    { "type": "text", "id": "submit", "label": "Submit text", "default": "登録する" },
+    { "type": "text", "id": "thanks", "label": "Thanks text", "default": "✓ Thanks" },
+    { "type": "checkbox", "id": "margin_top", "label": "Add top margin", "default": false }
+  ],
+  "presets": [{ "name": "noll News Strip" }]
+}
+{% endschema %}

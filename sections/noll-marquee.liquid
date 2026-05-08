@@ -1,0 +1,40 @@
+{% comment %} noll Marquee — horizontal scrolling text {% endcomment %}
+
+<section class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {%- for i in (1..2) -%}
+      <span style="display:inline-flex; gap:48px;">
+        {%- for block in section.blocks -%}
+          <span class="marquee__item">{{ block.settings.en }} <span class="marquee__star">{{ block.settings.divider | default: '✦' }}</span> <span class="ja">{{ block.settings.ja }}</span> <span class="marquee__star">{{ block.settings.divider | default: '✦' }}</span></span>
+        {%- endfor -%}
+      </span>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Marquee",
+  "blocks": [
+    {
+      "type": "phrase",
+      "name": "Phrase",
+      "settings": [
+        { "type": "text", "id": "en", "label": "English" },
+        { "type": "text", "id": "ja", "label": "日本語" },
+        { "type": "text", "id": "divider", "label": "Divider", "default": "✦" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll Marquee",
+      "blocks": [
+        { "type": "phrase", "settings": { "en": "A foot is a thinking organ.", "ja": "足は、思考する器官である。" } },
+        { "type": "phrase", "settings": { "en": "Designed for 20,000 steps a day.", "ja": "1日2万歩を、整える。" } },
+        { "type": "phrase", "settings": { "en": "Made in Japan, by hand.", "ja": "日本製・手仕事。" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

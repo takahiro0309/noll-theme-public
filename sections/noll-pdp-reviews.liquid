@@ -1,0 +1,73 @@
+{% comment %} noll PDP Reviews — score + bars + review cards {% endcomment %}
+
+<section class="pdp-reviews">
+  <div class="pdp-reviews__head">
+    <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Customer reviews' }}</p>
+    <h2 class="pdp-reviews__title reveal" data-reveal-delay="1">{{ section.settings.title | default: 'お客様レビュー' }}</h2>
+  </div>
+  <div class="pdp-reviews__avg reveal">
+    <span class="pdp-reviews__score">{{ section.settings.score | default: '4.8' }}</span>
+    <div>
+      <div class="pdp__stars" style="font-size:18px; margin-bottom:4px;">★★★★★</div>
+      <div style="font-size:11px; color:var(--c-muted);">{{ section.settings.review_count | default: '128' }} 件のレビュー</div>
+    </div>
+    <div class="pdp-reviews__bars">
+      {%- assign bar_pcts = section.settings.bar_pcts | default: '82,14,3,1,0' | split: ',' -%}
+      {%- assign bar_counts = section.settings.bar_counts | default: '105,18,4,1,0' | split: ',' -%}
+      {%- assign labels = '5★,4★,3★,2★,1★' | split: ',' -%}
+      {%- for label in labels -%}
+        <div class="pdp-reviews__bar">
+          <span>{{ label }}</span>
+          <div class="pdp-reviews__bar-track"><div class="pdp-reviews__bar-fill" style="width:{{ bar_pcts[forloop.index0] }}%"></div></div>
+          <span>{{ bar_counts[forloop.index0] }}</span>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="pdp-reviews__list">
+    {%- for block in section.blocks -%}
+      <article class="review reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} {{ block.shopify_attributes }}>
+        <div class="review__stars">{{ block.settings.stars | default: '★★★★★' }}</div>
+        <h3 class="review__title">{{ block.settings.title }}</h3>
+        <p class="review__body">{{ block.settings.body }}</p>
+        <p class="review__meta">{{ block.settings.meta }}</p>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll PDP Reviews",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Customer reviews" },
+    { "type": "text", "id": "title", "label": "Title", "default": "お客様レビュー" },
+    { "type": "text", "id": "score", "label": "Score", "default": "4.8" },
+    { "type": "text", "id": "review_count", "label": "Review count", "default": "128" },
+    { "type": "text", "id": "bar_pcts", "label": "Bar percentages (comma-separated 5★→1★)", "default": "82,14,3,1,0" },
+    { "type": "text", "id": "bar_counts", "label": "Bar counts", "default": "105,18,4,1,0" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "text", "id": "stars", "label": "Stars", "default": "★★★★★" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "textarea", "id": "body", "label": "Body" },
+        { "type": "text", "id": "meta", "label": "Meta" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll PDP Reviews",
+      "blocks": [
+        { "type": "review", "settings": { "stars": "★★★★★", "title": "歩いていて、足が軽い。", "body": "仕事で1日中歩き回るが、夕方の足の重さが半減した。指先の自由度が想像以上で、もうこれ以外履けない。", "meta": "Yusuke T. · Tokyo · 2026.04" } },
+        { "type": "review", "settings": { "stars": "★★★★★", "title": "姿勢が変わった。", "body": "ヒールが低いのに安定感があるのが新鮮。立ち姿勢が自然と整う感覚があり、長時間のデスクワークでも疲れにくい。", "meta": "Mika S. · Kyoto · 2026.04" } },
+        { "type": "review", "settings": { "stars": "★★★★☆", "title": "デザインも秀逸。", "body": "機能だけかと思いきや、合わせやすい。スーツでも休日でも違和感なく履けるミニマルさが嬉しい。", "meta": "Daiki H. · Osaka · 2026.03" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+{% comment %} noll Hero — split-line title + media + CTAs {% endcomment %}
+
+<section class="hero">
+  <div class="hero__crumbs reveal">
+    <span>{{ section.settings.crumb_1 | default: 'TECHNOLOGY' }}</span>
+    <span>/</span>
+    <span>{{ section.settings.crumb_2 | default: 'BY NOLL' }}</span>
+  </div>
+  <div class="hero__inner">
+    <div class="hero__copy">
+      <h1 class="hero__title">
+        <span class="split-line" data-line-delay="1"><span>{{ section.settings.title_en_1 | default: 'Performance' }}</span></span>
+        <span class="split-line" data-line-delay="2"><span>{{ section.settings.title_en_2 | default: 'footgear' }}</span></span>
+        <span class="ja split-line" data-line-delay="3"><span>{{ section.settings.title_ja | default: '歩行で、思考を、研ぎ澄ます。' }}</span></span>
+      </h1>
+      <p class="hero__lead reveal" data-reveal-delay="2">
+        {{ section.settings.lead | default: '指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。' }}
+      </p>
+      <div class="hero__ctas reveal" data-reveal-delay="3">
+        {%- if section.settings.cta_1_text != blank -%}
+          <a href="{{ section.settings.cta_1_link }}" class="btn btn--solid-dark" data-cursor="view">{{ section.settings.cta_1_text }}</a>
+        {%- endif -%}
+        {%- if section.settings.cta_2_text != blank -%}
+          <a href="{{ section.settings.cta_2_link }}" class="btn">{{ section.settings.cta_2_text }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="hero__media reveal" data-cursor="view">
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 1600 }}" alt="{{ section.settings.image.alt | escape }}" fetchpriority="high">
+      {%- else -%}
+        <img src="{{ 'hero_shoe.jpg' | asset_url }}" alt="noll One performance footgear" fetchpriority="high">
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Hero",
+  "settings": [
+    { "type": "text", "id": "crumb_1", "label": "Crumb 1", "default": "TECHNOLOGY" },
+    { "type": "text", "id": "crumb_2", "label": "Crumb 2", "default": "BY NOLL" },
+    { "type": "text", "id": "title_en_1", "label": "Title line 1 (EN)", "default": "Performance" },
+    { "type": "text", "id": "title_en_2", "label": "Title line 2 (EN)", "default": "footgear" },
+    { "type": "text", "id": "title_ja", "label": "Title line 3 (JA)", "default": "歩行で、思考を、研ぎ澄ます。" },
+    { "type": "textarea", "id": "lead", "label": "Lead paragraph", "default": "指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。" },
+    { "type": "text", "id": "cta_1_text", "label": "CTA 1 text", "default": "今すぐ購入する" },
+    { "type": "url", "id": "cta_1_link", "label": "CTA 1 link" },
+    { "type": "text", "id": "cta_2_text", "label": "CTA 2 text", "default": "noll One について" },
+    { "type": "url", "id": "cta_2_link", "label": "CTA 2 link" },
+    { "type": "image_picker", "id": "image", "label": "Hero image" }
+  ],
+  "presets": [{ "name": "noll Hero" }]
+}
+{% endschema %}

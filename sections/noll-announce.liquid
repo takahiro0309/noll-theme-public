@@ -1,0 +1,27 @@
+{% comment %}
+  noll Announce bar
+  Sticky banner with rotating messages.
+{% endcomment %}
+
+<div class="announce" id="announceBar">
+  <div class="announce__inner">
+    <span>{{ section.settings.message_1 | default: 'Free shipping in Japan' }}</span>
+    <span class="announce__sep" aria-hidden="true"></span>
+    <span class="announce__hide-sm">{{ section.settings.message_2 | default: '30-day returns' }}</span>
+    <span class="announce__sep announce__hide-sm" aria-hidden="true"></span>
+    <span>{{ section.settings.message_3 | default: '1-year warranty' }}</span>
+  </div>
+</div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+{% schema %}
+{
+  "name": "noll Announce",
+  "settings": [
+    { "type": "text", "id": "message_1", "label": "Message 1", "default": "Free shipping in Japan" },
+    { "type": "text", "id": "message_2", "label": "Message 2", "default": "30-day returns" },
+    { "type": "text", "id": "message_3", "label": "Message 3", "default": "1-year warranty" }
+  ],
+  "presets": [{ "name": "noll Announce" }]
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+{% comment %} noll Trust band — 4 trust badges {% endcomment %}
+
+<section class="trust-band">
+  <div class="trust-band__inner">
+    {%- for block in section.blocks -%}
+      <div class="trust-band__item" {{ block.shopify_attributes }}>
+        {%- case block.settings.icon -%}
+          {%- when 'shipping' -%}
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.4"><path d="M3 7h13l5 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+          {%- when 'returns' -%}
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.4"><path d="M21 12a9 9 0 1 1-9-9c2 0 4 .8 5.5 2"/><polyline points="14 3 18 3 18 7"/></svg>
+          {%- when 'warranty' -%}
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.4"><path d="M12 3 L 4 7 V 13 C 4 17 7.5 20 12 21 C 16.5 20 20 17 20 13 V 7 Z"/><polyline points="9 12 11 14 15 10"/></svg>
+          {%- when 'made_in_japan' -%}
+            <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.4"><path d="M3 9 L 12 4 L 21 9 V 19 H 3 Z"/><path d="M9 19 V 12 H 15 V 19"/></svg>
+        {%- endcase -%}
+        <strong>{{ block.settings.title }}</strong>{{ block.settings.subtitle }}
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Trust Band",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "options": [
+          { "value": "shipping", "label": "Shipping" },
+          { "value": "returns", "label": "Returns" },
+          { "value": "warranty", "label": "Warranty" },
+          { "value": "made_in_japan", "label": "Made in Japan" }
+        ], "default": "shipping" },
+        { "type": "text", "id": "title", "label": "Title (bold)" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "noll Trust Band",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "shipping", "title": "Worldwide Shipping", "subtitle": "世界中に発送します" } },
+        { "type": "item", "settings": { "icon": "returns", "title": "Free Returns", "subtitle": "30日間返品無料" } },
+        { "type": "item", "settings": { "icon": "warranty", "title": "1 Year Warranty", "subtitle": "製品保証付き" } },
+        { "type": "item", "settings": { "icon": "made_in_japan", "title": "Made in Japan", "subtitle": "日本国内製造" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
