@@ -7,14 +7,76 @@
       "settings": {
         "brand_name": "noll",
         "brand_tag": "Performance footgear / 思考を研ぎ澄ますフットギア・ブランド。Coming June 2026.",
+        "brand_tag_en": "Performance footgear / A footgear brand that sharpens your mind. Coming June 2026.",
         "instagram": "https://www.instagram.com/noll_japan",
-        "locale_label": "日本 / JPY ¥ — 日本語"
+        "locale_label": "日本 / JPY ¥ — 日本語",
+        "locale_label_en": "Japan / JPY ¥ — English"
       },
       "blocks": {
-        "shop": { "type": "link_column", "settings": { "title": "Shop", "menu": "footer" } },
-        "brand": { "type": "link_column", "settings": { "title": "Brand" } },
-        "support": { "type": "link_column", "settings": { "title": "Support" } },
-        "legal": { "type": "link_column", "settings": { "title": "Legal" } }
+        "shop": {
+          "type": "static_column",
+          "settings": {
+            "title": "Shop",
+            "title_en": "Shop",
+            "link_1_text": "noll One",
+            "link_1_text_en": "noll One",
+            "link_1_url": "/products/noll-one",
+            "link_2_text": "すべての商品",
+            "link_2_text_en": "All products",
+            "link_2_url": "/collections/all",
+            "link_3_text": "カート",
+            "link_3_text_en": "Cart",
+            "link_3_url": "/cart"
+          }
+        },
+        "brand": {
+          "type": "static_column",
+          "settings": {
+            "title": "Brand",
+            "title_en": "Brand",
+            "link_1_text": "Mission",
+            "link_1_text_en": "Mission",
+            "link_1_url": "/#mission",
+            "link_2_text": "Journal",
+            "link_2_text_en": "Journal",
+            "link_2_url": "/blogs/journal",
+            "link_3_text": "Contact",
+            "link_3_text_en": "Contact",
+            "link_3_url": "/pages/contact-us"
+          }
+        },
+        "support": {
+          "type": "static_column",
+          "settings": {
+            "title": "Support",
+            "title_en": "Support",
+            "link_1_text": "配送について",
+            "link_1_text_en": "Shipping",
+            "link_1_url": "/pages/contact-us",
+            "link_2_text": "返品・交換",
+            "link_2_text_en": "Returns & Exchanges",
+            "link_2_url": "/pages/contact-us",
+            "link_3_text": "サイズガイド",
+            "link_3_text_en": "Size Guide",
+            "link_3_url": "/pages/contact-us"
+          }
+        },
+        "legal": {
+          "type": "static_column",
+          "settings": {
+            "title": "Legal",
+            "title_en": "Legal",
+            "link_1_text": "利用規約",
+            "link_1_text_en": "Terms of Service",
+            "link_1_url": "/policies/terms-of-service",
+            "link_2_text": "プライバシーポリシー",
+            "link_2_text_en": "Privacy Policy",
+            "link_2_url": "/policies/privacy-policy",
+            "link_3_text": "返金ポリシー",
+            "link_3_text_en": "Refund Policy",
+            "link_3_url": "/policies/refund-policy"
+          }
+        }
       },
       "block_order": ["shop", "brand", "support", "legal"]
     }
