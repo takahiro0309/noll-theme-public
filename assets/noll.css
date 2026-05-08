@@ -169,20 +169,91 @@ input, select, textarea { font: inherit; }
 button.locale-pill:hover {
   color: var(--c-fg);
 }
-.locale-pill::after {
-  content: '';
+/* ================== LANGUAGE DROPDOWN ================== */
+.lang-dropdown {
+  position: relative;
   display: inline-block;
-  width: 0; height: 0;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-top: 4px solid currentColor;
-  margin-left: 2px;
+}
+.lang-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.lang-dropdown__current {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.lang-dropdown__caret {
+  width: 9px; height: 6px;
+  display: inline-block;
+  transition: transform 200ms var(--ease-out);
+}
+.lang-dropdown__trigger[aria-expanded="true"] .lang-dropdown__caret {
+  transform: rotate(180deg);
+}
+.lang-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+  background: var(--c-bg);
+  border: 1px solid var(--c-line);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius);
+  z-index: 90;
+  animation: dropdownFade 160ms var(--ease-out);
+}
+.lang-dropdown__menu[hidden] { display: none; }
+.lang-dropdown__option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-family: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--c-fg);
+  transition: background-color var(--t-fast) var(--ease-out);
+}
+.lang-dropdown__option:hover {
+  background: var(--c-soft);
+}
+.lang-dropdown__option.is-active {
+  background: var(--c-soft);
+  font-weight: 600;
+}
+.lang-dropdown__option-code {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--c-muted);
+  width: 22px;
+}
+.lang-dropdown__option.is-active .lang-dropdown__option-code {
+  color: var(--c-fg);
+}
+.lang-dropdown__option-name {
+  flex: 1;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 900px) {
   .site-header__nav { display: none; }
   .site-header__inner { grid-template-columns: auto 1fr auto; }
   .locale-pill { display: none; }
+  .lang-dropdown { display: none; }
 }
 
 /* ================== BUTTONS ================== */

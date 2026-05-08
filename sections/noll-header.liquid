@@ -34,8 +34,37 @@
 
     <div class="site-header__utility">
       {%- if section.settings.show_locale -%}
-        <span class="locale-pill">JP / EN</span>
+        <div class="lang-dropdown" id="langDropdown">
+          <button
+            class="locale-pill lang-dropdown__trigger"
+            id="langTrigger"
+            type="button"
+            aria-haspopup="listbox"
+            aria-expanded="false"
+            aria-label="Select language"
+          >
+            <span class="lang-dropdown__current">JP</span>
+            <svg class="lang-dropdown__caret" viewBox="0 0 12 8" aria-hidden="true">
+              <path d="M1 1l5 5 5-5" stroke="currentColor" fill="none" stroke-width="1.4" stroke-linecap="round"></path>
+            </svg>
+          </button>
+          <ul class="lang-dropdown__menu" id="langMenu" role="listbox" hidden>
+            <li role="presentation">
+              <button class="lang-dropdown__option" type="button" role="option" data-lang="ja" aria-selected="true">
+                <span class="lang-dropdown__option-code">JP</span>
+                <span class="lang-dropdown__option-name">日本語</span>
+              </button>
+            </li>
+            <li role="presentation">
+              <button class="lang-dropdown__option" type="button" role="option" data-lang="en" aria-selected="false">
+                <span class="lang-dropdown__option-code">EN</span>
+                <span class="lang-dropdown__option-name">English</span>
+              </button>
+            </li>
+          </ul>
+        </div>
       {%- endif -%}
+      <span class="locale-pill">JPY</span>
 
       {%- if section.settings.show_search -%}
         <a href="{{ routes.search_url }}" class="utility-btn" aria-label="{{ 'general.search.search' | t }}">

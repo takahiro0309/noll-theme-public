@@ -1,4 +1,4 @@
-{% comment %} noll Knowmore — insight section (media + copy + CTA) {% endcomment %}
+{% comment %} noll Knowmore — insight section — bilingual {% endcomment %}
 
 <section class="knowmore">
   <div class="knowmore__inner">
@@ -10,11 +10,11 @@
       {%- endif -%}
     </div>
     <div class="knowmore__copy">
-      <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Insight' }}</p>
-      <h2 class="knowmore__title reveal" data-reveal-delay="1">{{ section.settings.title | default: '多くを、知ることができる。' }}</h2>
-      <p class="knowmore__lead reveal" data-reveal-delay="2">{{ section.settings.lead | default: '歩くことは、最古にして最強の思考整理法かもしれない。スタンフォード大学の研究では、歩行中の発散的思考の生産量は座位の60%増しだった。私たちは、歩きを「設計対象」にした初めてのフットギアブランドである。' }}</p>
+      <p class="eyebrow reveal" data-en="{{ section.settings.eyebrow_en | default: 'Insight' | escape }}">{{ section.settings.eyebrow | default: 'Insight' }}</p>
+      <h2 class="knowmore__title reveal" data-reveal-delay="1" data-en="{{ section.settings.title_en | default: 'Better walking.<br>Sharper thinking.' | escape }}">{{ section.settings.title | default: '歩きが整う。<br>思考が冴える。' }}</h2>
+      <p class="knowmore__lead reveal" data-reveal-delay="2" data-en="{{ section.settings.lead_en | default: 'Walking may be the oldest and most powerful way to organize thought. Stanford research shows divergent thinking output increases 60% while walking vs. sitting. Align from the feet up. Walk better. Think sharper. That is our vision of human-centered technology.' | escape }}">{{ section.settings.lead | default: '歩くことは、最古にして最強の思考整理法かもしれない。スタンフォード大学の研究では、歩行中の発散的思考の生産量は座位の60%増しだった。足元から整える。歩きが整う。思考が冴える。それが、nollの信じる人間中心のテクノロジーの形だ。' }}</p>
       {%- if section.settings.cta_text != blank -%}
-        <a href="{{ section.settings.cta_link | default: '/blogs/journal' }}" class="btn reveal" data-reveal-delay="3">{{ section.settings.cta_text }}</a>
+        <a href="{{ section.settings.cta_link | default: '/blogs/journal' }}" class="btn reveal" data-reveal-delay="3" data-en="{{ section.settings.cta_text_en | default: 'Read journal →' | escape }}">{{ section.settings.cta_text }}</a>
       {%- endif -%}
     </div>
   </div>
@@ -24,10 +24,14 @@
 {
   "name": "noll Knowmore",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Insight" },
-    { "type": "textarea", "id": "title", "label": "Title", "default": "多くを、知ることができる。" },
-    { "type": "richtext", "id": "lead", "label": "Lead" },
-    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Read journal →" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "Insight" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "Insight" },
+    { "type": "textarea", "id": "title", "label": "Title (JA)", "default": "歩きが整う。<br>思考が冴える。" },
+    { "type": "textarea", "id": "title_en", "label": "Title (EN)", "default": "Better walking.<br>Sharper thinking." },
+    { "type": "richtext", "id": "lead", "label": "Lead (JA)" },
+    { "type": "richtext", "id": "lead_en", "label": "Lead (EN)" },
+    { "type": "text", "id": "cta_text", "label": "CTA text (JA)", "default": "Read journal →" },
+    { "type": "text", "id": "cta_text_en", "label": "CTA text (EN)", "default": "Read journal →" },
     { "type": "url", "id": "cta_link", "label": "CTA link" },
     { "type": "image_picker", "id": "image", "label": "Image" }
   ],

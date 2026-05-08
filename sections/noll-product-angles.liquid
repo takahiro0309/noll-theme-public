@@ -1,4 +1,4 @@
-{% comment %} noll Product angles strip — 4 image cards linking to PDP {% endcomment %}
+{% comment %} noll Product angles strip — 4 image cards linking to PDP (bilingual labels) {% endcomment %}
 
 <section class="product-angles-strip">
   <div class="product-angles">
@@ -9,7 +9,7 @@
         {%- else -%}
           <img src="{{ block.settings.fallback_image | default: 'product_angle_1.jpg' | asset_url }}" alt="{{ block.settings.label | escape }}">
         {%- endif -%}
-        <span>{{ block.settings.label }}</span>
+        <span data-en="{{ block.settings.label_en | escape }}">{{ block.settings.label }}</span>
       </a>
     {%- endfor -%}
   </div>
@@ -28,7 +28,8 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "fallback_image", "label": "Fallback asset filename", "info": "e.g. product_angle_1.jpg" },
-        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "text", "id": "label", "label": "Label (JA)" },
+        { "type": "text", "id": "label_en", "label": "Label (EN)" },
         { "type": "url", "id": "link", "label": "Link override" }
       ]
     }
@@ -38,10 +39,10 @@
     {
       "name": "noll Product Angles",
       "blocks": [
-        { "type": "angle", "settings": { "label": "解剖学的ラスト", "fallback_image": "product_angle_1.jpg" } },
-        { "type": "angle", "settings": { "label": "3Dクレードル", "fallback_image": "product_angle_2.jpg" } },
-        { "type": "angle", "settings": { "label": "フレックス溝", "fallback_image": "product_angle_3.jpg" } },
-        { "type": "angle", "settings": { "label": "軽量ミッドソール", "fallback_image": "product_angle_4.jpg" } }
+        { "type": "angle", "settings": { "label": "解剖学的ラスト", "label_en": "Anatomical Last", "fallback_image": "product_angle_1.jpg" } },
+        { "type": "angle", "settings": { "label": "3Dクレードル", "label_en": "3D Cradle", "fallback_image": "product_angle_2.jpg" } },
+        { "type": "angle", "settings": { "label": "フレックス溝", "label_en": "Flex Grooves", "fallback_image": "product_angle_3.jpg" } },
+        { "type": "angle", "settings": { "label": "軽量ミッドソール", "label_en": "Lightweight Midsole", "fallback_image": "product_angle_4.jpg" } }
       ]
     }
   ]

@@ -1,13 +1,13 @@
-{% comment %} noll Collection FAQ — accordion {% endcomment %}
+{% comment %} noll Collection FAQ — accordion — bilingual {% endcomment %}
 
 <section class="collection-faq">
-  <h2>{{ section.settings.title | default: 'よくある質問' }} <span class="collection-faq__count">FAQ ({{ section.blocks.size }})</span></h2>
+  <h2 data-en="{{ section.settings.title_en | default: 'Frequently Asked Questions' | escape }} <span class='collection-faq__count'>FAQ ({{ section.blocks.size }})</span>">{{ section.settings.title | default: 'よくある質問' }} <span class="collection-faq__count">FAQ ({{ section.blocks.size }})</span></h2>
   <div class="collection-faq__list">
     {%- for block in section.blocks -%}
       <details class="collection-faq__item" {{ block.shopify_attributes }}>
-        <summary>{{ block.settings.question }}</summary>
+        <summary data-en="{{ block.settings.question_en | escape }}">{{ block.settings.question }}</summary>
         <div class="collection-faq__body">
-          <p>{{ block.settings.answer }}</p>
+          <div data-en="{{ block.settings.answer_en | escape }}">{{ block.settings.answer }}</div>
         </div>
       </details>
     {%- endfor -%}
@@ -18,15 +18,18 @@
 {
   "name": "noll Collection FAQ",
   "settings": [
-    { "type": "text", "id": "title", "label": "Title", "default": "よくある質問" }
+    { "type": "text", "id": "title", "label": "Title (JA)", "default": "よくある質問" },
+    { "type": "text", "id": "title_en", "label": "Title (EN)", "default": "Frequently Asked Questions" }
   ],
   "blocks": [
     {
       "type": "qa",
       "name": "Q&A",
       "settings": [
-        { "type": "text", "id": "question", "label": "Question" },
-        { "type": "richtext", "id": "answer", "label": "Answer" }
+        { "type": "text", "id": "question", "label": "Question (JA)" },
+        { "type": "text", "id": "question_en", "label": "Question (EN)" },
+        { "type": "richtext", "id": "answer", "label": "Answer (JA)" },
+        { "type": "richtext", "id": "answer_en", "label": "Answer (EN)" }
       ]
     }
   ],
@@ -34,10 +37,10 @@
     {
       "name": "noll Collection FAQ",
       "blocks": [
-        { "type": "qa", "settings": { "question": "通常のシューズとフットギアの違いは何ですか？", "answer": "<p>フットギアは足を「保護する」だけでなく、歩行という行為そのものを設計対象にしています。指先5本が独立して動ける広さ、踵を包んで軸を作る3Dクレードル、地面の情報を必要なだけ伝えるソール。装着するというより、歩行に「組み込まれる」道具です。</p>" } },
-        { "type": "qa", "settings": { "question": "サイズの選び方を教えてください。", "answer": "<p>普段お履きのスニーカーと同じサイズ、または0.5cm上をおすすめします。足幅が広い方は0.5cm上が快適です。24.0cm〜30.0cmまで0.5cm刻みでご用意しています。ご不安な場合は30日間返品無料をご利用ください。</p>" } },
-        { "type": "qa", "settings": { "question": "配送はどれくらいかかりますか？", "answer": "<p>国内配送は送料無料です。ご注文から2〜4営業日でお届けします。海外配送にも対応しており、地域によって5〜10営業日のお届けとなります。</p>" } },
-        { "type": "qa", "settings": { "question": "返品・交換のポリシーを教えてください。", "answer": "<p>ご購入から30日間は返品・交換を無料で承ります。未使用品に限り、送料弊社負担でサイズ交換に対応いたします。ご返品の場合は商品到着後7日以内にご連絡ください。</p>" } }
+        { "type": "qa", "settings": { "question": "通常のシューズとフットギアの違いは何ですか？", "question_en": "What's the difference between regular shoes and footgear?", "answer": "<p>フットギアは足を「保護する」だけでなく、歩行という行為そのものを設計対象にしています。指先5本が独立して動ける広さ、踵を包んで軸を作る3Dクレードル、地面の情報を必要なだけ伝えるソール。装着するというより、歩行に「組み込まれる」道具です。</p>", "answer_en": "<p>Footgear doesn't just protect the foot — it treats the act of walking itself as a design target. Room for all five toes, a 3D heel cradle that creates an axis, a sole that transmits ground feel. Less something you put on, more something integrated into walking.</p>" } },
+        { "type": "qa", "settings": { "question": "サイズの選び方を教えてください。", "question_en": "How should I choose my size?", "answer": "<p>普段お履きのスニーカーと同じサイズ、または0.5cm上をおすすめします。足幅が広い方は0.5cm上が快適です。24.0cm〜30.0cmまで0.5cm刻みでご用意しています。ご不安な場合は30日間返品無料をご利用ください。</p>", "answer_en": "<p>We recommend the same size as your usual sneakers, or 0.5cm up. Those with wider feet will find 0.5cm up more comfortable. Available from 24.0cm to 30.0cm in 0.5cm increments. If unsure, take advantage of our 30-day free returns.</p>" } },
+        { "type": "qa", "settings": { "question": "配送はどれくらいかかりますか？", "question_en": "How long does shipping take?", "answer": "<p>国内配送は送料無料です。ご注文から2〜4営業日でお届けします。海外配送にも対応しており、地域によって5〜10営業日のお届けとなります。</p>", "answer_en": "<p>Domestic shipping is free. Orders arrive in 2-4 business days. International shipping is available, with delivery in 5-10 business days depending on region.</p>" } },
+        { "type": "qa", "settings": { "question": "返品・交換のポリシーを教えてください。", "question_en": "What is your return and exchange policy?", "answer": "<p>ご購入から30日間は返品・交換を無料で承ります。未使用品に限り、送料弊社負担でサイズ交換に対応いたします。ご返品の場合は商品到着後7日以内にご連絡ください。</p>", "answer_en": "<p>Returns and exchanges are free for 30 days after purchase. For unused items, we cover return shipping for size exchanges. For returns, please contact us within 7 days of receiving the product.</p>" } }
       ]
     }
   ]

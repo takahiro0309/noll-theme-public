@@ -1,4 +1,4 @@
-{% comment %} noll Collection — search bar + product cards {% endcomment %}
+{% comment %} noll Collection — search bar + product cards — bilingual {% endcomment %}
 
 <div class="search-bar">
   <div class="search-bar__inner">
@@ -8,15 +8,15 @@
   </div>
 </div>
 
-<p class="collection-result reveal">{{ section.settings.result_label | default: '検索結果' }} {{ collection.products_count }}件</p>
+<p class="collection-result reveal" data-en="{{ collection.products_count }} {{ section.settings.result_label_en | default: 'results found' | escape }}">{{ section.settings.result_label | default: '検索結果' }} {{ collection.products_count }}件</p>
 
 <div class="collection-toolbar">
-  <span>{{ section.settings.filter_label | default: '絞り込み' }}</span>
+  <span data-en="{{ section.settings.filter_label_en | default: 'Filter' | escape }}">{{ section.settings.filter_label | default: '絞り込み' }}</span>
   <select aria-label="Sort">
-    <option>並び順 : 人気順</option>
-    <option>新着順</option>
-    <option>価格: 安い順</option>
-    <option>価格: 高い順</option>
+    <option data-en="Sort: Popular">並び順 : 人気順</option>
+    <option data-en="Newest">新着順</option>
+    <option data-en="Price: Low to High">価格: 安い順</option>
+    <option data-en="Price: High to Low">価格: 高い順</option>
   </select>
 </div>
 
@@ -34,16 +34,16 @@
         <span>{{ section.settings.rating_default | default: '4.8 / 5.0 · 128 reviews' }}</span>
       </div>
       <p class="collection-pcard__price">{{ product.price | money }}</p>
-      <p class="collection-pcard__tax">{{ section.settings.tax_label | default: '税込 / 国内送料無料' }}</p>
-      <p class="collection-pcard__desc">{{ product.description | strip_html | truncate: 80 }}</p>
+      <p class="collection-pcard__tax" data-en="{{ section.settings.tax_label_en | default: 'Tax included / Free domestic shipping' | escape }}">{{ section.settings.tax_label | default: '税込 / 国内送料無料' }}</p>
+      <p class="collection-pcard__desc" data-en="{{ section.settings.desc_en | default: 'Room for all five toes, a 3D heel cradle. One pair, built for walking.' | escape }}">{{ product.description | strip_html | truncate: 80 }}</p>
       <div class="collection-pcard__color">
-        <span>カラー : All Black</span>
+        <span data-en="{{ section.settings.color_label_en | default: 'Color: All Black' | escape }}">{{ section.settings.color_label | default: 'カラー : All Black' }}</span>
         <span class="swatch"></span>
       </div>
     </div>
     <div class="collection-pcard__cta">
-      <span class="btn btn--solid-dark">{{ section.settings.cta_text | default: '商品詳細を見る' }}</span>
-      <span style="text-align:center; font-size:11px; color:var(--c-muted);">♡ お気に入り</span>
+      <span class="btn btn--solid-dark" data-en="{{ section.settings.cta_text_en | default: 'View product' | escape }}">{{ section.settings.cta_text | default: '商品詳細を見る' }}</span>
+      <span style="text-align:center; font-size:11px; color:var(--c-muted);" data-en="♡ Wishlist">♡ お気に入り</span>
     </div>
   </a>
 {%- endfor -%}
@@ -52,11 +52,18 @@
 {
   "name": "noll Collection",
   "settings": [
-    { "type": "text", "id": "result_label", "label": "Result label", "default": "検索結果" },
-    { "type": "text", "id": "filter_label", "label": "Filter label", "default": "絞り込み" },
+    { "type": "text", "id": "result_label", "label": "Result label (JA)", "default": "検索結果" },
+    { "type": "text", "id": "result_label_en", "label": "Result label (EN)", "default": "results found" },
+    { "type": "text", "id": "filter_label", "label": "Filter label (JA)", "default": "絞り込み" },
+    { "type": "text", "id": "filter_label_en", "label": "Filter label (EN)", "default": "Filter" },
     { "type": "text", "id": "rating_default", "label": "Rating default", "default": "4.8 / 5.0 · 128 reviews" },
-    { "type": "text", "id": "tax_label", "label": "Tax label", "default": "税込 / 国内送料無料" },
-    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "商品詳細を見る" }
+    { "type": "text", "id": "tax_label", "label": "Tax label (JA)", "default": "税込 / 国内送料無料" },
+    { "type": "text", "id": "tax_label_en", "label": "Tax label (EN)", "default": "Tax included / Free domestic shipping" },
+    { "type": "text", "id": "color_label", "label": "Color label (JA)", "default": "カラー : All Black" },
+    { "type": "text", "id": "color_label_en", "label": "Color label (EN)", "default": "Color: All Black" },
+    { "type": "textarea", "id": "desc_en", "label": "Description fallback (EN)", "default": "Room for all five toes, a 3D heel cradle. One pair, built for walking." },
+    { "type": "text", "id": "cta_text", "label": "CTA text (JA)", "default": "商品詳細を見る" },
+    { "type": "text", "id": "cta_text_en", "label": "CTA text (EN)", "default": "View product" }
   ],
   "presets": [{ "name": "noll Collection" }]
 }

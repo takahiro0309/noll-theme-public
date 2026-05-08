@@ -1,10 +1,10 @@
-{% comment %} noll Features — 3 feature cards (number + image + body) {% endcomment %}
+{% comment %} noll Features — 3 feature cards (number + image + body) — bilingual {% endcomment %}
 
 <section class="features" id="{{ section.settings.anchor | default: 'features' }}">
   <div class="features__head">
-    <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Why noll' }}</p>
-    <h2 class="features__title reveal" data-reveal-delay="1">{{ section.settings.title | default: '日常の一歩から、身体と思考を整える。' }}</h2>
-    <p class="features__intro reveal" data-reveal-delay="2">{{ section.settings.intro | default: '足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。' }}</p>
+    <p class="eyebrow reveal" data-en="{{ section.settings.eyebrow_en | default: 'Why noll' | escape }}">{{ section.settings.eyebrow | default: 'Why noll' }}</p>
+    <h2 class="features__title reveal" data-reveal-delay="1" data-en="{{ section.settings.title_en | default: 'Align body and mind from your very first step.' | escape }}">{{ section.settings.title | default: '日常の一歩から、身体と思考を整える。' }}</h2>
+    <p class="features__intro reveal" data-reveal-delay="2" data-en="{{ section.settings.intro_en | default: 'Structural design that never restricts natural foot movement. Three essentials for a conditioning lifestyle.' | escape }}">{{ section.settings.intro | default: '足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。' }}</p>
   </div>
   <div class="features__grid">
     {%- for block in section.blocks -%}
@@ -18,8 +18,8 @@
         </div>
         <div class="feature__text">
           <span class="feature__num">{{ block.settings.number | default: forloop.index | prepend: '0' | slice: -2, 2 }}</span>
-          <h3 class="feature__title">{{ block.settings.title }}</h3>
-          <p class="feature__body">{{ block.settings.body }}</p>
+          <h3 class="feature__title" data-en="{{ block.settings.title_en | escape }}">{{ block.settings.title }}</h3>
+          <p class="feature__body" data-en="{{ block.settings.body_en | escape }}">{{ block.settings.body }}</p>
         </div>
       </article>
     {%- endfor -%}
@@ -31,9 +31,12 @@
   "name": "noll Features",
   "settings": [
     { "type": "text", "id": "anchor", "label": "Anchor id", "default": "features" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why noll" },
-    { "type": "text", "id": "title", "label": "Title", "default": "日常の一歩から、身体と思考を整える。" },
-    { "type": "textarea", "id": "intro", "label": "Intro", "default": "足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。" }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "Why noll" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "Why noll" },
+    { "type": "text", "id": "title", "label": "Title (JA)", "default": "日常の一歩から、身体と思考を整える。" },
+    { "type": "text", "id": "title_en", "label": "Title (EN)", "default": "Align body and mind from your very first step." },
+    { "type": "textarea", "id": "intro", "label": "Intro (JA)", "default": "足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。" },
+    { "type": "textarea", "id": "intro_en", "label": "Intro (EN)", "default": "Structural design that never restricts natural foot movement. Three essentials for a conditioning lifestyle." }
   ],
   "blocks": [
     {
@@ -41,8 +44,10 @@
       "name": "Feature",
       "settings": [
         { "type": "text", "id": "number", "label": "Number" },
-        { "type": "text", "id": "title", "label": "Title" },
-        { "type": "textarea", "id": "body", "label": "Body" },
+        { "type": "text", "id": "title", "label": "Title (JA)" },
+        { "type": "text", "id": "title_en", "label": "Title (EN)" },
+        { "type": "textarea", "id": "body", "label": "Body (JA)" },
+        { "type": "textarea", "id": "body_en", "label": "Body (EN)" },
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "fallback_image", "label": "Fallback asset filename" }
       ]
@@ -52,9 +57,9 @@
     {
       "name": "noll Features",
       "blocks": [
-        { "type": "feature", "settings": { "number": "01", "title": "左右の動きに、強い。", "body": "サイドに張り出した広いラスト形状。横方向のブレを抑え、足首と膝の負担を逃がす。", "fallback_image": "journal_1.jpg" } },
-        { "type": "feature", "settings": { "number": "02", "title": "長く、歩き続けられる。", "body": "中足部のフレックス溝が自然な蹴り出しを支える。1日2万歩でも疲労を蓄積させない設計。", "fallback_image": "journal_2.jpg" } },
-        { "type": "feature", "settings": { "number": "03", "title": "安定感のある、走り。", "body": "かかとを包む3Dヒールクレードル。着地から蹴り出しまで、軸がぶれない。軽量・限定生産。", "fallback_image": "journal_3.jpg" } }
+        { "type": "feature", "settings": { "number": "01", "title": "足本来の動きを妨げない。", "title_en": "Never restrict natural movement.", "body": "自由に動ける日常へ。広いラスト形状が横方向のブレを抑え、指先5本が独立して動く空間を確保。足首と膝の負担を逃がす。", "body_en": "Freedom in every step. The wide last shape reduces lateral sway while giving all five toes room to move independently. Relieves stress on ankles and knees.", "fallback_image": "journal_1.jpg" } },
+        { "type": "feature", "settings": { "number": "02", "title": "足元から、姿勢を整える。", "title_en": "Align your posture from the ground up.", "body": "軸のある毎日へ。踵を包む3Dヒールクレードルが自然な体重移動を導く。1日2万歩でも疲労を蓄積させない設計。", "body_en": "A centered life, every day. The 3D heel cradle guides natural weight transfer. Designed to prevent fatigue accumulation even at 20,000 steps a day.", "fallback_image": "journal_2.jpg" } },
+        { "type": "feature", "settings": { "number": "03", "title": "歩きが整う。思考が冴える。", "title_en": "Better walking. Sharper thinking.", "body": "中足部のフレックス溝が自然な蹴り出しを支える。歩行中の発散的思考の生産量は座位の60%増し。歩きが変われば、思考が変わる。", "body_en": "Midfoot flex grooves support natural toe-off. Divergent thinking output increases 60% while walking vs. sitting. Change how you walk, change how you think.", "fallback_image": "journal_3.jpg" } }
       ]
     }
   ]

@@ -1,8 +1,8 @@
-{% comment %} noll Blog (Journal) — article list {% endcomment %}
+{% comment %} noll Blog (Journal) — article list — bilingual {% endcomment %}
 
 <nav class="crumbs" aria-label="breadcrumb">
-  <a href="{{ routes.root_url }}">Home</a><span>/</span>
-  Journal
+  <a href="{{ routes.root_url }}" data-en="Home">Home</a><span>/</span>
+  <span data-en="Journal">Journal</span>
 </nav>
 
 {%- assign main = blog.articles.first -%}
@@ -23,13 +23,13 @@
       </div>
     {%- endif -%}
     <div style="text-align:center; margin: 32px 0 64px;">
-      <a href="{{ main.url }}" class="btn btn--solid-dark">記事を読む →</a>
+      <a href="{{ main.url }}" class="btn btn--solid-dark" data-en="{{ section.settings.read_cta_en | default: 'Read article →' | escape }}">{{ section.settings.read_cta | default: '記事を読む →' }}</a>
     </div>
   </article>
 {%- endif -%}
 
 <section class="journal-related">
-  <h2>{{ section.settings.list_title | default: 'すべての記事' }}</h2>
+  <h2 data-en="{{ section.settings.list_title_en | default: 'All Articles' | escape }}">{{ section.settings.list_title | default: 'すべての記事' }}</h2>
   <div class="journal-related__grid">
     {%- for art in blog.articles offset: 1 limit: 12 -%}
       <a href="{{ art.url }}" class="journal-card reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} data-cursor="view">
@@ -48,7 +48,10 @@
 {
   "name": "noll Blog",
   "settings": [
-    { "type": "text", "id": "list_title", "label": "List title", "default": "すべての記事" }
+    { "type": "text", "id": "list_title", "label": "List title (JA)", "default": "すべての記事" },
+    { "type": "text", "id": "list_title_en", "label": "List title (EN)", "default": "All Articles" },
+    { "type": "text", "id": "read_cta", "label": "Read article CTA (JA)", "default": "記事を読む →" },
+    { "type": "text", "id": "read_cta_en", "label": "Read article CTA (EN)", "default": "Read article →" }
   ],
   "presets": [{ "name": "noll Blog" }]
 }

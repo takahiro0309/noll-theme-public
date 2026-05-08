@@ -1,17 +1,17 @@
-{% comment %} noll Lifestyle grid — 3 image cards {% endcomment %}
+{% comment %} noll Lifestyle grid — 3 image cards — bilingual {% endcomment %}
 
 <section class="lifestyle">
   <div class="lifestyle__head">
-    <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Field stories' }}</p>
-    <h2 class="lifestyle__title reveal" data-reveal-delay="1">{{ section.settings.title | default: '歩く、を試したくなる場所。' }}</h2>
+    <p class="eyebrow reveal" data-en="{{ section.settings.eyebrow_en | default: 'Field stories' | escape }}">{{ section.settings.eyebrow | default: 'Field stories' }}</p>
+    <h2 class="lifestyle__title reveal" data-reveal-delay="1" data-en="{{ section.settings.title_en | default: 'Places that make you want to walk.' | escape }}">{{ section.settings.title | default: '歩く、を試したくなる場所。' }}</h2>
   </div>
   <div class="lifestyle__grid">
     {%- for block in section.blocks -%}
       <figure class="lifestyle__card reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} data-cursor="view" {{ block.shopify_attributes }}>
         {%- if block.settings.image != blank -%}
-          <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.alt | escape }}">
+          <img src="{{ block.settings.image | image_url: width: 1200 }}" alt="{{ block.settings.alt | escape }}" data-en-alt="{{ block.settings.alt_en | default: block.settings.alt | escape }}">
         {%- else -%}
-          <img src="{{ block.settings.fallback_image | default: 'lifestyle_1.jpg' | asset_url }}" alt="{{ block.settings.alt | escape }}">
+          <img src="{{ block.settings.fallback_image | default: 'lifestyle_1.jpg' | asset_url }}" alt="{{ block.settings.alt | escape }}" data-en-alt="{{ block.settings.alt_en | default: block.settings.alt | escape }}">
         {%- endif -%}
       </figure>
     {%- endfor -%}
@@ -22,8 +22,10 @@
 {
   "name": "noll Lifestyle",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Field stories" },
-    { "type": "text", "id": "title", "label": "Title", "default": "歩く、を試したくなる場所。" }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "Field stories" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "Field stories" },
+    { "type": "text", "id": "title", "label": "Title (JA)", "default": "歩く、を試したくなる場所。" },
+    { "type": "text", "id": "title_en", "label": "Title (EN)", "default": "Places that make you want to walk." }
   ],
   "blocks": [
     {
@@ -32,7 +34,8 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "fallback_image", "label": "Fallback asset filename" },
-        { "type": "text", "id": "alt", "label": "Alt text" }
+        { "type": "text", "id": "alt", "label": "Alt text (JA)" },
+        { "type": "text", "id": "alt_en", "label": "Alt text (EN)" }
       ]
     }
   ],
@@ -40,9 +43,9 @@
     {
       "name": "noll Lifestyle",
       "blocks": [
-        { "type": "image", "settings": { "fallback_image": "lifestyle_1.jpg", "alt": "Walking trail" } },
-        { "type": "image", "settings": { "fallback_image": "lifestyle_2.jpg", "alt": "Standing on rocks" } },
-        { "type": "image", "settings": { "fallback_image": "lifestyle_3.jpg", "alt": "Sunset coast" } }
+        { "type": "image", "settings": { "fallback_image": "lifestyle_1.jpg", "alt": "Walking trail", "alt_en": "Walking trail" } },
+        { "type": "image", "settings": { "fallback_image": "lifestyle_2.jpg", "alt": "Standing on rocks", "alt_en": "Standing on rocks" } },
+        { "type": "image", "settings": { "fallback_image": "lifestyle_3.jpg", "alt": "Sunset coast", "alt_en": "Sunset coast" } }
       ]
     }
   ]

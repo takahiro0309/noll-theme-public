@@ -1,4 +1,4 @@
-{% comment %} noll Trust band — 4 trust badges {% endcomment %}
+{% comment %} noll Trust band — 4 trust badges — bilingual subtitles {% endcomment %}
 
 <section class="trust-band">
   <div class="trust-band__inner">
@@ -14,7 +14,7 @@
           {%- when 'made_in_japan' -%}
             <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.4"><path d="M3 9 L 12 4 L 21 9 V 19 H 3 Z"/><path d="M9 19 V 12 H 15 V 19"/></svg>
         {%- endcase -%}
-        <strong>{{ block.settings.title }}</strong>{{ block.settings.subtitle }}
+        <strong>{{ block.settings.title }}</strong><span data-en="{{ block.settings.subtitle_en | escape }}">{{ block.settings.subtitle }}</span>
       </div>
     {%- endfor -%}
   </div>
@@ -35,7 +35,8 @@
           { "value": "made_in_japan", "label": "Made in Japan" }
         ], "default": "shipping" },
         { "type": "text", "id": "title", "label": "Title (bold)" },
-        { "type": "text", "id": "subtitle", "label": "Subtitle" }
+        { "type": "text", "id": "subtitle", "label": "Subtitle (JA)" },
+        { "type": "text", "id": "subtitle_en", "label": "Subtitle (EN)" }
       ]
     }
   ],
@@ -43,10 +44,10 @@
     {
       "name": "noll Trust Band",
       "blocks": [
-        { "type": "item", "settings": { "icon": "shipping", "title": "Worldwide Shipping", "subtitle": "世界中に発送します" } },
-        { "type": "item", "settings": { "icon": "returns", "title": "Free Returns", "subtitle": "30日間返品無料" } },
-        { "type": "item", "settings": { "icon": "warranty", "title": "1 Year Warranty", "subtitle": "製品保証付き" } },
-        { "type": "item", "settings": { "icon": "made_in_japan", "title": "Made in Japan", "subtitle": "日本国内製造" } }
+        { "type": "item", "settings": { "icon": "shipping", "title": "Worldwide Shipping", "subtitle": "世界中に発送します", "subtitle_en": "We ship globally." } },
+        { "type": "item", "settings": { "icon": "returns", "title": "Free Returns", "subtitle": "30日間返品無料", "subtitle_en": "30-day free returns." } },
+        { "type": "item", "settings": { "icon": "warranty", "title": "1 Year Warranty", "subtitle": "製品保証付き", "subtitle_en": "Product warranty included." } },
+        { "type": "item", "settings": { "icon": "made_in_japan", "title": "Made in Japan", "subtitle": "日本国内製造", "subtitle_en": "Manufactured in Japan." } }
       ]
     }
   ]

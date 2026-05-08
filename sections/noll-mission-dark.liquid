@@ -1,13 +1,13 @@
-{% comment %} noll Mission Dark — dark background + text + media + CTA {% endcomment %}
+{% comment %} noll Mission Dark — dark background + text + media + CTA — bilingual {% endcomment %}
 
 <section class="mission-dark" id="{{ section.settings.anchor | default: 'mission' }}">
   <div class="mission-dark__inner">
     <div class="mission-dark__copy">
-      <p class="mission-dark__eyebrow reveal">{{ section.settings.eyebrow | default: 'Our mission' }}</p>
-      <h2 class="mission-dark__title reveal" data-reveal-delay="1">{{ section.settings.title | default: 'AI時代に、人類のパフォーマンスを最大化する。' }}</h2>
-      <p class="mission-dark__lead reveal" data-reveal-delay="2">{{ section.settings.lead | default: 'テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。足元から整える。歩きが整う。思考が冴える。' }}</p>
+      <p class="mission-dark__eyebrow reveal" data-en="{{ section.settings.eyebrow_en | default: 'Our mission' | escape }}">{{ section.settings.eyebrow | default: 'Our mission' }}</p>
+      <h2 class="mission-dark__title reveal" data-reveal-delay="1" data-en="{{ section.settings.title_en | default: 'In the age of AI,<br>expand human capability.' | escape }}">{{ section.settings.title | default: 'AIの時代にこそ、<br>人間の力の拡張を。' }}</h2>
+      <p class="mission-dark__lead reveal" data-reveal-delay="2" data-en="{{ section.settings.lead_en | default: 'In an era where technology accelerates thought, we return to the body. Transform daily walking into conditioning. Sharpen your creativity, every day.' | escape }}">{{ section.settings.lead | default: 'テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。日常の歩きを、コンディショニングに変える。そして、日々の創造性を研ぎ澄ます。' }}</p>
       {%- if section.settings.cta_text != blank -%}
-        <a href="{{ section.settings.cta_link | default: '/blogs/journal' }}" class="btn btn--ghost-light reveal" data-reveal-delay="3">{{ section.settings.cta_text }}</a>
+        <a href="{{ section.settings.cta_link | default: '/blogs/journal' }}" class="btn btn--ghost-light reveal" data-reveal-delay="3" data-en="{{ section.settings.cta_text_en | default: 'Read manifesto →' | escape }}">{{ section.settings.cta_text }}</a>
       {%- endif -%}
     </div>
     <div class="mission-dark__media reveal" data-reveal-delay="2">
@@ -25,10 +25,14 @@
   "name": "noll Mission Dark",
   "settings": [
     { "type": "text", "id": "anchor", "label": "Anchor id", "default": "mission" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our mission" },
-    { "type": "textarea", "id": "title", "label": "Title", "default": "AI時代に、人類のパフォーマンスを最大化する。" },
-    { "type": "textarea", "id": "lead", "label": "Lead", "default": "テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。足元から整える。歩きが整う。思考が冴える。" },
-    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Read manifesto →" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "Our mission" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "Our mission" },
+    { "type": "textarea", "id": "title", "label": "Title (JA)", "default": "AIの時代にこそ、<br>人間の力の拡張を。" },
+    { "type": "textarea", "id": "title_en", "label": "Title (EN)", "default": "In the age of AI,<br>expand human capability." },
+    { "type": "textarea", "id": "lead", "label": "Lead (JA)", "default": "テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。日常の歩きを、コンディショニングに変える。そして、日々の創造性を研ぎ澄ます。" },
+    { "type": "textarea", "id": "lead_en", "label": "Lead (EN)", "default": "In an era where technology accelerates thought, we return to the body. Transform daily walking into conditioning. Sharpen your creativity, every day." },
+    { "type": "text", "id": "cta_text", "label": "CTA text (JA)", "default": "Read manifesto →" },
+    { "type": "text", "id": "cta_text_en", "label": "CTA text (EN)", "default": "Read manifesto →" },
     { "type": "url", "id": "cta_link", "label": "CTA link" },
     { "type": "image_picker", "id": "image", "label": "Image" }
   ],

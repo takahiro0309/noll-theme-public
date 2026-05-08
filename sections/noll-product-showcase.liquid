@@ -1,4 +1,4 @@
-{% comment %} noll Product Showcase — featured product with rating, price, CTA {% endcomment %}
+{% comment %} noll Product Showcase — featured product with rating, price, CTA — bilingual {% endcomment %}
 
 {%- assign product = all_products[section.settings.product] -%}
 
@@ -12,7 +12,7 @@
       {%- endif -%}
     </a>
     <div class="product-showcase__info">
-      <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Our product' }}</p>
+      <p class="eyebrow reveal" data-en="{{ section.settings.eyebrow_en | default: 'Our product' | escape }}">{{ section.settings.eyebrow | default: 'Our product' }}</p>
       <h2 class="product-showcase__name reveal" data-reveal-delay="1">{{ product.title | default: 'noll One' }}</h2>
       <div class="product-showcase__rating reveal" data-reveal-delay="2">
         <span class="pdp__stars">★★★★★</span>
@@ -24,13 +24,13 @@
         {%- else -%}
           ¥17,800
         {%- endif -%}
-        <span>税込</span>
+        <span data-en="incl. tax">税込</span>
       </p>
-      <p class="product-showcase__desc reveal" data-reveal-delay="3">
+      <p class="product-showcase__desc reveal" data-reveal-delay="3" data-en="{{ section.settings.description_en | default: 'Room for all five toes to move independently, a 3D cradle that wraps the heel and creates an axis, and a sole that transmits ground feel. One pair, built for walking.' | escape }}">
         {{ section.settings.description | default: '指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。' }}
       </p>
       <div class="product-showcase__ctas reveal" data-reveal-delay="3">
-        <a href="{{ product.url | default: section.settings.fallback_link }}" class="btn btn--solid-dark">{{ section.settings.cta_text | default: '商品詳細を見る' }}</a>
+        <a href="{{ product.url | default: section.settings.fallback_link }}" class="btn btn--solid-dark" data-en="{{ section.settings.cta_text_en | default: 'View product' | escape }}">{{ section.settings.cta_text | default: '商品詳細を見る' }}</a>
       </div>
     </div>
   </div>
@@ -42,10 +42,13 @@
   "settings": [
     { "type": "product", "id": "product", "label": "Featured product" },
     { "type": "url", "id": "fallback_link", "label": "Fallback link" },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Our product" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "Our product" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "Our product" },
     { "type": "text", "id": "rating", "label": "Rating", "default": "4.8 / 5.0" },
-    { "type": "textarea", "id": "description", "label": "Description", "default": "指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。" },
-    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "商品詳細を見る" }
+    { "type": "textarea", "id": "description", "label": "Description (JA)", "default": "指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。" },
+    { "type": "textarea", "id": "description_en", "label": "Description (EN)", "default": "Room for all five toes to move independently, a 3D cradle that wraps the heel and creates an axis, and a sole that transmits ground feel. One pair, built for walking." },
+    { "type": "text", "id": "cta_text", "label": "CTA text (JA)", "default": "商品詳細を見る" },
+    { "type": "text", "id": "cta_text_en", "label": "CTA text (EN)", "default": "View product" }
   ],
   "presets": [{ "name": "noll Product Showcase" }]
 }

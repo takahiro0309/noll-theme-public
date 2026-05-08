@@ -1,11 +1,11 @@
-{% comment %} noll PDP — gallery + selectors + ATC. Standalone replacement for product-information. {% endcomment %}
+{% comment %} noll PDP — gallery + selectors + ATC. Bilingual JP/EN. {% endcomment %}
 
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 {%- assign images = product.images -%}
 
 <nav class="crumbs" aria-label="breadcrumb">
-  <a href="{{ routes.root_url }}">Home</a><span>/</span>
-  <a href="{{ routes.collections_url }}">Shop</a><span>/</span>
+  <a href="{{ routes.root_url }}" data-en="Home">Home</a><span>/</span>
+  <a href="{{ routes.collections_url }}" data-en="Shop">Shop</a><span>/</span>
   {{ product.title }}
 </nav>
 
@@ -38,9 +38,9 @@
     <h1 class="pdp__title reveal" data-reveal-delay="1">{{ product.title }}</h1>
     <p class="pdp__price reveal" data-reveal-delay="2" data-noll-pdp-price>
       {{ current_variant.price | money }}
-      <span style="font-size:11px; color:var(--c-muted); font-weight:400;">{{ section.settings.tax_label | default: '税込' }}</span>
+      <span style="font-size:11px; color:var(--c-muted); font-weight:400;" data-en="{{ section.settings.tax_label_en | default: 'incl. tax' | escape }}">{{ section.settings.tax_label | default: '税込' }}</span>
     </p>
-    <p class="pdp__tax reveal" data-reveal-delay="2">
+    <p class="pdp__tax reveal" data-reveal-delay="2" data-en="{{ section.settings.shipping_note_en | default: 'Free domestic shipping' | escape }}">
       {{ section.settings.shipping_note | default: '国内送料無料' }}
       {%- assign release = product.metafields.tech.release_date.value -%}
       {%- if release != blank -%} / {{ release }}{%- endif -%}
@@ -48,10 +48,10 @@
 
     <div class="pdp__rating reveal" data-reveal-delay="3">
       <span class="pdp__stars">★★★★★</span>
-      <span>{{ section.settings.rating | default: '4.8 / 5.0 · 128 reviews' }}</span>
+      <span data-en="{{ section.settings.rating_en | default: '4.8 / 5.0 · 128 reviews' | escape }}">{{ section.settings.rating | default: '4.8 / 5.0 · 128 reviews' }}</span>
     </div>
 
-    <p class="pdp__desc reveal" data-reveal-delay="3">
+    <p class="pdp__desc reveal" data-reveal-delay="3" data-en="{{ section.settings.description_en | default: 'Room for all five toes to move independently, a 3D cradle that wraps the heel and creates an axis, and a sole that transmits ground feel. One pair, built for walking.' | escape }}">
       {{ section.settings.description | default: '指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。' }}
     </p>
 
@@ -67,8 +67,14 @@
 
         <div class="pdp__group reveal">
           <div class="pdp__group-label">
-            <span>{{ option.name }} : <span data-noll-option-display="{{ option.position }}">{{ option.selected_value }}</span></span>
-            {%- if is_size -%}<a href="#" style="font-size:11px; color:var(--c-muted); border-bottom: 1px solid currentColor; padding-bottom:1px;">サイズを選ぶ</a>{%- endif -%}
+            {%- if is_color -%}
+              <span><span data-en="Color">{{ option.name }}</span> : <span data-noll-option-display="{{ option.position }}">{{ option.selected_value }}</span></span>
+            {%- elsif is_size -%}
+              <span><span data-en="Size">{{ option.name }}</span> : <span data-noll-option-display="{{ option.position }}">{{ option.selected_value }}</span></span>
+            {%- else -%}
+              <span>{{ option.name }} : <span data-noll-option-display="{{ option.position }}">{{ option.selected_value }}</span></span>
+            {%- endif -%}
+            {%- if is_size -%}<a href="#sizeGuide" style="font-size:11px; color:var(--c-muted); border-bottom: 1px solid currentColor; padding-bottom:1px;" data-en="Size guide">サイズを選ぶ</a>{%- endif -%}
           </div>
           {%- if is_color -%}
             <div class="pdp__colors" role="radiogroup" aria-label="{{ option.name }}">
@@ -99,7 +105,7 @@
       {%- endfor -%}
 
       <div class="pdp__group reveal">
-        <div class="pdp__group-label"><span>数量</span></div>
+        <div class="pdp__group-label"><span data-en="Quantity">数量</span></div>
         <div class="pdp__qty">
           <button type="button" id="qtyMinus" aria-label="Decrease" data-noll-qty-minus>−</button>
           <input type="text" name="quantity" value="1" id="qtyInput" aria-label="Quantity" readonly data-noll-qty-input>
@@ -108,7 +114,7 @@
       </div>
 
       <div class="pdp__atc reveal">
-        <button type="submit" class="btn btn--solid-dark btn--full" id="atcBtn" data-noll-atc>カートに追加</button>
+        <button type="submit" class="btn btn--solid-dark btn--full" id="atcBtn" data-noll-atc data-en="Add to cart">カートに追加</button>
         <div class="pdp__pay">
           {{ form | payment_button }}
         </div>
@@ -118,21 +124,21 @@
     <div class="pdp__trust reveal">
       <div class="pdp__trust-item">
         <svg viewBox="0 0 24 24"><path d="M3 7h13l5 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-        国内送料<br>無料
+        <span data-en="Free<br>shipping">国内送料<br>無料</span>
       </div>
       <div class="pdp__trust-item">
         <svg viewBox="0 0 24 24"><path d="M21 11.5c0 4-4 8-9 8s-9-4-9-8a9 9 0 0 1 9-9c2 0 4 .8 5.5 2"/><polyline points="14 3.5 18 3.5 18 7.5"/></svg>
-        30日間<br>返品保証
+        <span data-en="30-day<br>returns">30日間<br>返品保証</span>
       </div>
       <div class="pdp__trust-item">
         <svg viewBox="0 0 24 24"><path d="M12 3 L 4 7 V 13 C 4 17 7.5 20 12 21 C 16.5 20 20 17 20 13 V 7 Z"/><polyline points="9 12 11 14 15 10"/></svg>
-        1年保証<br>付き
+        <span data-en="1-year<br>warranty">1年保証<br>付き</span>
       </div>
     </div>
 
     <div class="pdp__accordion">
       <details>
-        <summary>仕様 / Specifications</summary>
+        <summary data-en="Specifications">仕様 / Specifications</summary>
         <div class="pdp__accordion-body">
           {%- assign weight = product.metafields.tech.weight.value -%}
           {%- assign drop = product.metafields.tech.drop.value -%}
@@ -140,26 +146,26 @@
           {%- assign outsole = product.metafields.tech.outsole.value -%}
           {%- assign origin = product.metafields.tech.origin.value -%}
           {%- assign care = product.metafields.tech.care.value -%}
-          {%- if weight -%}重量: {{ weight }} / {%- endif -%}
+          {%- if weight -%}<span data-en="Weight">重量</span>: {{ weight }} / {%- endif -%}
           {%- if drop -%}Drop: {{ drop }} / {%- endif -%}
           {%- if upper -%}Upper: {{ upper }} / {%- endif -%}
           {%- if outsole -%}Outsole: {{ outsole }} / {%- endif -%}
-          {%- if origin -%}Origin: {{ origin }}{%- endif -%}
+          {%- if origin -%}<span data-en="Origin">Origin</span>: {{ origin }}{%- endif -%}
         </div>
       </details>
       <details>
-        <summary>素材 / Materials</summary>
-        <div class="pdp__accordion-body">
+        <summary data-en="Materials">素材 / Materials</summary>
+        <div class="pdp__accordion-body" data-en="Upper: {{ upper | default: '100% recycled polyester' | escape }}. Sole: {{ outsole | default: 'specially formulated rubber' | escape }}. Removable insole.">
           アッパーは{{ upper | default: '再生ポリエステル100%' }}。ソールは{{ outsole | default: '特殊配合のラバー' }}。中敷きは取り外し可能。
         </div>
       </details>
       <details>
-        <summary>ケア / Care</summary>
-        <div class="pdp__accordion-body">{{ care | default: '湿らせた布で表面を拭く。直射日光と乾燥機を避ける。インソールは取り外して乾燥。' }}</div>
+        <summary data-en="Care">ケア / Care</summary>
+        <div class="pdp__accordion-body" data-en="Wipe surface with a damp cloth. Avoid direct sunlight and dryers. Remove and dry insole separately.">{{ care | default: '湿らせた布で表面を拭く。直射日光と乾燥機を避ける。インソールは取り外して乾燥。' }}</div>
       </details>
       <details>
-        <summary>FAQ</summary>
-        <div class="pdp__accordion-body">
+        <summary data-en="FAQ">FAQ</summary>
+        <div class="pdp__accordion-body" data-en="Find frequently asked questions <a href='{{ blogs.journal.url | default: '/blogs/journal' }}' style='color:var(--c-fg); border-bottom:1px solid currentColor;'>here</a>.">
           よくある質問は <a href="{{ blogs.journal.url | default: '/blogs/journal' }}" style="color:var(--c-fg); border-bottom:1px solid currentColor;">こちら</a> から。
         </div>
       </details>
@@ -175,14 +181,16 @@
     var variantInput = pdp.querySelector('[data-noll-variant-id]');
     var priceEl = pdp.querySelector('[data-noll-pdp-price]');
 
-    // Variants from server
     var variants = {{ product.variants | json }};
 
-    // Selected options state (1-indexed by position)
     var selected = {};
     {% for option in product.options_with_values %}
       selected[{{ option.position }}] = {{ option.selected_value | json }};
     {% endfor %}
+
+    function getLang() {
+      try { return localStorage.getItem('noll-lang') || 'ja'; } catch(e) { return 'ja'; }
+    }
 
     function findVariant() {
       return variants.find(function(v) {
@@ -198,17 +206,15 @@
       var v = findVariant();
       if (!v) return;
       variantInput.value = v.id;
-      // Update price
       var price = (v.price / 100).toLocaleString('ja-JP', { style: 'currency', currency: '{{ shop.currency }}' });
+      var taxLabel = getLang() === 'en' ? 'incl. tax' : '税込';
       if (priceEl) {
-        priceEl.innerHTML = price + ' <span style="font-size:11px; color:var(--c-muted); font-weight:400;">税込</span>';
+        priceEl.innerHTML = price + ' <span style="font-size:11px; color:var(--c-muted); font-weight:400;">' + taxLabel + '</span>';
       }
-      // Update displays
       Object.keys(selected).forEach(function(pos) {
         var disp = pdp.querySelector('[data-noll-option-display="' + pos + '"]');
         if (disp) disp.textContent = selected[pos];
       });
-      // Update URL (optional)
       if (history.replaceState) {
         var url = new URL(window.location);
         url.searchParams.set('variant', v.id);
@@ -222,7 +228,6 @@
         var pos = parseInt(btn.dataset.nollOption);
         var val = btn.dataset.nollValue;
         selected[pos] = val;
-        // Toggle active class within group
         var group = btn.closest('.pdp__colors, .pdp__sizes');
         if (group) {
           group.querySelectorAll('[data-noll-option]').forEach(function(b) { b.classList.remove('is-active'); });
@@ -232,7 +237,6 @@
       });
     });
 
-    // Quantity stepper
     var qtyInput = pdp.querySelector('[data-noll-qty-input]');
     pdp.querySelector('[data-noll-qty-minus]').addEventListener('click', function() {
       qtyInput.value = Math.max(1, parseInt(qtyInput.value, 10) - 1);
@@ -241,7 +245,6 @@
       qtyInput.value = Math.min(9, parseInt(qtyInput.value, 10) + 1);
     });
 
-    // Thumb gallery
     var main = pdp.querySelector('[data-noll-pdp-main]');
     pdp.querySelectorAll('.pdp__thumb').forEach(function(thumb) {
       thumb.addEventListener('click', function() {
@@ -261,10 +264,14 @@
   "name": "noll PDP",
   "settings": [
     { "type": "text", "id": "brand_label", "label": "Brand label", "default": "NOLL · Performance Footgear" },
-    { "type": "text", "id": "tax_label", "label": "Tax label", "default": "税込" },
-    { "type": "text", "id": "shipping_note", "label": "Shipping note", "default": "国内送料無料" },
-    { "type": "text", "id": "rating", "label": "Rating display", "default": "4.8 / 5.0 · 128 reviews" },
-    { "type": "textarea", "id": "description", "label": "Short description override" }
+    { "type": "text", "id": "tax_label", "label": "Tax label (JA)", "default": "税込" },
+    { "type": "text", "id": "tax_label_en", "label": "Tax label (EN)", "default": "incl. tax" },
+    { "type": "text", "id": "shipping_note", "label": "Shipping note (JA)", "default": "国内送料無料" },
+    { "type": "text", "id": "shipping_note_en", "label": "Shipping note (EN)", "default": "Free domestic shipping" },
+    { "type": "text", "id": "rating", "label": "Rating display (JA)", "default": "4.8 / 5.0 · 128 件のレビュー" },
+    { "type": "text", "id": "rating_en", "label": "Rating display (EN)", "default": "4.8 / 5.0 · 128 reviews" },
+    { "type": "textarea", "id": "description", "label": "Description (JA)", "default": "指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。" },
+    { "type": "textarea", "id": "description_en", "label": "Description (EN)", "default": "Room for all five toes to move independently, a 3D cradle that wraps the heel and creates an axis, and a sole that transmits ground feel. One pair, built for walking." }
   ],
   "presets": [{ "name": "noll PDP" }]
 }

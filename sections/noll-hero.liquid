@@ -1,4 +1,4 @@
-{% comment %} noll Hero — split-line title + media + CTAs {% endcomment %}
+{% comment %} noll Hero — split-line title + media + CTAs (bilingual JP/EN) {% endcomment %}
 
 <section class="hero">
   <div class="hero__crumbs reveal">
@@ -11,17 +11,17 @@
       <h1 class="hero__title">
         <span class="split-line" data-line-delay="1"><span>{{ section.settings.title_en_1 | default: 'Performance' }}</span></span>
         <span class="split-line" data-line-delay="2"><span>{{ section.settings.title_en_2 | default: 'footgear' }}</span></span>
-        <span class="ja split-line" data-line-delay="3"><span>{{ section.settings.title_ja | default: '歩行で、思考を、研ぎ澄ます。' }}</span></span>
+        <span class="ja split-line" data-line-delay="3"><span data-en="{{ section.settings.title_ja_en | default: 'Sharpen your mind through walking.' | escape }}">{{ section.settings.title_ja | default: '歩行で、思考を、研ぎ澄ます。' }}</span></span>
       </h1>
-      <p class="hero__lead reveal" data-reveal-delay="2">
-        {{ section.settings.lead | default: '指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。' }}
+      <p class="hero__lead reveal" data-reveal-delay="2" data-en="{{ section.settings.lead_en | default: 'Free your toes, feel the ground like barefoot. Transform your daily walk into conditioning. Sharpen your creativity, every day.' | escape }}">
+        {{ section.settings.lead | default: '指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。そして、日々の創造性を研ぎ澄ます。' }}
       </p>
       <div class="hero__ctas reveal" data-reveal-delay="3">
         {%- if section.settings.cta_1_text != blank -%}
-          <a href="{{ section.settings.cta_1_link }}" class="btn btn--solid-dark" data-cursor="view">{{ section.settings.cta_1_text }}</a>
+          <a href="{{ section.settings.cta_1_link }}" class="btn btn--solid-dark" data-cursor="view" data-en="{{ section.settings.cta_1_text_en | default: 'Shop now' | escape }}">{{ section.settings.cta_1_text }}</a>
         {%- endif -%}
         {%- if section.settings.cta_2_text != blank -%}
-          <a href="{{ section.settings.cta_2_link }}" class="btn">{{ section.settings.cta_2_text }}</a>
+          <a href="{{ section.settings.cta_2_link }}" class="btn" data-en="{{ section.settings.cta_2_text_en | default: 'About noll One' | escape }}">{{ section.settings.cta_2_text }}</a>
         {%- endif -%}
       </div>
     </div>
@@ -44,10 +44,14 @@
     { "type": "text", "id": "title_en_1", "label": "Title line 1 (EN)", "default": "Performance" },
     { "type": "text", "id": "title_en_2", "label": "Title line 2 (EN)", "default": "footgear" },
     { "type": "text", "id": "title_ja", "label": "Title line 3 (JA)", "default": "歩行で、思考を、研ぎ澄ます。" },
-    { "type": "textarea", "id": "lead", "label": "Lead paragraph", "default": "指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。" },
-    { "type": "text", "id": "cta_1_text", "label": "CTA 1 text", "default": "今すぐ購入する" },
+    { "type": "text", "id": "title_ja_en", "label": "Title line 3 (EN translation)", "default": "Sharpen your mind through walking." },
+    { "type": "textarea", "id": "lead", "label": "Lead paragraph (JA)", "default": "指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。そして、日々の創造性を研ぎ澄ます。" },
+    { "type": "textarea", "id": "lead_en", "label": "Lead paragraph (EN)", "default": "Free your toes, feel the ground like barefoot. Transform your daily walk into conditioning. Sharpen your creativity, every day." },
+    { "type": "text", "id": "cta_1_text", "label": "CTA 1 text (JA)", "default": "今すぐ購入する" },
+    { "type": "text", "id": "cta_1_text_en", "label": "CTA 1 text (EN)", "default": "Shop now" },
     { "type": "url", "id": "cta_1_link", "label": "CTA 1 link" },
-    { "type": "text", "id": "cta_2_text", "label": "CTA 2 text", "default": "noll One について" },
+    { "type": "text", "id": "cta_2_text", "label": "CTA 2 text (JA)", "default": "noll One について" },
+    { "type": "text", "id": "cta_2_text_en", "label": "CTA 2 text (EN)", "default": "About noll One" },
     { "type": "url", "id": "cta_2_link", "label": "CTA 2 link" },
     { "type": "image_picker", "id": "image", "label": "Hero image" }
   ],

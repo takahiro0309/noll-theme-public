@@ -1,9 +1,9 @@
-{% comment %} noll PDP Tech — 4 technology cards {% endcomment %}
+{% comment %} noll PDP Tech — 4 technology cards — bilingual {% endcomment %}
 
 <section class="pdp-tech">
   <div class="pdp-tech__head">
-    <p class="eyebrow reveal">{{ section.settings.eyebrow | default: 'Technology' }}</p>
-    <h2 class="reveal" data-reveal-delay="1">{{ section.settings.title | default: 'noll One のテクノロジー' }}</h2>
+    <p class="eyebrow reveal" data-en="{{ section.settings.eyebrow_en | default: 'Technology' | escape }}">{{ section.settings.eyebrow | default: 'Technology' }}</p>
+    <h2 class="reveal" data-reveal-delay="1" data-en="{{ section.settings.title_en | default: 'noll One Technology' | escape }}">{{ section.settings.title | default: 'noll One のテクノロジー' }}</h2>
   </div>
   <div class="pdp-tech__grid">
     {%- for block in section.blocks -%}
@@ -17,8 +17,8 @@
             <img src="{{ block.settings.fallback_image | default: 'product_angle_1.jpg' | asset_url }}" alt="">
           {%- endif -%}
         </div>
-        <h3>{{ block.settings.title }}</h3>
-        <p>{{ block.settings.body }}</p>
+        <h3 data-en="{{ block.settings.title_en | escape }}">{{ block.settings.title }}</h3>
+        <p data-en="{{ block.settings.body_en | escape }}">{{ block.settings.body }}</p>
       </div>
     {%- endfor -%}
   </div>
@@ -28,8 +28,10 @@
 {
   "name": "noll PDP Tech",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Technology" },
-    { "type": "text", "id": "title", "label": "Title", "default": "noll One のテクノロジー" }
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "Technology" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "Technology" },
+    { "type": "text", "id": "title", "label": "Title (JA)", "default": "noll One のテクノロジー" },
+    { "type": "text", "id": "title_en", "label": "Title (EN)", "default": "noll One Technology" }
   ],
   "blocks": [
     {
@@ -38,8 +40,10 @@
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "text", "id": "fallback_image", "label": "Fallback asset filename" },
-        { "type": "text", "id": "title", "label": "Title" },
-        { "type": "textarea", "id": "body", "label": "Body" }
+        { "type": "text", "id": "title", "label": "Title (JA)" },
+        { "type": "text", "id": "title_en", "label": "Title (EN)" },
+        { "type": "textarea", "id": "body", "label": "Body (JA)" },
+        { "type": "textarea", "id": "body_en", "label": "Body (EN)" }
       ]
     }
   ],
@@ -47,10 +51,10 @@
     {
       "name": "noll PDP Tech",
       "blocks": [
-        { "type": "card", "settings": { "title": "解剖学的ラスト", "body": "指先5本が独立して動く広さを確保。", "fallback_image": "product_angle_1.jpg" } },
-        { "type": "card", "settings": { "title": "3Dクレードル", "body": "かかとを包み、軸がぶれない着地。", "fallback_image": "product_angle_2.jpg" } },
-        { "type": "card", "settings": { "title": "フレックス溝", "body": "中足部の自然な蹴り出しを支える。", "fallback_image": "product_angle_3.jpg" } },
-        { "type": "card", "settings": { "title": "軽量ミッドソール", "body": "片足210g。1日2万歩でも疲れにくい。", "fallback_image": "product_angle_4.jpg" } }
+        { "type": "card", "settings": { "title": "解剖学的ラスト", "title_en": "Anatomical Last", "body": "指先5本が独立して動く広さを確保。", "body_en": "Wide design that lets all five toes move independently.", "fallback_image": "product_angle_1.jpg" } },
+        { "type": "card", "settings": { "title": "3Dクレードル", "title_en": "3D Cradle", "body": "かかとを包み、軸がぶれない着地。", "body_en": "Wraps the heel for a stable, axis-aligned landing.", "fallback_image": "product_angle_2.jpg" } },
+        { "type": "card", "settings": { "title": "フレックス溝", "title_en": "Flex Grooves", "body": "中足部の自然な蹴り出しを支える。", "body_en": "Supports a natural midfoot toe-off.", "fallback_image": "product_angle_3.jpg" } },
+        { "type": "card", "settings": { "title": "軽量ミッドソール", "title_en": "Lightweight Midsole", "body": "片足210g。1日2万歩でも疲れにくい。", "body_en": "210g per shoe. Comfortable even at 20,000 steps a day.", "fallback_image": "product_angle_4.jpg" } }
       ]
     }
   ]
