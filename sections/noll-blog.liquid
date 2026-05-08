@@ -15,13 +15,15 @@
         {{ main.published_at | date: '%Y.%m.%d' }} · {{ main.author }}
       </div>
     </div>
-    {%- if main.image != blank -%}
-      <div class="journal-hero__media reveal">
-        <div class="journal-hero__media-inner">
+    <div class="journal-hero__media reveal">
+      <div class="journal-hero__media-inner">
+        {%- if main.image != blank -%}
           <img src="{{ main.image | image_url: width: 1600 }}" alt="{{ main.title | escape }}">
-        </div>
+        {%- else -%}
+          <img src="{{ 'journal_1.jpg' | asset_url }}" alt="{{ main.title | escape }}">
+        {%- endif -%}
       </div>
-    {%- endif -%}
+    </div>
     <div style="text-align:center; margin: 32px 0 64px;">
       <a href="{{ main.url }}" class="btn btn--solid-dark" data-en="{{ section.settings.read_cta_en | default: 'Read article →' | escape }}">{{ section.settings.read_cta | default: '記事を読む →' }}</a>
     </div>
@@ -31,13 +33,22 @@
 <section class="journal-related">
   <h2 data-en="{{ section.settings.list_title_en | default: 'All Articles' | escape }}">{{ section.settings.list_title | default: 'すべての記事' }}</h2>
   <div class="journal-related__grid">
+    {%- assign fallback_imgs = 'journal_2.jpg,journal_3.jpg,journal_1.jpg,insta_1.jpg,insta_2.jpg,insta_3.jpg' | split: ',' -%}
     {%- for art in blog.articles offset: 1 limit: 12 -%}
+      {%- assign fb = fallback_imgs[forloop.index0] | default: 'journal_1.jpg' -%}
       <a href="{{ art.url }}" class="journal-card reveal"{% if forloop.index0 > 0 %} data-reveal-delay="{{ forloop.index0 }}"{% endif %} data-cursor="view">
-        {%- if art.image -%}
-          <div class="journal-card__media"><img src="{{ art.image | image_url: width: 800 }}" alt="{{ art.title | escape }}"></div>
-        {%- endif -%}
+        <div class="journal-card__media">
+          {%- if art.image -%}
+            <img src="{{ art.image | image_url: width: 800 }}" alt="{{ art.title | escape }}">
+          {%- else -%}
+            <img src="{{ fb | asset_url }}" alt="{{ art.title | escape }}">
+          {%- endif -%}
+        </div>
         <p class="journal-card__cat">{{ art.tags.first | default: 'Journal' }}</p>
         <h3 class="journal-card__title">{{ art.title }}</h3>
+        {%- if art.excerpt != blank -%}
+          <p class="journal-card__excerpt">{{ art.excerpt | strip_html | truncate: 90 }}</p>
+        {%- endif -%}
         <p class="journal-card__date">{{ art.published_at | date: '%Y.%m.%d' }}</p>
       </a>
     {%- endfor -%}

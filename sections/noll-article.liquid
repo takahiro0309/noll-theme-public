@@ -23,13 +23,15 @@
     </div>
   </div>
 
-  {%- if article.image != blank -%}
-    <div class="journal-hero__media reveal">
-      <div class="journal-hero__media-inner">
+  <div class="journal-hero__media reveal">
+    <div class="journal-hero__media-inner">
+      {%- if article.image != blank -%}
         <img src="{{ article.image | image_url: width: 1600 }}" alt="{{ article.image.alt | default: article.title | escape }}">
-      </div>
+      {%- else -%}
+        <img src="{{ 'journal_1.jpg' | asset_url }}" alt="{{ article.title | escape }}">
+      {%- endif -%}
     </div>
-  {%- endif -%}
+  </div>
 
   <div class="article">
     {{ article.content }}
