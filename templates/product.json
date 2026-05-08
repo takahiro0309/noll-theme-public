@@ -5,18 +5,35 @@
       "settings": {
         "brand_label": "NOLL · Performance Footgear",
         "tax_label": "税込",
+        "tax_label_en": "incl. tax",
         "shipping_note": "国内送料無料",
-        "rating": "4.8 / 5.0 · 128 reviews"
+        "shipping_note_en": "Free domestic shipping",
+        "rating": "4.8 / 5.0 · 128 件のレビュー",
+        "rating_en": "4.8 / 5.0 · 128 reviews",
+        "description": "指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。",
+        "description_en": "Room for all five toes to move independently, a 3D cradle that wraps the heel, and a sole that transmits ground feel."
+      }
+    },
+    "payment": {
+      "type": "noll-payment-info",
+      "settings": {
+        "title": "お支払い・配送・保証",
+        "sub": "安全な決済 · 256bit SSL"
       }
     },
     "tech": {
       "type": "noll-pdp-tech",
-      "settings": { "eyebrow": "Technology", "title": "noll One のテクノロジー" },
+      "settings": {
+        "eyebrow": "Technology",
+        "eyebrow_en": "Technology",
+        "title": "noll One のテクノロジー",
+        "title_en": "noll One Technology"
+      },
       "blocks": {
-        "t1": { "type": "card", "settings": { "title": "解剖学的ラスト", "body": "指先5本が独立して動く広さを確保。", "fallback_image": "product_angle_1.jpg" } },
-        "t2": { "type": "card", "settings": { "title": "3Dクレードル", "body": "かかとを包み、軸がぶれない着地。", "fallback_image": "product_angle_2.jpg" } },
-        "t3": { "type": "card", "settings": { "title": "フレックス溝", "body": "中足部の自然な蹴り出しを支える。", "fallback_image": "product_angle_3.jpg" } },
-        "t4": { "type": "card", "settings": { "title": "軽量ミッドソール", "body": "片足210g。1日2万歩でも疲れにくい。", "fallback_image": "product_angle_4.jpg" } }
+        "t1": {"type": "card", "settings": {"title": "解剖学的ラスト", "title_en": "Anatomical Last", "body": "指先5本が独立して動く広さを確保。", "body_en": "Wide design that lets all five toes move independently.", "fallback_image": "product_angle_1.jpg"}},
+        "t2": {"type": "card", "settings": {"title": "3Dクレードル", "title_en": "3D Cradle", "body": "かかとを包み、軸がぶれない着地。", "body_en": "Wraps the heel for a stable, axis-aligned landing.", "fallback_image": "product_angle_2.jpg"}},
+        "t3": {"type": "card", "settings": {"title": "フレックス溝", "title_en": "Flex Grooves", "body": "中足部の自然な蹴り出しを支える。", "body_en": "Supports a natural midfoot toe-off.", "fallback_image": "product_angle_3.jpg"}},
+        "t4": {"type": "card", "settings": {"title": "軽量ミッドソール", "title_en": "Lightweight Midsole", "body": "片足210g。1日2万歩でも疲れにくい。", "body_en": "210g per shoe. Comfortable even at 20,000 steps a day.", "fallback_image": "product_angle_4.jpg"}}
       },
       "block_order": ["t1", "t2", "t3", "t4"]
     },
@@ -24,31 +41,33 @@
       "type": "noll-pdp-reviews",
       "settings": {
         "eyebrow": "Customer reviews",
+        "eyebrow_en": "Customer reviews",
         "title": "お客様レビュー",
+        "title_en": "Customer Reviews",
         "score": "4.8",
         "review_count": "128",
         "bar_pcts": "82,14,3,1,0",
         "bar_counts": "105,18,4,1,0"
       },
       "blocks": {
-        "r1": { "type": "review", "settings": { "stars": "★★★★★", "title": "歩いていて、足が軽い。", "body": "仕事で1日中歩き回るが、夕方の足の重さが半減した。指先の自由度が想像以上で、もうこれ以外履けない。", "meta": "Yusuke T. · Tokyo · 2026.04" } },
-        "r2": { "type": "review", "settings": { "stars": "★★★★★", "title": "姿勢が変わった。", "body": "ヒールが低いのに安定感があるのが新鮮。立ち姿勢が自然と整う感覚があり、長時間のデスクワークでも疲れにくい。", "meta": "Mika S. · Kyoto · 2026.04" } },
-        "r3": { "type": "review", "settings": { "stars": "★★★★☆", "title": "デザインも秀逸。", "body": "機能だけかと思いきや、合わせやすい。スーツでも休日でも違和感なく履けるミニマルさが嬉しい。", "meta": "Daiki H. · Osaka · 2026.03" } }
+        "r1": {"type": "review", "settings": {"stars": "★★★★★", "title": "歩いていて、足が軽い。", "title_en": "My feet feel light all day.", "body": "仕事で1日中歩き回るが、夕方の足の重さが半減した。指先の自由度が想像以上で、もうこれ以外履けない。", "body_en": "I walk all day for work, and the evening heaviness is cut in half.", "meta": "Yusuke T. · Tokyo · 2026.04"}},
+        "r2": {"type": "review", "settings": {"stars": "★★★★★", "title": "姿勢が変わった。", "title_en": "My posture changed.", "body": "ヒールが低いのに安定感があるのが新鮮。立ち姿勢が自然と整う感覚があり、長時間のデスクワークでも疲れにくい。", "body_en": "The low heel with stability is refreshing.", "meta": "Mika S. · Kyoto · 2026.04"}},
+        "r3": {"type": "review", "settings": {"stars": "★★★★☆", "title": "デザインも秀逸。", "title_en": "Design is excellent too.", "body": "機能だけかと思いきや、合わせやすい。スーツでも休日でも違和感なく履けるミニマルさが嬉しい。", "body_en": "I expected function only, but they're versatile.", "meta": "Daiki H. · Osaka · 2026.03"}}
       },
       "block_order": ["r1", "r2", "r3"]
     },
     "insta": {
       "type": "noll-insta-grid",
-      "settings": { "handle": "@noll_japan", "handle_url": "https://www.instagram.com/noll_japan", "border_top": true },
+      "settings": {"handle": "@noll_japan", "handle_url": "https://www.instagram.com/noll_japan", "border_top": true},
       "blocks": {
-        "i1": { "type": "tile", "settings": { "fallback_image": "insta_1.jpg" } },
-        "i2": { "type": "tile", "settings": { "fallback_image": "insta_2.jpg" } },
-        "i3": { "type": "tile", "settings": { "fallback_image": "insta_3.jpg" } },
-        "i4": { "type": "tile", "settings": { "fallback_image": "insta_4.jpg" } },
-        "i5": { "type": "tile", "settings": { "fallback_image": "insta_5.jpg" } }
+        "i1": {"type": "tile", "settings": {"fallback_image": "insta_1.jpg"}},
+        "i2": {"type": "tile", "settings": {"fallback_image": "insta_2.jpg"}},
+        "i3": {"type": "tile", "settings": {"fallback_image": "insta_3.jpg"}},
+        "i4": {"type": "tile", "settings": {"fallback_image": "insta_4.jpg"}},
+        "i5": {"type": "tile", "settings": {"fallback_image": "insta_5.jpg"}}
       },
       "block_order": ["i1", "i2", "i3", "i4", "i5"]
     }
   },
-  "order": ["main", "tech", "reviews", "insta"]
+  "order": ["main", "payment", "tech", "reviews", "insta"]
 }

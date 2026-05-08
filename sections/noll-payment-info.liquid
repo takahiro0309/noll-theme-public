@@ -1,0 +1,72 @@
+{% comment %} noll Payment Info — supported payment methods + JP trust signals {% endcomment %}
+
+<section class="payment-info-section" style="padding: 32px var(--gutter); max-width: var(--max); margin: 0 auto;">
+  <div class="payment-methods">
+    <div class="payment-methods__head">
+      <p class="payment-methods__title" data-en="Payment options">{{ section.settings.title | default: 'お支払い方法' }}</p>
+      <p class="payment-methods__sub" data-en="Secure checkout · 256-bit SSL">{{ section.settings.sub | default: '安全な決済 · 256bit SSL暗号化' }}</p>
+    </div>
+    <div class="payment-methods__grid">
+      <div class="payment-method payment-method--brand" title="Visa">VISA</div>
+      <div class="payment-method payment-method--brand" title="Mastercard">MC</div>
+      <div class="payment-method payment-method--brand" title="JCB">JCB</div>
+      <div class="payment-method payment-method--brand" title="American Express">AMEX</div>
+      <div class="payment-method payment-method--brand" title="Diners">DINERS</div>
+      <div class="payment-method" title="Apple Pay">
+        <svg viewBox="0 0 32 18" aria-hidden="true"><text x="16" y="14" text-anchor="middle" font-family="-apple-system,sans-serif" font-size="9" font-weight="600" fill="currentColor">Pay</text></svg>
+      </div>
+      <div class="payment-method" title="Google Pay">G Pay</div>
+      <div class="payment-method" title="Shop Pay">Shop</div>
+      <div class="payment-method" title="PayPay">PayPay</div>
+      <div class="payment-method" title="Amazon Pay">aPay</div>
+      <div class="payment-method" title="楽天ペイ">楽天</div>
+      <div class="payment-method" title="d払い">d払</div>
+      <div class="payment-method" title="LINE Pay">LINE</div>
+      <div class="payment-method" title="コンビニ決済">コンビニ</div>
+      <div class="payment-method" title="銀行振込">銀行</div>
+      <div class="payment-method" title="代金引換">代引</div>
+    </div>
+  </div>
+
+  <div class="jp-trust">
+    <div class="jp-trust__item">
+      <span class="jp-trust__icon"><svg viewBox="0 0 24 24"><path d="M3 7h13l5 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></span>
+      <div>
+        <strong class="jp-trust__title" data-en="Free shipping in Japan">国内送料無料</strong>
+        <span class="jp-trust__sub" data-en="Orders ship in 2–4 business days">ご注文後 2〜4 営業日でお届け</span>
+      </div>
+    </div>
+    <div class="jp-trust__item">
+      <span class="jp-trust__icon"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2 0 4 .8 5.5 2"/><polyline points="14 3 18 3 18 7"/></svg></span>
+      <div>
+        <strong class="jp-trust__title" data-en="30-day free returns">30日間 返品・交換無料</strong>
+        <span class="jp-trust__sub" data-en="Sizing not right? We'll cover return shipping for exchanges.">サイズが合わなければ送料弊社負担で交換</span>
+      </div>
+    </div>
+    <div class="jp-trust__item">
+      <span class="jp-trust__icon"><svg viewBox="0 0 24 24"><path d="M12 3 L 4 7 V 13 C 4 17 7.5 20 12 21 C 16.5 20 20 17 20 13 V 7 Z"/><polyline points="9 12 11 14 15 10"/></svg></span>
+      <div>
+        <strong class="jp-trust__title" data-en="1-year warranty">1年間の品質保証</strong>
+        <span class="jp-trust__sub" data-en="Defects covered. Email us for repair or replacement.">通常使用での不具合は無償修理または交換</span>
+      </div>
+    </div>
+    <div class="jp-trust__item">
+      <span class="jp-trust__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18"/></svg></span>
+      <div>
+        <strong class="jp-trust__title" data-en="Japanese customer support">日本語サポート</strong>
+        <span class="jp-trust__sub" data-en="Mon–Fri 10:00–18:00 JST. Reply within 1 business day.">平日 10:00–18:00 / 1営業日以内に返信</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll Payment Info",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title (JA)", "default": "お支払い方法" },
+    { "type": "text", "id": "sub", "label": "Sub text (JA)", "default": "安全な決済 · 256bit SSL暗号化" }
+  ],
+  "presets": [{ "name": "noll Payment Info" }]
+}
+{% endschema %}

@@ -8,47 +8,45 @@
         "title_en_1": "Performance",
         "title_en_2": "footgear",
         "title_ja": "歩行で、思考を、研ぎ澄ます。",
-        "lead": "指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。",
+        "title_ja_en": "Sharpen your mind through walking.",
+        "lead": "指先の自由を手に入れ、裸足のような感覚で地面を踏みしめる。日常の歩きを、コンディショニングに変える。そして、日々の創造性を研ぎ澄ます。",
+        "lead_en": "Free your toes, feel the ground like barefoot. Transform your daily walk into conditioning. Sharpen your creativity, every day.",
         "cta_1_text": "今すぐ購入する",
+        "cta_1_text_en": "Shop now",
         "cta_1_link": "/products/noll-one",
         "cta_2_text": "noll One について",
+        "cta_2_text_en": "About noll One",
         "cta_2_link": "#mission"
       }
     },
-    "marquee": {
-      "type": "noll-marquee",
-      "blocks": {
-        "p1": { "type": "phrase", "settings": { "en": "A foot is a thinking organ.", "ja": "足は、思考する器官である。" } },
-        "p2": { "type": "phrase", "settings": { "en": "Designed for 20,000 steps a day.", "ja": "1日2万歩を、整える。" } },
-        "p3": { "type": "phrase", "settings": { "en": "Made in Japan, by hand.", "ja": "日本製・手仕事。" } }
-      },
-      "block_order": ["p1", "p2", "p3"]
-    },
     "angles": {
       "type": "noll-product-angles",
-      "settings": { "product_url": "/products/noll-one" },
       "blocks": {
-        "a1": { "type": "angle", "settings": { "label": "解剖学的ラスト", "fallback_image": "product_angle_1.jpg", "link": "/products/noll-one" } },
-        "a2": { "type": "angle", "settings": { "label": "3Dクレードル", "fallback_image": "product_angle_2.jpg", "link": "/products/noll-one" } },
-        "a3": { "type": "angle", "settings": { "label": "フレックス溝", "fallback_image": "product_angle_3.jpg", "link": "/products/noll-one" } },
-        "a4": { "type": "angle", "settings": { "label": "軽量ミッドソール", "fallback_image": "product_angle_4.jpg", "link": "/products/noll-one" } }
+        "a1": {"type": "angle", "settings": {"fallback_image": "product_angle_1.jpg", "label": "解剖学的ラスト", "label_en": "Anatomical Last", "link": "/products/noll-one"}},
+        "a2": {"type": "angle", "settings": {"fallback_image": "product_angle_2.jpg", "label": "3Dクレードル", "label_en": "3D Cradle", "link": "/products/noll-one"}},
+        "a3": {"type": "angle", "settings": {"fallback_image": "product_angle_3.jpg", "label": "フレックス溝", "label_en": "Flex Grooves", "link": "/products/noll-one"}},
+        "a4": {"type": "angle", "settings": {"fallback_image": "product_angle_4.jpg", "label": "軽量ミッドソール", "label_en": "Lightweight Midsole", "link": "/products/noll-one"}}
       },
-      "block_order": ["a1", "a2", "a3", "a4"]
+      "block_order": ["a1", "a2", "a3", "a4"],
+      "settings": {"product_url": "/products/noll-one"}
     },
     "features": {
       "type": "noll-features",
+      "blocks": {
+        "f1": {"type": "feature", "settings": {"number": "01", "title": "足本来の動きを妨げない。", "title_en": "Never restrict natural movement.", "body": "自由に動ける日常へ。広いラスト形状が横方向のブレを抑え、指先5本が独立して動く空間を確保。足首と膝の負担を逃がす。", "body_en": "Freedom in every step. The wide last shape reduces lateral sway while giving all five toes room to move independently. Relieves stress on ankles and knees.", "fallback_image": "journal_1.jpg"}},
+        "f2": {"type": "feature", "settings": {"number": "02", "title": "足元から、姿勢を整える。", "title_en": "Align your posture from the ground up.", "body": "軸のある毎日へ。踵を包む3Dヒールクレードルが自然な体重移動を導く。1日2万歩でも疲労を蓄積させない設計。", "body_en": "A centered life, every day. The 3D heel cradle guides natural weight transfer. Designed to prevent fatigue accumulation even at 20,000 steps a day.", "fallback_image": "journal_2.jpg"}},
+        "f3": {"type": "feature", "settings": {"number": "03", "title": "歩きが整う。思考が冴える。", "title_en": "Better walking. Sharper thinking.", "body": "中足部のフレックス溝が自然な蹴り出しを支える。歩行中の発散的思考の生産量は座位の60%増し。歩きが変われば、思考が変わる。", "body_en": "Midfoot flex grooves support natural toe-off. Divergent thinking output increases 60% while walking vs. sitting.", "fallback_image": "journal_3.jpg"}}
+      },
+      "block_order": ["f1", "f2", "f3"],
       "settings": {
         "anchor": "features",
         "eyebrow": "Why noll",
+        "eyebrow_en": "Why noll",
         "title": "日常の一歩から、身体と思考を整える。",
-        "intro": "足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。"
-      },
-      "blocks": {
-        "f1": { "type": "feature", "settings": { "number": "01", "title": "左右の動きに、強い。", "body": "サイドに張り出した広いラスト形状。横方向のブレを抑え、足首と膝の負担を逃がす。", "fallback_image": "journal_1.jpg" } },
-        "f2": { "type": "feature", "settings": { "number": "02", "title": "長く、歩き続けられる。", "body": "中足部のフレックス溝が自然な蹴り出しを支える。1日2万歩でも疲労を蓄積させない設計。", "fallback_image": "journal_2.jpg" } },
-        "f3": { "type": "feature", "settings": { "number": "03", "title": "安定感のある、走り。", "body": "かかとを包む3Dヒールクレードル。着地から蹴り出しまで、軸がぶれない。軽量・限定生産。", "fallback_image": "journal_3.jpg" } }
-      },
-      "block_order": ["f1", "f2", "f3"]
+        "title_en": "Align body and mind from your very first step.",
+        "intro": "足本来の動きを妨げない構造設計。コンディショニングする毎日へ、3つの本質。",
+        "intro_en": "Structural design that never restricts natural foot movement. Three essentials for a conditioning lifestyle."
+      }
     },
     "showcase": {
       "type": "noll-product-showcase",
@@ -56,29 +54,41 @@
         "product": "noll-one",
         "fallback_link": "/products/noll-one",
         "eyebrow": "Our product",
+        "eyebrow_en": "Our product",
         "rating": "4.8 / 5.0",
         "description": "指先5本が独立して動ける広さ、踵を包み軸を作る3Dクレードル、地面の情報を伝えるソール。歩行のための一足。",
-        "cta_text": "商品詳細を見る"
+        "description_en": "Room for all five toes to move independently, a 3D cradle that wraps the heel and creates an axis, and a sole that transmits ground feel.",
+        "cta_text": "商品詳細を見る",
+        "cta_text_en": "View product"
       }
     },
     "lifestyle": {
       "type": "noll-lifestyle",
-      "settings": { "eyebrow": "Field stories", "title": "歩く、を試したくなる場所。" },
       "blocks": {
-        "l1": { "type": "image", "settings": { "fallback_image": "lifestyle_1.jpg", "alt": "Walking trail" } },
-        "l2": { "type": "image", "settings": { "fallback_image": "lifestyle_2.jpg", "alt": "Standing on rocks" } },
-        "l3": { "type": "image", "settings": { "fallback_image": "lifestyle_3.jpg", "alt": "Sunset coast" } }
+        "l1": {"type": "image", "settings": {"fallback_image": "lifestyle_1.jpg", "alt": "Walking trail", "alt_en": "Walking trail"}},
+        "l2": {"type": "image", "settings": {"fallback_image": "lifestyle_2.jpg", "alt": "Standing on rocks", "alt_en": "Standing on rocks"}},
+        "l3": {"type": "image", "settings": {"fallback_image": "lifestyle_3.jpg", "alt": "Sunset coast", "alt_en": "Sunset coast"}}
       },
-      "block_order": ["l1", "l2", "l3"]
+      "block_order": ["l1", "l2", "l3"],
+      "settings": {
+        "eyebrow": "Field stories",
+        "eyebrow_en": "Field stories",
+        "title": "歩く、を試したくなる場所。",
+        "title_en": "Places that make you want to walk."
+      }
     },
     "mission": {
       "type": "noll-mission-dark",
       "settings": {
         "anchor": "mission",
         "eyebrow": "Our mission",
-        "title": "AI時代に、人類のパフォーマンスを最大化する。",
-        "lead": "テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。足元から整える。歩きが整う。思考が冴える。",
+        "eyebrow_en": "Our mission",
+        "title": "AIの時代にこそ、<br>人間の力の拡張を。",
+        "title_en": "In the age of AI,<br>expand human capability.",
+        "lead": "テクノロジーが思考を加速させる時代に、私たちは身体に立ち返る。<br>日常の歩きを、コンディショニングに変える。そして、日々の創造性を研ぎ澄ます。",
+        "lead_en": "In an era where technology accelerates thought, we return to the body.<br>Transform daily walking into conditioning. Sharpen your creativity, every day.",
         "cta_text": "Read manifesto →",
+        "cta_text_en": "Read manifesto →",
         "cta_link": "/blogs/journal"
       }
     },
@@ -86,54 +96,67 @@
       "type": "noll-knowmore",
       "settings": {
         "eyebrow": "Insight",
-        "title": "多くを、知ることができる。",
-        "lead": "<p>歩くことは、最古にして最強の思考整理法かもしれない。スタンフォード大学の研究では、歩行中の発散的思考の生産量は座位の60%増しだった。私たちは、歩きを「設計対象」にした初めてのフットギアブランドである。</p>",
+        "eyebrow_en": "Insight",
+        "title": "歩きが整う。<br>思考が冴える。",
+        "title_en": "Better walking.<br>Sharper thinking.",
+        "lead": "<p>歩くことは、最古にして最強の思考整理法かもしれない。スタンフォード大学の研究では、歩行中の発散的思考の生産量は座位の60%増しだった。足元から整える。歩きが整う。思考が冴える。それが、nollの信じる人間中心のテクノロジーの形だ。</p>",
+        "lead_en": "<p>Walking may be the oldest and most powerful way to organize thought. Stanford research shows divergent thinking output increases 60% while walking vs. sitting. Align from the feet up. That is our vision of human-centered technology.</p>",
         "cta_text": "Read journal →",
+        "cta_text_en": "Read journal →",
         "cta_link": "/blogs/journal"
       }
     },
     "media": {
       "type": "noll-media-row",
-      "settings": { "label": "As featured in" },
       "blocks": {
-        "m1": { "type": "media", "settings": { "name": "Tarzan", "style": "sans" } },
-        "m2": { "type": "media", "settings": { "name": "BRUTUS" } },
-        "m3": { "type": "media", "settings": { "name": "POPEYE", "style": "sans" } },
-        "m4": { "type": "media", "settings": { "name": "Forbes", "style": "serif" } },
-        "m5": { "type": "media", "settings": { "name": "Curve", "style": "script" } }
+        "m1": {"type": "media", "settings": {"name": "Tarzan", "style": "sans"}},
+        "m2": {"type": "media", "settings": {"name": "BRUTUS"}},
+        "m3": {"type": "media", "settings": {"name": "POPEYE", "style": "sans"}},
+        "m4": {"type": "media", "settings": {"name": "Forbes", "style": "serif"}},
+        "m5": {"type": "media", "settings": {"name": "Curve", "style": "script"}}
       },
-      "block_order": ["m1", "m2", "m3", "m4", "m5"]
+      "block_order": ["m1", "m2", "m3", "m4", "m5"],
+      "settings": {"label": "As featured in"}
     },
     "reviews": {
       "type": "noll-home-reviews",
-      "settings": { "eyebrow": "Customer reviews", "title": "お客様の声", "score": "4.8", "review_count": "128" },
       "blocks": {
-        "r1": { "type": "review", "settings": { "stars": "★★★★★", "title": "歩いていて、足が軽い。", "body": "仕事で1日中歩き回るが、夕方の足の重さが半減した。指先の自由度が想像以上で、もうこれ以外履けない。", "meta": "Yusuke T. · Tokyo · 2026.04" } },
-        "r2": { "type": "review", "settings": { "stars": "★★★★★", "title": "姿勢が変わった。", "body": "ヒールが低いのに安定感があるのが新鮮。立ち姿勢が自然と整う感覚があり、長時間のデスクワークでも疲れにくい。", "meta": "Mika S. · Kyoto · 2026.04" } },
-        "r3": { "type": "review", "settings": { "stars": "★★★★☆", "title": "デザインも秀逸。", "body": "機能だけかと思いきや、合わせやすい。スーツでも休日でも違和感なく履けるミニマルさが嬉しい。", "meta": "Daiki H. · Osaka · 2026.03" } }
+        "r1": {"type": "review", "settings": {"stars": "★★★★★", "title": "歩いていて、足が軽い。", "title_en": "My feet feel light all day.", "body": "仕事で1日中歩き回るが、夕方の足の重さが半減した。指先の自由度が想像以上で、もうこれ以外履けない。", "body_en": "I walk all day for work, and the evening heaviness is cut in half.", "meta": "Yusuke T. · Tokyo · 2026.04"}},
+        "r2": {"type": "review", "settings": {"stars": "★★★★★", "title": "姿勢が変わった。", "title_en": "My posture changed.", "body": "ヒールが低いのに安定感があるのが新鮮。立ち姿勢が自然と整う感覚があり、長時間のデスクワークでも疲れにくい。", "body_en": "The low heel with stability is refreshing. My posture aligns naturally.", "meta": "Mika S. · Kyoto · 2026.04"}},
+        "r3": {"type": "review", "settings": {"stars": "★★★★☆", "title": "デザインも秀逸。", "title_en": "Design is excellent too.", "body": "機能だけかと思いきや、合わせやすい。スーツでも休日でも違和感なく履けるミニマルさが嬉しい。", "body_en": "I expected function only, but they're versatile.", "meta": "Daiki H. · Osaka · 2026.03"}}
       },
-      "block_order": ["r1", "r2", "r3"]
+      "block_order": ["r1", "r2", "r3"],
+      "settings": {
+        "eyebrow": "Customer reviews",
+        "eyebrow_en": "Customer reviews",
+        "title": "お客様の声",
+        "title_en": "Customer Reviews",
+        "score": "4.8",
+        "review_count": "128"
+      }
     },
     "insta": {
       "type": "noll-insta-grid",
-      "settings": { "handle": "@noll_japan", "handle_url": "https://www.instagram.com/noll_japan" },
       "blocks": {
-        "i1": { "type": "tile", "settings": { "fallback_image": "insta_1.jpg" } },
-        "i2": { "type": "tile", "settings": { "fallback_image": "insta_2.jpg" } },
-        "i3": { "type": "tile", "settings": { "fallback_image": "insta_3.jpg" } },
-        "i4": { "type": "tile", "settings": { "fallback_image": "insta_4.jpg" } },
-        "i5": { "type": "tile", "settings": { "fallback_image": "insta_5.jpg" } }
+        "i1": {"type": "tile", "settings": {"fallback_image": "insta_1.jpg"}},
+        "i2": {"type": "tile", "settings": {"fallback_image": "insta_2.jpg"}},
+        "i3": {"type": "tile", "settings": {"fallback_image": "insta_3.jpg"}},
+        "i4": {"type": "tile", "settings": {"fallback_image": "insta_4.jpg"}},
+        "i5": {"type": "tile", "settings": {"fallback_image": "insta_5.jpg"}}
       },
-      "block_order": ["i1", "i2", "i3", "i4", "i5"]
+      "block_order": ["i1", "i2", "i3", "i4", "i5"],
+      "settings": {"handle": "@noll_japan", "handle_url": "https://www.instagram.com/noll_japan"}
     },
     "news": {
       "type": "noll-news-strip",
       "settings": {
         "anchor": "contact",
-        "title": "noll Letter — 月1回のブランドレター",
-        "body": "ローンチ日・先行枠・最新アップデートを優先配信します。"
+        "title": "noll Letter — 歩く人のためのインサイト",
+        "title_en": "noll Letter — Insights for Walkers",
+        "body": "歩行と思考の最新リサーチ、健康・コンディショニング情報、新店舗オープン情報を月1回お届けします。",
+        "body_en": "Monthly updates on walking & thinking research, health & conditioning tips, and new store openings."
       }
     }
   },
-  "order": ["hero", "marquee", "angles", "features", "showcase", "lifestyle", "mission", "knowmore", "media", "reviews", "insta", "news"]
+  "order": ["hero", "angles", "features", "showcase", "lifestyle", "mission", "knowmore", "media", "reviews", "insta", "news"]
 }

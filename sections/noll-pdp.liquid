@@ -70,11 +70,26 @@
             {%- if is_color -%}
               <span><span data-en="Color">{{ option.name }}</span> : <span data-noll-option-display="{{ option.position }}">{{ option.selected_value }}</span></span>
             {%- elsif is_size -%}
-              <span><span data-en="Size">{{ option.name }}</span> : <span data-noll-option-display="{{ option.position }}">{{ option.selected_value }}</span></span>
+              {%- assign sel_cm = option.selected_value -%}
+              {%- if sel_cm == 'US 5' -%}{%- assign sel_cm = '23.0cm (US 5)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 5.5' -%}{%- assign sel_cm = '23.5cm (US 5.5)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 6' -%}{%- assign sel_cm = '24.0cm (US 6)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 6.5' -%}{%- assign sel_cm = '24.5cm (US 6.5)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 7' -%}{%- assign sel_cm = '25.0cm (US 7)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 7.5' -%}{%- assign sel_cm = '25.5cm (US 7.5)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 8' -%}{%- assign sel_cm = '26.0cm (US 8)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 8.5' -%}{%- assign sel_cm = '26.5cm (US 8.5)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 9' -%}{%- assign sel_cm = '27.0cm (US 9)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 9.5' -%}{%- assign sel_cm = '27.5cm (US 9.5)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 10' -%}{%- assign sel_cm = '28.0cm (US 10)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 10.5' -%}{%- assign sel_cm = '28.5cm (US 10.5)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 11' -%}{%- assign sel_cm = '29.0cm (US 11)' -%}{%- endif -%}
+              {%- if sel_cm == 'US 11.5' -%}{%- assign sel_cm = '29.5cm (US 11.5)' -%}{%- endif -%}
+              <span><span data-en="Size">{{ option.name }}</span> : <span data-noll-option-display="{{ option.position }}">{{ sel_cm }}</span></span>
             {%- else -%}
               <span>{{ option.name }} : <span data-noll-option-display="{{ option.position }}">{{ option.selected_value }}</span></span>
             {%- endif -%}
-            {%- if is_size -%}<a href="#sizeGuide" style="font-size:11px; color:var(--c-muted); border-bottom: 1px solid currentColor; padding-bottom:1px;" data-en="Size guide">サイズを選ぶ</a>{%- endif -%}
+            {%- if is_size -%}<button type="button" class="pdp__size-guide-trigger" onclick="document.getElementById('sizeGuideModal').showModal()" style="font-size:11px; color:var(--c-muted); border:0; background:none; border-bottom: 1px solid currentColor; padding:0 0 1px 0; cursor:pointer;" data-en="Size guide →">サイズガイド →</button>{%- endif -%}
           </div>
           {%- if is_color -%}
             <div class="pdp__colors" role="radiogroup" aria-label="{{ option.name }}">
@@ -90,14 +105,33 @@
               {%- for value in option.values -%}
                 {%- assign variant_for_value = nil -%}
                 {%- for variant in product.variants -%}
-                  {%- if variant.options[forloop.index0 | plus: 0] contains value or variant.option1 == value or variant.option2 == value or variant.option3 == value -%}
+                  {%- if variant.option1 == value or variant.option2 == value or variant.option3 == value -%}
                     {%- assign variant_for_value = variant -%}
                   {%- endif -%}
                 {%- endfor -%}
                 {%- assign is_out = false -%}
                 {%- if variant_for_value and variant_for_value.available == false and product.variants.first.inventory_policy != 'continue' -%}{%- assign is_out = true -%}{%- endif -%}
-                {%- assign display = value | replace: 'US ', '' -%}
-                <button type="button" class="pdp__size{% if value == option.selected_value %} is-active{% endif %}{% if is_out %} is-out{% endif %}"{% if is_out %} disabled{% endif %} data-noll-option="{{ option.position }}" data-noll-value="{{ value | escape }}">{{ display }}</button>
+                {%- comment %} Map US size → JP cm. Display "27.0" with "(US 9)" label below {%- endcomment -%}
+                {%- assign cm_value = value -%}
+                {%- assign us_label = '' -%}
+                {%- if value == 'US 5' -%}{%- assign cm_value = '23.0' -%}{%- assign us_label = 'US 5' -%}{%- endif -%}
+                {%- if value == 'US 5.5' -%}{%- assign cm_value = '23.5' -%}{%- assign us_label = 'US 5.5' -%}{%- endif -%}
+                {%- if value == 'US 6' -%}{%- assign cm_value = '24.0' -%}{%- assign us_label = 'US 6' -%}{%- endif -%}
+                {%- if value == 'US 6.5' -%}{%- assign cm_value = '24.5' -%}{%- assign us_label = 'US 6.5' -%}{%- endif -%}
+                {%- if value == 'US 7' -%}{%- assign cm_value = '25.0' -%}{%- assign us_label = 'US 7' -%}{%- endif -%}
+                {%- if value == 'US 7.5' -%}{%- assign cm_value = '25.5' -%}{%- assign us_label = 'US 7.5' -%}{%- endif -%}
+                {%- if value == 'US 8' -%}{%- assign cm_value = '26.0' -%}{%- assign us_label = 'US 8' -%}{%- endif -%}
+                {%- if value == 'US 8.5' -%}{%- assign cm_value = '26.5' -%}{%- assign us_label = 'US 8.5' -%}{%- endif -%}
+                {%- if value == 'US 9' -%}{%- assign cm_value = '27.0' -%}{%- assign us_label = 'US 9' -%}{%- endif -%}
+                {%- if value == 'US 9.5' -%}{%- assign cm_value = '27.5' -%}{%- assign us_label = 'US 9.5' -%}{%- endif -%}
+                {%- if value == 'US 10' -%}{%- assign cm_value = '28.0' -%}{%- assign us_label = 'US 10' -%}{%- endif -%}
+                {%- if value == 'US 10.5' -%}{%- assign cm_value = '28.5' -%}{%- assign us_label = 'US 10.5' -%}{%- endif -%}
+                {%- if value == 'US 11' -%}{%- assign cm_value = '29.0' -%}{%- assign us_label = 'US 11' -%}{%- endif -%}
+                {%- if value == 'US 11.5' -%}{%- assign cm_value = '29.5' -%}{%- assign us_label = 'US 11.5' -%}{%- endif -%}
+                <button type="button" class="pdp__size pdp__size--cm{% if value == option.selected_value %} is-active{% endif %}{% if is_out %} is-out{% endif %}"{% if is_out %} disabled{% endif %} data-noll-option="{{ option.position }}" data-noll-value="{{ value | escape }}">
+                  <span class="pdp__size-cm">{{ cm_value }}</span>
+                  <span class="pdp__size-us">{{ us_label }}</span>
+                </button>
               {%- endfor -%}
             </div>
           {%- endif -%}
@@ -173,6 +207,53 @@
   </div>
 </section>
 
+<dialog id="sizeGuideModal" class="size-guide-modal">
+  <div class="size-guide-modal__inner">
+    <button class="size-guide-modal__close" onclick="document.getElementById('sizeGuideModal').close()" aria-label="Close">×</button>
+    <h2 class="size-guide-modal__title" data-en="Size Guide">サイズガイド</h2>
+    <p class="size-guide-modal__sub" data-en="Find your size by foot length. We recommend 0.5–1.0cm of toe room.">足長から最適なサイズをお選びください。つま先に0.5〜1.0cmの余裕を推奨します。</p>
+    <table class="size-guide-table">
+      <thead>
+        <tr>
+          <th data-en="Foot length">足長</th>
+          <th data-en="JP">日本</th>
+          <th data-en="US">US</th>
+          <th data-en="UK">UK</th>
+          <th data-en="EU">EU</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>22.5cm</td><td>23.0</td><td>5</td><td>3.5</td><td>36</td></tr>
+        <tr><td>23.0cm</td><td>23.5</td><td>5.5</td><td>4</td><td>36.5</td></tr>
+        <tr><td>23.5cm</td><td>24.0</td><td>6</td><td>4.5</td><td>37</td></tr>
+        <tr><td>24.0cm</td><td>24.5</td><td>6.5</td><td>5</td><td>37.5</td></tr>
+        <tr><td>24.5cm</td><td>25.0</td><td>7</td><td>5.5</td><td>38</td></tr>
+        <tr><td>25.0cm</td><td>25.5</td><td>7.5</td><td>6</td><td>39</td></tr>
+        <tr><td>25.5cm</td><td>26.0</td><td>8</td><td>6.5</td><td>40</td></tr>
+        <tr><td>26.0cm</td><td>26.5</td><td>8.5</td><td>7</td><td>40.5</td></tr>
+        <tr><td>26.5cm</td><td>27.0</td><td>9</td><td>7.5</td><td>41</td></tr>
+        <tr><td>27.0cm</td><td>27.5</td><td>9.5</td><td>8</td><td>42</td></tr>
+        <tr><td>27.5cm</td><td>28.0</td><td>10</td><td>8.5</td><td>43</td></tr>
+        <tr><td>28.0cm</td><td>28.5</td><td>10.5</td><td>9</td><td>43.5</td></tr>
+        <tr><td>28.5cm</td><td>29.0</td><td>11</td><td>9.5</td><td>44</td></tr>
+        <tr><td>29.0cm</td><td>29.5</td><td>11.5</td><td>10</td><td>45</td></tr>
+      </tbody>
+    </table>
+    <div class="size-guide-modal__how">
+      <h3 data-en="How to measure your foot length">足長の測り方</h3>
+      <ol>
+        <li data-en="Stand on a piece of paper with your weight evenly distributed.">紙の上に立ち、体重を均等にかけます。</li>
+        <li data-en="Mark the back of your heel and the tip of your longest toe.">かかとの一番後ろと、一番長い足指の先に印を付けます。</li>
+        <li data-en="Measure the distance in centimeters.">2点間の距離をcmで測ります。</li>
+      </ol>
+    </div>
+    <div class="size-guide-modal__tip">
+      <strong data-en="Not sure?">サイズに迷ったら</strong>
+      <p data-en="Order any size — we offer free 30-day returns &amp; exchanges in Japan.">どのサイズでもご注文ください。日本国内では30日間の返品・交換を無料で承ります。</p>
+    </div>
+  </div>
+</dialog>
+
 <script>
   (function() {
     var pdp = document.querySelector('[data-noll-pdp]');
@@ -211,9 +292,20 @@
       if (priceEl) {
         priceEl.innerHTML = price + ' <span style="font-size:11px; color:var(--c-muted); font-weight:400;">' + taxLabel + '</span>';
       }
+      var sizeMap = {
+        'US 5': '23.0cm (US 5)', 'US 5.5': '23.5cm (US 5.5)',
+        'US 6': '24.0cm (US 6)', 'US 6.5': '24.5cm (US 6.5)',
+        'US 7': '25.0cm (US 7)', 'US 7.5': '25.5cm (US 7.5)',
+        'US 8': '26.0cm (US 8)', 'US 8.5': '26.5cm (US 8.5)',
+        'US 9': '27.0cm (US 9)', 'US 9.5': '27.5cm (US 9.5)',
+        'US 10': '28.0cm (US 10)', 'US 10.5': '28.5cm (US 10.5)',
+        'US 11': '29.0cm (US 11)', 'US 11.5': '29.5cm (US 11.5)'
+      };
       Object.keys(selected).forEach(function(pos) {
         var disp = pdp.querySelector('[data-noll-option-display="' + pos + '"]');
-        if (disp) disp.textContent = selected[pos];
+        if (!disp) return;
+        var val = selected[pos];
+        disp.textContent = sizeMap[val] || val;
       });
       if (history.replaceState) {
         var url = new URL(window.location);

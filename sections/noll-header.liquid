@@ -19,17 +19,10 @@
     </div>
 
     <nav class="site-header__nav" aria-label="primary">
-      {%- assign menu = linklists[section.settings.menu] -%}
-      {%- if menu != blank -%}
-        {%- for link in menu.links -%}
-          <a href="{{ link.url }}" class="site-header__nav-link{% if link.active %} is-active{% endif %}">{{ link.title }}</a>
-        {%- endfor -%}
-      {%- else -%}
-        <a href="{{ routes.collections_url }}" class="site-header__nav-link">Shop</a>
-        <a href="{{ blogs.journal.url | default: '/blogs/journal' }}" class="site-header__nav-link">Journal</a>
-        <a href="/pages/about" class="site-header__nav-link">About</a>
-        <a href="/pages/contact-us" class="site-header__nav-link">Contact</a>
-      {%- endif -%}
+      <a href="{{ routes.collections_url }}" class="site-header__nav-link" data-en="Shop">Shop</a>
+      <a href="{{ blogs.journal.url | default: '/blogs/journal' }}" class="site-header__nav-link" data-en="Journal">Journal</a>
+      <a href="/pages/about" class="site-header__nav-link" data-en="About">About</a>
+      <a href="/pages/contact-us" class="site-header__nav-link" data-en="Contact">Contact</a>
     </nav>
 
     <div class="site-header__utility">
@@ -107,7 +100,6 @@
   "name": "noll Header",
   "settings": [
     { "type": "text", "id": "logo_text", "label": "Logo text", "default": "noll" },
-    { "type": "link_list", "id": "menu", "label": "Primary menu", "default": "main-menu" },
     { "type": "checkbox", "id": "show_search", "label": "Show search icon", "default": true },
     { "type": "checkbox", "id": "show_locale", "label": "Show locale pill", "default": true }
   ],
