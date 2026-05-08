@@ -1,4 +1,4 @@
-{% comment %} noll Article — journal article layout — bilingual {% endcomment %}
+{% comment %} noll Article — journal article layout — bilingual + share + author bio {% endcomment %}
 
 <nav class="crumbs" aria-label="breadcrumb">
   <a href="{{ routes.root_url }}" data-en="Home">Home</a><span>/</span>
@@ -36,6 +36,33 @@
   <div class="article">
     {{ article.content }}
   </div>
+
+  {%- assign share_url = canonical_url | default: shop.url | append: article.url -%}
+  {%- assign share_title = article.title | url_encode -%}
+  <div class="article-share reveal">
+    <span class="article-share__label" data-en="Share">シェア</span>
+    <a href="https://twitter.com/intent/tweet?url={{ share_url }}&text={{ share_title }}" target="_blank" rel="noopener noreferrer" class="article-share__btn" aria-label="Share on X">
+      <svg viewBox="0 0 24 24"><path d="M18 4l-6.5 8.5L18 21h-3l-4.8-6.3L4.7 21H3l7-9.1L3.5 4H7l4.4 5.8L16 4h2z"/></svg>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{ share_url }}" target="_blank" rel="noopener noreferrer" class="article-share__btn" aria-label="Share on Facebook">
+      <svg viewBox="0 0 24 24"><path d="M14 4h3V1h-3.5C11 1 9 3 9 5.5V8H6v3h3v9h3v-9h3l1-3h-4V6c0-1 .5-2 2-2z"/></svg>
+    </a>
+    <a href="https://line.me/R/msg/text/?{{ share_title }}%20{{ share_url }}" target="_blank" rel="noopener noreferrer" class="article-share__btn" aria-label="Share on LINE">
+      <svg viewBox="0 0 24 24"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 4 3.5 7.4 8.3 8.1.3.1.7.2.8.5.1.3 0 .7 0 .9 0 .2-.1.7.6.4 1.5-.6 8.3-4.9 8.3-9.9C22 6.7 17.5 3 12 3z"/></svg>
+    </a>
+    <button class="article-share__btn" type="button" aria-label="Copy link" onclick="navigator.clipboard.writeText('{{ share_url }}'); this.style.color='#0a0';" >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5"/></svg>
+    </button>
+  </div>
+
+  <aside class="article-author-bio reveal">
+    <span class="article-author-bio__avatar">{{ article.author | slice: 0, 1 }}</span>
+    <div>
+      <p class="article-author-bio__name">{{ article.author }}</p>
+      <p class="article-author-bio__role" data-en="noll Editorial">noll Editorial</p>
+      <p class="article-author-bio__desc" data-en="Writing on walking, design, and the human body. Sharing the research and the everyday observations that shape noll's footgear.">歩行・デザイン・人間の身体について書く。nollのフットギアを形作る、研究と日常の観察を綴る。</p>
+    </div>
+  </aside>
 </article>
 
 {%- if blog.articles.size > 1 -%}
@@ -43,12 +70,18 @@
     <h2 data-en="{{ section.settings.related_title_en | default: 'Related Articles' | escape }}">{{ section.settings.related_title | default: '関連するジャーナル' }}</h2>
     <div class="journal-related__grid">
       {%- assign related_count = 0 -%}
+      {%- assign fb_imgs = 'journal_2.jpg,journal_3.jpg,journal_1.jpg' | split: ',' -%}
       {%- for related in blog.articles -%}
         {%- if related.handle != article.handle and related_count < 3 -%}
+          {%- assign fb = fb_imgs[related_count] | default: 'journal_1.jpg' -%}
           <a href="{{ related.url }}" class="journal-card reveal"{% if related_count > 0 %} data-reveal-delay="{{ related_count }}"{% endif %} data-cursor="view">
-            {%- if related.image -%}
-              <div class="journal-card__media"><img src="{{ related.image | image_url: width: 800 }}" alt=""></div>
-            {%- endif -%}
+            <div class="journal-card__media">
+              {%- if related.image -%}
+                <img src="{{ related.image | image_url: width: 800 }}" alt="">
+              {%- else -%}
+                <img src="{{ fb | asset_url }}" alt="">
+              {%- endif -%}
+            </div>
             <p class="journal-card__cat">{{ related.tags.first | default: 'Journal' }}</p>
             <h3 class="journal-card__title">{{ related.title }}</h3>
             <p class="journal-card__date">{{ related.published_at | date: '%Y.%m.%d' }}</p>
@@ -66,8 +99,8 @@
   "settings": [
     { "type": "text", "id": "read_time", "label": "Read time (JA)", "default": "6 min read" },
     { "type": "text", "id": "read_time_en", "label": "Read time (EN)", "default": "6 min read" },
-    { "type": "text", "id": "related_title", "label": "Related section title (JA)", "default": "関連するジャーナル" },
-    { "type": "text", "id": "related_title_en", "label": "Related section title (EN)", "default": "Related Articles" }
+    { "type": "text", "id": "related_title", "label": "Related title (JA)", "default": "関連するジャーナル" },
+    { "type": "text", "id": "related_title_en", "label": "Related title (EN)", "default": "Related Articles" }
   ],
   "presets": [{ "name": "noll Article" }]
 }

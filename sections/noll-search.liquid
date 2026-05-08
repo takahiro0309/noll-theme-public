@@ -1,0 +1,89 @@
+{% comment %} noll Search — editorial search page (bilingual) {% endcomment %}
+
+<section class="noll-search">
+  <nav class="crumbs" aria-label="breadcrumb">
+    <a href="{{ routes.root_url }}" data-en="Home">Home</a><span>/</span>
+    <span data-en="Search">検索</span>
+  </nav>
+
+  <div class="noll-search__head">
+    <p class="eyebrow reveal" data-en="Search">検索</p>
+    <h1 class="noll-search__title reveal" data-reveal-delay="1" data-en="What are you looking for?">何をお探しですか？</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="noll-search__form reveal" data-reveal-delay="2">
+      <input type="hidden" name="type" value="product,article,page">
+      <svg class="noll-search__icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="21" y2="21"/></svg>
+      <input
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="商品・記事を検索"
+        data-en-placeholder="Search products & articles"
+        aria-label="Search"
+        autocomplete="off"
+        class="noll-search__input"
+      >
+      <button type="submit" class="noll-search__submit" data-en="Search">検索</button>
+    </form>
+  </div>
+
+  {%- if search.performed -%}
+    {%- if search.results_count > 0 -%}
+      <p class="noll-search__count reveal" data-reveal-delay="3" data-en="{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} for &quot;{{ search.terms | escape }}&quot;">「{{ search.terms }}」の検索結果 {{ search.results_count }}件</p>
+
+      <div class="noll-search__results">
+        {%- for item in search.results -%}
+          <a href="{{ item.url }}" class="search-result reveal" data-reveal-delay="{{ forloop.index | modulo: 4 }}" data-cursor="view">
+            <div class="search-result__media">
+              {%- if item.object_type == 'product' and item.featured_image -%}
+                <img src="{{ item.featured_image | image_url: width: 600 }}" alt="{{ item.title | escape }}">
+              {%- elsif item.object_type == 'article' and item.image -%}
+                <img src="{{ item.image | image_url: width: 600 }}" alt="{{ item.title | escape }}">
+              {%- else -%}
+                <img src="{{ 'product_main.jpg' | asset_url }}" alt="">
+              {%- endif -%}
+            </div>
+            <div class="search-result__info">
+              <p class="search-result__type">
+                {%- case item.object_type -%}
+                  {%- when 'product' -%}<span data-en="Product">商品</span>
+                  {%- when 'article' -%}<span data-en="Article">記事</span>
+                  {%- when 'page' -%}<span data-en="Page">ページ</span>
+                {%- endcase -%}
+              </p>
+              <h3 class="search-result__title">{{ item.title }}</h3>
+              {%- if item.object_type == 'product' -%}
+                <p class="search-result__price">{{ item.price | money }}</p>
+              {%- elsif item.object_type == 'article' -%}
+                <p class="search-result__date">{{ item.published_at | date: '%Y.%m.%d' }}</p>
+              {%- endif -%}
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="noll-search__empty reveal" data-reveal-delay="3">
+        <p class="noll-search__empty-title" data-en="No results for &quot;{{ search.terms | escape }}&quot;">「{{ search.terms }}」に一致する結果はありませんでした。</p>
+        <p class="noll-search__empty-sub" data-en="Try a different keyword or browse our products.">別のキーワードでお試しください。または商品一覧をご覧ください。</p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn--solid-dark" data-en="Browse all products →">商品をすべて見る →</a>
+      </div>
+    {%- endif -%}
+  {%- else -%}
+    <div class="noll-search__suggestions reveal" data-reveal-delay="3">
+      <h2 class="noll-search__suggest-title" data-en="Popular searches">よく検索されるキーワード</h2>
+      <div class="noll-search__suggest-tags">
+        <a href="{{ routes.search_url }}?q=noll+one" class="search-tag">noll One</a>
+        <a href="{{ routes.search_url }}?q=サイズ" class="search-tag" data-en="size">サイズ</a>
+        <a href="{{ routes.search_url }}?q=返品" class="search-tag" data-en="return">返品</a>
+        <a href="{{ routes.search_url }}?q=配送" class="search-tag" data-en="shipping">配送</a>
+        <a href="{{ routes.search_url }}?q=walk" class="search-tag" data-en="walking">歩行</a>
+      </div>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "noll Search",
+  "presets": [{ "name": "noll Search" }]
+}
+{% endschema %}

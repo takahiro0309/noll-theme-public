@@ -1,0 +1,148 @@
+{% comment %} noll Cart — editorial cart page (bilingual JP/EN) {% endcomment %}
+
+<section class="noll-cart">
+  <nav class="crumbs" aria-label="breadcrumb">
+    <a href="{{ routes.root_url }}" data-en="Home">Home</a><span>/</span>
+    <span data-en="Cart">カート</span>
+  </nav>
+
+  <div class="noll-cart__head">
+    <p class="eyebrow reveal" data-en="Your cart">あなたのカート</p>
+    <h1 class="noll-cart__title reveal" data-reveal-delay="1" data-en="Cart">カート</h1>
+    <p class="noll-cart__sub reveal" data-reveal-delay="2" data-en="{{ cart.item_count }} item{% if cart.item_count != 1 %}s{% endif %}">{{ cart.item_count }}点の商品</p>
+  </div>
+
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate class="noll-cart__form" id="noll-cart-form">
+      <div class="noll-cart__layout">
+        <div class="noll-cart__items">
+          {%- for item in cart.items -%}
+            <article class="cart-item reveal" data-reveal-delay="{{ forloop.index }}">
+              <a href="{{ item.url }}" class="cart-item__media">
+                {%- if item.image -%}
+                  <img src="{{ item.image | image_url: width: 320 }}" alt="{{ item.title | escape }}">
+                {%- endif -%}
+              </a>
+              <div class="cart-item__info">
+                <p class="cart-item__brand">NOLL</p>
+                <h3 class="cart-item__title"><a href="{{ item.url }}">{{ item.product.title }}</a></h3>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-item__variant">
+                    {%- for option in item.options_with_values -%}
+                      {%- if option.name == 'サイズ' or option.name == 'Size' -%}
+                        {%- assign sz = option.value -%}
+                        {%- if sz == 'US 5' -%}{%- assign sz = '23.0cm (US 5)' -%}{%- endif -%}
+                        {%- if sz == 'US 5.5' -%}{%- assign sz = '23.5cm (US 5.5)' -%}{%- endif -%}
+                        {%- if sz == 'US 6' -%}{%- assign sz = '24.0cm (US 6)' -%}{%- endif -%}
+                        {%- if sz == 'US 6.5' -%}{%- assign sz = '24.5cm (US 6.5)' -%}{%- endif -%}
+                        {%- if sz == 'US 7' -%}{%- assign sz = '25.0cm (US 7)' -%}{%- endif -%}
+                        {%- if sz == 'US 7.5' -%}{%- assign sz = '25.5cm (US 7.5)' -%}{%- endif -%}
+                        {%- if sz == 'US 8' -%}{%- assign sz = '26.0cm (US 8)' -%}{%- endif -%}
+                        {%- if sz == 'US 8.5' -%}{%- assign sz = '26.5cm (US 8.5)' -%}{%- endif -%}
+                        {%- if sz == 'US 9' -%}{%- assign sz = '27.0cm (US 9)' -%}{%- endif -%}
+                        {%- if sz == 'US 9.5' -%}{%- assign sz = '27.5cm (US 9.5)' -%}{%- endif -%}
+                        {%- if sz == 'US 10' -%}{%- assign sz = '28.0cm (US 10)' -%}{%- endif -%}
+                        {%- if sz == 'US 10.5' -%}{%- assign sz = '28.5cm (US 10.5)' -%}{%- endif -%}
+                        {%- if sz == 'US 11' -%}{%- assign sz = '29.0cm (US 11)' -%}{%- endif -%}
+                        {%- if sz == 'US 11.5' -%}{%- assign sz = '29.5cm (US 11.5)' -%}{%- endif -%}
+                        <span><span data-en="Size">{{ option.name }}</span> : {{ sz }}</span>
+                      {%- elsif option.name == 'カラー' or option.name == 'Color' -%}
+                        <span><span data-en="Color">{{ option.name }}</span> : {{ option.value }}</span>
+                      {%- else -%}
+                        <span>{{ option.name }} : {{ option.value }}</span>
+                      {%- endif -%}
+                      {%- unless forloop.last -%} / {%- endunless -%}
+                    {%- endfor -%}
+                  </p>
+                {%- endunless -%}
+                <p class="cart-item__price">{{ item.final_price | money }}</p>
+                <div class="cart-item__actions">
+                  <div class="cart-item__qty">
+                    <button type="button" class="cart-item__qty-btn" data-qty-change="-1" data-key="{{ item.key }}" aria-label="Decrease">−</button>
+                    <input type="number" name="updates[{{ item.key }}]" value="{{ item.quantity }}" min="1" max="9" aria-label="Quantity" data-qty-input data-key="{{ item.key }}">
+                    <button type="button" class="cart-item__qty-btn" data-qty-change="1" data-key="{{ item.key }}" aria-label="Increase">+</button>
+                  </div>
+                  <a href="{{ item.url_to_remove }}" class="cart-item__remove" data-en="Remove">削除</a>
+                </div>
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+
+        <aside class="noll-cart__summary reveal" data-reveal-delay="2">
+          <h2 class="cart-summary__title" data-en="Order summary">注文内容</h2>
+          <dl class="cart-summary__rows">
+            <div class="cart-summary__row">
+              <dt data-en="Subtotal">小計</dt>
+              <dd>{{ cart.items_subtotal_price | money }}</dd>
+            </div>
+            <div class="cart-summary__row">
+              <dt data-en="Shipping">配送</dt>
+              <dd data-en="Free in Japan">国内無料</dd>
+            </div>
+            {%- if cart.total_discounts > 0 -%}
+              <div class="cart-summary__row cart-summary__row--discount">
+                <dt data-en="Discount">割引</dt>
+                <dd>-{{ cart.total_discounts | money }}</dd>
+              </div>
+            {%- endif -%}
+            <div class="cart-summary__row cart-summary__row--total">
+              <dt data-en="Total (incl. tax)">合計（税込）</dt>
+              <dd>{{ cart.total_price | money }}</dd>
+            </div>
+          </dl>
+
+          <button type="submit" name="checkout" class="btn btn--solid-dark btn--full" data-en="Proceed to checkout">レジに進む</button>
+
+          <a href="{{ routes.all_products_collection_url }}" class="cart-summary__continue" data-en="← Continue shopping">← 買い物を続ける</a>
+
+          <div class="cart-summary__trust">
+            <div class="cart-summary__trust-item">
+              <svg viewBox="0 0 24 24"><path d="M3 7h13l5 5v5h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+              <span data-en="Free shipping in Japan">国内送料無料</span>
+            </div>
+            <div class="cart-summary__trust-item">
+              <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-9-9c2 0 4 .8 5.5 2"/><polyline points="14 3 18 3 18 7"/></svg>
+              <span data-en="30-day returns">30日間返品交換</span>
+            </div>
+            <div class="cart-summary__trust-item">
+              <svg viewBox="0 0 24 24"><path d="M12 3 L 4 7 V 13 C 4 17 7.5 20 12 21 C 16.5 20 20 17 20 13 V 7 Z"/><polyline points="9 12 11 14 15 10"/></svg>
+              <span data-en="1-year warranty">1年間の品質保証</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </form>
+  {%- else -%}
+    <div class="noll-cart__empty reveal" data-reveal-delay="2">
+      <p class="noll-cart__empty-title" data-en="Your cart is empty.">カートに商品がありません。</p>
+      <p class="noll-cart__empty-sub" data-en="Browse our products and find your perfect fit.">商品ラインナップから、あなたに合う一足を見つけてください。</p>
+      <a href="/products/noll-one" class="btn btn--solid-dark" data-en="View noll One →">noll One を見る →</a>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "noll Cart",
+  "presets": [{ "name": "noll Cart" }]
+}
+{% endschema %}
+
+<script>
+  (function() {
+    var form = document.getElementById('noll-cart-form');
+    if (!form) return;
+    form.querySelectorAll('[data-qty-change]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var key = btn.dataset.key;
+        var input = form.querySelector('[data-qty-input][data-key="' + key + '"]');
+        if (!input) return;
+        var change = parseInt(btn.dataset.qtyChange, 10);
+        var newVal = Math.max(1, Math.min(9, parseInt(input.value, 10) + change));
+        input.value = newVal;
+        form.submit();
+      });
+    });
+  })();
+</script>

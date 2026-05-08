@@ -1,23 +1,27 @@
-{% comment %} noll Page — generic content page wrapper — bilingual {% endcomment %}
+{% comment %} noll Page — generic content page (about/contact/etc) — editorial bilingual {% endcomment %}
 
-<div class="page-shell">
-  <nav class="crumbs" aria-label="breadcrumb">
-    <a href="{{ routes.root_url }}" data-en="Home">Home</a><span>/</span>{{ page.title }}
-  </nav>
+<nav class="crumbs" aria-label="breadcrumb">
+  <a href="{{ routes.root_url }}" data-en="Home">Home</a><span>/</span>{{ page.title }}
+</nav>
 
-  <article style="max-width:720px; margin: 0 auto;">
-    <h1 class="reveal" style="font-family: var(--font-heading--family, 'Figtree', sans-serif); font-size: 36px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 32px;">
-      {{ page.title }}
-    </h1>
-    <div class="article">
-      {{ page.content }}
-    </div>
+<div class="noll-page">
+  <header class="noll-page__hero reveal">
+    <p class="eyebrow" data-en="{{ section.settings.eyebrow_en | default: section.settings.eyebrow | escape }}">{{ section.settings.eyebrow | default: page.title }}</p>
+    <h1 class="noll-page__title">{{ page.title }}</h1>
+  </header>
+
+  <article class="noll-page__content reveal" data-reveal-delay="1">
+    {{ page.content }}
   </article>
 </div>
 
 {% schema %}
 {
   "name": "noll Page",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "noll" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "noll" }
+  ],
   "presets": [{ "name": "noll Page" }]
 }
 {% endschema %}
