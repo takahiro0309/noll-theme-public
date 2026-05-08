@@ -5,11 +5,11 @@
   <div class="collection-section__grid">
     {%- for block in section.blocks -%}
       <a href="{{ block.settings.link | default: section.settings.cta_link }}" class="col-mini-card" {{ block.shopify_attributes }}>
-        <div class="col-mini-card__media" style="aspect-ratio:1/1; background:var(--c-soft); display:flex;align-items:center;justify-content:center;">
+        <div class="col-mini-card__media" style="aspect-ratio:4/3; background:var(--c-soft); overflow:hidden; border-radius:2px;">
           {%- if block.settings.image != blank -%}
-            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="" style="width:80%; height:80%; object-fit:contain;">
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="" style="width:100%; height:100%; object-fit:cover;">
           {%- else -%}
-            <img src="{{ block.settings.fallback_image | default: 'product_angle_1.jpg' | asset_url }}" alt="" style="width:80%; height:80%; object-fit:contain;">
+            <img src="{{ block.settings.fallback_image | default: 'product_angle_1.jpg' | asset_url }}" alt="" style="width:100%; height:100%; object-fit:cover;">
           {%- endif -%}
         </div>
         <h3 class="col-mini-card__title" data-en="{{ block.settings.title_en | escape }}">{{ block.settings.title }}</h3>
