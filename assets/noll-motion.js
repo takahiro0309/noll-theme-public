@@ -16,9 +16,13 @@
 
   var isCoarse = window.matchMedia && window.matchMedia('(hover: none)').matches;
 
-  /* ---------- Page loader (~700ms) ---------- */
+  /* ---------- Page loader (only on first visit per session) ---------- */
   function mountLoader() {
     if (prefersReduced) return;
+    try {
+      if (sessionStorage.getItem('noll-loader-seen')) return;
+      sessionStorage.setItem('noll-loader-seen', '1');
+    } catch (e) { /* sessionStorage unavailable, show once anyway */ }
     var loader = document.createElement('div');
     loader.className = 'page-loader';
     loader.innerHTML = '<span class="page-loader__logo">noll</span>';
