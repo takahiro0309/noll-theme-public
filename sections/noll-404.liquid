@@ -1,0 +1,29 @@
+{% comment %} noll 404 — editorial not-found page (bilingual) {% endcomment %}
+
+<section class="noll-404">
+  <div class="noll-404__inner">
+    <p class="noll-404__code reveal">404</p>
+    <h1 class="noll-404__title reveal" data-reveal-delay="1" data-en="Looks like you've wandered off the path.">道に迷ってしまったようです。</h1>
+    <p class="noll-404__sub reveal" data-reveal-delay="2" data-en="The page you're looking for may have moved, or the link might be incorrect. Let's get you back on track.">お探しのページは移動されたか、URLが正しくない可能性があります。元の道へお戻りください。</p>
+    <div class="noll-404__ctas reveal" data-reveal-delay="3">
+      <a href="{{ routes.root_url }}" class="btn btn--solid-dark" data-en="Back to home →">ホームに戻る →</a>
+      <a href="/products/noll-one" class="btn" data-en="View noll One">noll One を見る</a>
+    </div>
+    <div class="noll-404__links reveal" data-reveal-delay="4">
+      <p class="noll-404__links-label" data-en="Or browse">または</p>
+      <ul>
+        <li><a href="{{ routes.collections_url }}" data-en="Shop">商品一覧</a></li>
+        <li><a href="{{ blogs.journal.url | default: '/blogs/journal' }}" data-en="Journal">ジャーナル</a></li>
+        <li><a href="/pages/about" data-en="About noll">noll について</a></li>
+        <li><a href="/pages/contact-us" data-en="Contact">お問い合わせ</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "noll 404",
+  "presets": [{ "name": "noll 404" }]
+}
+{% endschema %}

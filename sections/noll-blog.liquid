@@ -1,16 +1,22 @@
-{% comment %} noll Blog (Journal) — article list — bilingual {% endcomment %}
+{% comment %} noll Blog (Journal) — editorial article list — bilingual {% endcomment %}
 
 <nav class="crumbs" aria-label="breadcrumb">
   <a href="{{ routes.root_url }}" data-en="Home">Home</a><span>/</span>
   <span data-en="Journal">Journal</span>
 </nav>
 
+<header class="blog-hero">
+  <p class="blog-hero__eyebrow reveal" data-en="{{ section.settings.eyebrow_en | default: 'noll Journal' | escape }}">{{ section.settings.eyebrow | default: 'noll ジャーナル' }}</p>
+  <h1 class="blog-hero__title reveal" data-reveal-delay="1" data-en="{{ section.settings.hero_title_en | default: 'Notes on Walking & Thinking' | escape }}">{{ section.settings.hero_title | default: '歩行と思考、その記録。' }}</h1>
+  <p class="blog-hero__sub reveal" data-reveal-delay="2" data-en="{{ section.settings.hero_sub_en | default: 'Research, essays, and field stories on walking, design, and the body.' | escape }}">{{ section.settings.hero_sub | default: '歩くこと、デザイン、身体について。リサーチ・エッセイ・フィールドストーリー。' }}</p>
+</header>
+
 {%- assign main = blog.articles.first -%}
 {%- if main -%}
   <article>
     <div class="journal-hero">
-      <p class="journal-hero__cat reveal">Journal · {{ main.tags.first | default: 'Essay' }}</p>
-      <h1 class="journal-hero__title reveal" data-reveal-delay="1">{{ main.title }}</h1>
+      <p class="journal-hero__cat reveal">{% if main.tags.first != blank %}{{ main.tags.first | upcase }}{% else %}FEATURED{% endif %}</p>
+      <h2 class="journal-hero__title reveal" data-reveal-delay="1">{{ main.title }}</h2>
       <div class="journal-hero__meta reveal" data-reveal-delay="2">
         {{ main.published_at | date: '%Y.%m.%d' }} · {{ main.author }}
       </div>
@@ -59,10 +65,16 @@
 {
   "name": "noll Blog",
   "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "noll ジャーナル" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "noll Journal" },
+    { "type": "text", "id": "hero_title", "label": "Hero title (JA)", "default": "歩行と思考、その記録。" },
+    { "type": "text", "id": "hero_title_en", "label": "Hero title (EN)", "default": "Notes on Walking & Thinking" },
+    { "type": "textarea", "id": "hero_sub", "label": "Hero sub (JA)", "default": "歩くこと、デザイン、身体について。リサーチ・エッセイ・フィールドストーリー。" },
+    { "type": "textarea", "id": "hero_sub_en", "label": "Hero sub (EN)", "default": "Research, essays, and field stories on walking, design, and the body." },
     { "type": "text", "id": "list_title", "label": "List title (JA)", "default": "すべての記事" },
     { "type": "text", "id": "list_title_en", "label": "List title (EN)", "default": "All Articles" },
-    { "type": "text", "id": "read_cta", "label": "Read article CTA (JA)", "default": "記事を読む →" },
-    { "type": "text", "id": "read_cta_en", "label": "Read article CTA (EN)", "default": "Read article →" }
+    { "type": "text", "id": "read_cta", "label": "Read CTA (JA)", "default": "記事を読む →" },
+    { "type": "text", "id": "read_cta_en", "label": "Read CTA (EN)", "default": "Read article →" }
   ],
   "presets": [{ "name": "noll Blog" }]
 }
