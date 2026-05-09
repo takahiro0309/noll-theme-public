@@ -1,0 +1,83 @@
+{% comment %}
+  noll: Product Recommendations (cross-sell)
+  Uses Shopify's productRecommendations API to suggest related products.
+{% endcomment %}
+
+{%- if product != blank -%}
+  <section class="noll-recs"
+           data-product-id="{{ product.id }}"
+           data-section-id="{{ section.id }}"
+           data-section-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit | default: 4 }}">
+    <div class="noll-recs__head">
+      <p class="eyebrow reveal" data-en="{{ section.settings.eyebrow_en | default: 'You may also like' | escape }}">{{ section.settings.eyebrow | default: 'あなたへのおすすめ' }}</p>
+      <h2 class="noll-recs__title reveal" data-reveal-delay="1" data-en="{{ section.settings.title_en | default: 'Pair with' | escape }}">{{ section.settings.title | default: '一緒に揃えたい' }}</h2>
+    </div>
+    {%- if recommendations.performed and recommendations.products_count > 0 -%}
+      <div class="noll-recs__grid">
+        {%- for rec in recommendations.products -%}
+          <a href="{{ rec.url }}" class="pcard reveal" data-cursor="view">
+            <div class="pcard__media">
+              {%- if rec.featured_image -%}
+                <img src="{{ rec.featured_image | image_url: width: 600 }}" alt="{{ rec.title | escape }}" loading="lazy" width="400" height="400">
+              {%- else -%}
+                <img src="{{ 'product_main.jpg' | asset_url }}" alt="" loading="lazy">
+              {%- endif -%}
+            </div>
+            <div class="pcard__info">
+              <p class="pcard__brand">NOLL</p>
+              <h3 class="pcard__name">{{ rec.title }}</h3>
+              <div class="pcard__price-row">
+                <span class="pcard__price">{{ rec.price | money }}</span>
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <div class="noll-recs__placeholder" aria-hidden="true">
+        <div class="noll-recs__skel"></div>
+        <div class="noll-recs__skel"></div>
+        <div class="noll-recs__skel"></div>
+        <div class="noll-recs__skel"></div>
+      </div>
+    {%- endif -%}
+  </section>
+  <script>
+    (function() {
+      var sec = document.querySelector('.noll-recs');
+      if (!sec) return;
+      var url = sec.dataset.sectionUrl;
+      if (!url) return;
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          fetch(url)
+            .then(function(r) { return r.text(); })
+            .then(function(html) {
+              var div = document.createElement('div');
+              div.innerHTML = html.trim();
+              var newSection = div.querySelector('.noll-recs');
+              if (newSection) sec.innerHTML = newSection.innerHTML;
+            })
+            .catch(function() {});
+          observer.unobserve(sec);
+        });
+      }, { rootMargin: '200px' });
+      observer.observe(sec);
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "noll Recommendations",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow (JA)", "default": "あなたへのおすすめ" },
+    { "type": "text", "id": "eyebrow_en", "label": "Eyebrow (EN)", "default": "You may also like" },
+    { "type": "text", "id": "title", "label": "Title (JA)", "default": "一緒に揃えたい" },
+    { "type": "text", "id": "title_en", "label": "Title (EN)", "default": "Pair with" },
+    { "type": "range", "id": "limit", "min": 2, "max": 8, "step": 1, "label": "Number of recs", "default": 4 }
+  ],
+  "presets": [{ "name": "noll Recommendations" }]
+}
+{% endschema %}

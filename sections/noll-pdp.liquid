@@ -34,7 +34,15 @@
   </div>
 
   <div class="pdp__info">
-    <p class="pdp__brand reveal">{{ section.settings.brand_label | default: 'NOLL · Performance Footgear' }}</p>
+    <div class="pdp__brand-row">
+      <p class="pdp__brand reveal">{{ section.settings.brand_label | default: 'NOLL · Performance Footgear' }}</p>
+      <button type="button" class="pdp__wishlist-btn" id="pdpWishlistBtn" data-product-handle="{{ product.handle }}" aria-label="お気に入りに追加" data-en-aria-label="Add to wishlist">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4">
+          <path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"></path>
+        </svg>
+        <span class="pdp__wishlist-label" data-en="Save">保存</span>
+      </button>
+    </div>
     <h1 class="pdp__title reveal" data-reveal-delay="1">{{ product.title }}</h1>
     <p class="pdp__price reveal" data-reveal-delay="2" data-noll-pdp-price>
       {{ current_variant.price | money }}
@@ -254,6 +262,22 @@
   </div>
 </dialog>
 
+{%- comment -%} Mobile Sticky ATC bar (visible after hero scroll) {%- endcomment -%}
+<div class="pdp-sticky-atc" id="pdpStickyAtc" aria-hidden="true">
+  <div class="pdp-sticky-atc__inner">
+    <a href="#noll-pdp-form" class="pdp-sticky-atc__product">
+      {%- if product.featured_image -%}
+        <img src="{{ product.featured_image | image_url: width: 120 }}" alt="" loading="lazy" width="48" height="48">
+      {%- endif -%}
+      <span class="pdp-sticky-atc__info">
+        <span class="pdp-sticky-atc__title">{{ product.title }}</span>
+        <span class="pdp-sticky-atc__price" data-noll-sticky-price>{{ current_variant.price | money }}</span>
+      </span>
+    </a>
+    <button type="button" class="btn btn--solid-dark pdp-sticky-atc__btn" id="pdpStickyAtcBtn" data-en="Add to cart">カートに追加</button>
+  </div>
+</div>
+
 <script>
   (function() {
     var pdp = document.querySelector('[data-noll-pdp]');
@@ -348,6 +372,72 @@
         thumb.classList.add('is-active');
       });
     });
+
+    // Sticky ATC: show after hero scrolls past
+    var stickyAtc = document.getElementById('pdpStickyAtc');
+    var stickyBtn = document.getElementById('pdpStickyAtcBtn');
+    var stickyPrice = pdp.querySelector('[data-noll-sticky-price]');
+    var atcAnchor = document.getElementById('atcBtn');
+    if (stickyAtc && atcAnchor) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+          if (e.isIntersecting) {
+            stickyAtc.classList.remove('is-visible');
+            stickyAtc.setAttribute('aria-hidden', 'true');
+          } else {
+            stickyAtc.classList.add('is-visible');
+            stickyAtc.setAttribute('aria-hidden', 'false');
+          }
+        });
+      }, { rootMargin: '-50% 0px 0px 0px' });
+      io.observe(atcAnchor);
+      // Sticky button submits the actual form
+      if (stickyBtn) {
+        stickyBtn.addEventListener('click', function() {
+          var f = document.getElementById('noll-pdp-form');
+          if (f) f.submit();
+        });
+      }
+    }
+
+    // Sync sticky price on variant change
+    var origUpdate = updateVariant;
+    updateVariant = function() {
+      origUpdate();
+      var v = findVariant();
+      if (v && stickyPrice) {
+        stickyPrice.textContent = (v.price / 100).toLocaleString('ja-JP', { style: 'currency', currency: '{{ shop.currency }}' });
+      }
+    };
+
+    // Wishlist heart button: localStorage toggle + visual state
+    var wishBtn = document.getElementById('pdpWishlistBtn');
+    if (wishBtn) {
+      var handle = wishBtn.dataset.productHandle;
+      var key = 'noll-wishlist';
+      function getList() { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) { return []; } }
+      function saveList(list) { try { localStorage.setItem(key, JSON.stringify(list)); } catch(e) {} }
+      function refresh() {
+        var list = getList();
+        var on = list.indexOf(handle) !== -1;
+        wishBtn.classList.toggle('is-active', on);
+        wishBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      }
+      refresh();
+      wishBtn.addEventListener('click', function() {
+        var list = getList();
+        var idx = list.indexOf(handle);
+        if (idx === -1) list.push(handle); else list.splice(idx, 1);
+        saveList(list);
+        refresh();
+        // Optional: sync to customer metafield if logged in
+        {%- if customer -%}
+        if (window.fetch) {
+          fetch('/account', { method: 'GET' }).catch(function() {});
+        }
+        {%- endif -%}
+      });
+    }
   })();
 </script>
 

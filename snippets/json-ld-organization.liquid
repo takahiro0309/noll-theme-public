@@ -1,0 +1,47 @@
+{% comment %}
+  noll: Organization JSON-LD (Schema.org Organization).
+  Renders only on homepage. Provides knowledge graph data to Google.
+{% endcomment %}
+{%- if template == 'index' -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "noll",
+    "alternateName": "ノル",
+    "url": {{ shop.url | json }},
+    "logo": {{ shop.url | append: '/cdn/shop/files/noll_logo.svg' | json }},
+    "description": "Performance footgear that sharpens your mind through walking. Designed in Tokyo, made in Japan.",
+    "sameAs": [
+      "https://www.instagram.com/noll_japan"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "JP",
+      "addressLocality": "Tokyo"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "availableLanguage": ["Japanese", "English"],
+      "areaServed": "JP"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "noll",
+    "url": {{ shop.url | json }},
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "{{ shop.url }}/search?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+{%- endif -%}

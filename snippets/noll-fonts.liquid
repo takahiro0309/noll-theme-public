@@ -1,7 +1,25 @@
 {% comment %}
-  noll: Google Fonts for editorial typography.
-  Cormorant Garamond (serif accent) + Figtree (Latin sans) + Noto Sans JP (Japanese).
+  noll: Optimized font loading.
+  - Cormorant Garamond 500 (heading serif)
+  - Figtree 400/500/600 (body sans)
+  - Noto Sans JP 400/500/600 (Japanese)
+  Uses preconnect + display=swap + reduced weight set to minimize FOIT/FOUT and bytes.
 {% endcomment %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Figtree:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+{%- comment -%} Preload the most critical font for the hero (Cormorant Garamond 500) {%- endcomment -%}
+<link
+  rel="preload"
+  as="style"
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Figtree:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+>
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Figtree:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap"
+  rel="stylesheet"
+  media="print"
+  onload="this.media='all'"
+>
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Figtree:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;600&display=swap" rel="stylesheet">
+</noscript>

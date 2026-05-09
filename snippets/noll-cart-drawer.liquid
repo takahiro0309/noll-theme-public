@@ -1,0 +1,144 @@
+{% comment %}
+  noll: Cart Drawer (slide-in from right)
+  Triggered by clicking cart icon. Renders cart contents, total, checkout CTA.
+  Falls back to /cart navigation if JS disabled (anchor href).
+{% endcomment %}
+
+<div class="cart-drawer__overlay" id="cartDrawerOverlay" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cartDrawer" role="dialog" aria-label="Shopping cart" aria-hidden="true" tabindex="-1">
+  <div class="cart-drawer__head">
+    <h2 class="cart-drawer__title" data-en="Cart">カート <span data-noll-cart-count-drawer style="font-size:13px; color:var(--c-muted); font-weight:400;">({{ cart.item_count }})</span></h2>
+    <button type="button" class="cart-drawer__close" id="cartDrawerClose" aria-label="Close cart">×</button>
+  </div>
+  <div class="cart-drawer__items" id="cartDrawerItems">
+    {%- if cart.item_count > 0 -%}
+      {%- for item in cart.items -%}
+        <article class="cd-item" data-key="{{ item.key }}">
+          <a href="{{ item.url }}" class="cd-item__media">
+            {%- if item.image -%}<img src="{{ item.image | image_url: width: 200 }}" alt="" loading="lazy">{%- endif -%}
+          </a>
+          <div>
+            <p class="cd-item__brand">NOLL</p>
+            <h3 class="cd-item__title">{{ item.product.title }}</h3>
+            {%- unless item.product.has_only_default_variant -%}
+              <p class="cd-item__variant">
+                {%- for o in item.options_with_values -%}
+                  {%- assign v = o.value -%}
+                  {%- if o.name == 'サイズ' or o.name == 'Size' -%}
+                    {%- if v == 'US 5' -%}{%- assign v = '23.0cm' -%}
+                    {%- elsif v == 'US 5.5' -%}{%- assign v = '23.5cm' -%}
+                    {%- elsif v == 'US 6' -%}{%- assign v = '24.0cm' -%}
+                    {%- elsif v == 'US 6.5' -%}{%- assign v = '24.5cm' -%}
+                    {%- elsif v == 'US 7' -%}{%- assign v = '25.0cm' -%}
+                    {%- elsif v == 'US 7.5' -%}{%- assign v = '25.5cm' -%}
+                    {%- elsif v == 'US 8' -%}{%- assign v = '26.0cm' -%}
+                    {%- elsif v == 'US 8.5' -%}{%- assign v = '26.5cm' -%}
+                    {%- elsif v == 'US 9' -%}{%- assign v = '27.0cm' -%}
+                    {%- elsif v == 'US 9.5' -%}{%- assign v = '27.5cm' -%}
+                    {%- elsif v == 'US 10' -%}{%- assign v = '28.0cm' -%}
+                    {%- elsif v == 'US 10.5' -%}{%- assign v = '28.5cm' -%}
+                    {%- elsif v == 'US 11' -%}{%- assign v = '29.0cm' -%}
+                    {%- elsif v == 'US 11.5' -%}{%- assign v = '29.5cm' -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                  {{ v }}{%- unless forloop.last -%} / {%- endunless -%}
+                {%- endfor -%}
+              </p>
+            {%- endunless -%}
+            <div class="cd-item__row">
+              <div class="cd-item__qty">
+                <button type="button" data-cd-qty="-1" data-key="{{ item.key }}" aria-label="Decrease">−</button>
+                <span>{{ item.quantity }}</span>
+                <button type="button" data-cd-qty="1" data-key="{{ item.key }}" aria-label="Increase">+</button>
+              </div>
+              <span class="cd-item__price">{{ item.final_price | money }}</span>
+            </div>
+          </div>
+        </article>
+      {%- endfor -%}
+    {%- else -%}
+      <div class="cart-drawer__empty">
+        <p data-en="Your cart is empty.">カートに商品がありません。</p>
+        <a href="/products/noll-one" class="btn btn--solid-dark" data-en="View noll One →">noll One を見る →</a>
+      </div>
+    {%- endif -%}
+  </div>
+  {%- if cart.item_count > 0 -%}
+    <div class="cart-drawer__foot">
+      <div class="cart-drawer__total">
+        <span data-en="Subtotal">小計</span>
+        <strong data-noll-cart-total-drawer>{{ cart.total_price | money }}</strong>
+      </div>
+      <p class="cart-drawer__shipping-note" data-en="Shipping and discounts calculated at checkout.">送料・割引はレジで計算されます。</p>
+      <div class="cart-drawer__cta-row">
+        <a href="/checkout" class="btn btn--solid-dark" data-en="Checkout →">レジに進む →</a>
+        <a href="/cart" class="btn" data-en="View full cart">カートの詳細</a>
+      </div>
+    </div>
+  {%- endif -%}
+</aside>
+
+<script>
+(function() {
+  var drawer = document.getElementById('cartDrawer');
+  var overlay = document.getElementById('cartDrawerOverlay');
+  var closeBtn = document.getElementById('cartDrawerClose');
+  if (!drawer) return;
+
+  function open() {
+    drawer.classList.add('is-open');
+    overlay.classList.add('is-open');
+    drawer.setAttribute('aria-hidden', 'false');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() {
+      var firstFocus = closeBtn || drawer.querySelector('a, button');
+      firstFocus && firstFocus.focus();
+    }, 100);
+  }
+  function close() {
+    drawer.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Bind to all cart icon links in header
+  document.querySelectorAll('a[href*="/cart"]').forEach(function(link) {
+    if (link.closest('.cart-drawer')) return;
+    if (link.classList.contains('utility-btn') || link.querySelector('.cart-count')) {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        open();
+      });
+    }
+  });
+
+  closeBtn && closeBtn.addEventListener('click', close);
+  overlay && overlay.addEventListener('click', close);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
+  });
+
+  // Quantity adjusters
+  drawer.querySelectorAll('[data-cd-qty]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var key = btn.getAttribute('data-key');
+      var change = parseInt(btn.getAttribute('data-cd-qty'), 10);
+      var item = drawer.querySelector('[data-key="' + key + '"]');
+      var qtyEl = item && item.querySelector('.cd-item__qty span');
+      if (!qtyEl) return;
+      var newQty = Math.max(0, parseInt(qtyEl.textContent, 10) + change);
+      // Use Shopify Cart API
+      fetch('/cart/change.js', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id: key, quantity: newQty })
+      }).then(function(r) { return r.json(); }).then(function() {
+        location.reload(); // simple refresh; could replace with section render
+      });
+    });
+  });
+})();
+</script>

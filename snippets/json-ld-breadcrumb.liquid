@@ -1,0 +1,77 @@
+{% comment %}
+  noll: BreadcrumbList JSON-LD (Schema.org BreadcrumbList)
+  Auto-generates from current page context.
+{% endcomment %}
+{%- assign items = '' -%}
+{%- capture home_item -%}{
+  "@type": "ListItem",
+  "position": 1,
+  "name": "Home",
+  "item": "{{ shop.url }}/"
+}{%- endcapture -%}
+
+{%- if template contains 'product' and product != blank -%}
+  {%- capture items -%}{{ home_item }},
+  {
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Shop",
+    "item": "{{ shop.url }}{{ routes.collections_url }}"
+  },
+  {
+    "@type": "ListItem",
+    "position": 3,
+    "name": {{ product.title | json }},
+    "item": "{{ shop.url }}{{ product.url }}"
+  }{%- endcapture -%}
+{%- elsif template contains 'collection' and collection != blank -%}
+  {%- capture items -%}{{ home_item }},
+  {
+    "@type": "ListItem",
+    "position": 2,
+    "name": {{ collection.title | json }},
+    "item": "{{ shop.url }}{{ collection.url }}"
+  }{%- endcapture -%}
+{%- elsif template contains 'article' and article != blank -%}
+  {%- capture items -%}{{ home_item }},
+  {
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Journal",
+    "item": "{{ shop.url }}{{ blogs.journal.url | default: '/blogs/journal' }}"
+  },
+  {
+    "@type": "ListItem",
+    "position": 3,
+    "name": {{ article.title | json }},
+    "item": "{{ shop.url }}{{ article.url }}"
+  }{%- endcapture -%}
+{%- elsif template contains 'page' and page != blank -%}
+  {%- capture items -%}{{ home_item }},
+  {
+    "@type": "ListItem",
+    "position": 2,
+    "name": {{ page.title | json }},
+    "item": "{{ shop.url }}{{ page.url }}"
+  }{%- endcapture -%}
+{%- elsif template contains 'blog' and blog != blank -%}
+  {%- capture items -%}{{ home_item }},
+  {
+    "@type": "ListItem",
+    "position": 2,
+    "name": {{ blog.title | json }},
+    "item": "{{ shop.url }}{{ blog.url }}"
+  }{%- endcapture -%}
+{%- endif -%}
+
+{%- if items != '' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {{ items }}
+  ]
+}
+</script>
+{%- endif -%}

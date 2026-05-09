@@ -56,6 +56,16 @@
       },
       "block_order": ["r1", "r2", "r3"]
     },
+    "recs": {
+      "type": "noll-recommendations",
+      "settings": {
+        "eyebrow": "あなたへのおすすめ",
+        "eyebrow_en": "You may also like",
+        "title": "一緒に揃えたい",
+        "title_en": "Pair with",
+        "limit": 4
+      }
+    },
     "insta": {
       "type": "noll-insta-grid",
       "settings": {"handle": "@noll_japan", "handle_url": "https://www.instagram.com/noll_japan", "border_top": true},
@@ -69,5 +79,5 @@
       "block_order": ["i1", "i2", "i3", "i4", "i5"]
     }
   },
-  "order": ["main", "payment", "tech", "reviews", "insta"]
+  "order": ["main", "payment", "tech", "reviews", "recs", "insta"]
 }

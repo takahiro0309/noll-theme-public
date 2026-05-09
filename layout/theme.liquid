@@ -25,12 +25,25 @@
     {% endif %}
 
     {%- render 'meta-tags' -%}
+    {%- render 'noll-meta-tags' -%}
     {%- render 'stylesheets' -%}
     {%- render 'fonts' -%}
     {%- render 'noll-fonts' -%}
     {%- render 'scripts' -%}
     {%- render 'theme-styles-variables' -%}
     {%- render 'color-schemes' -%}
+
+    {%- comment -%} Structured data: Product / Article / Organization / Breadcrumb {%- endcomment -%}
+    {%- if template contains 'product' and product != blank -%}
+      {%- render 'json-ld-product', product: product -%}
+    {%- endif -%}
+    {%- if template contains 'article' and article != blank -%}
+      {%- render 'json-ld-article', article: article -%}
+    {%- endif -%}
+    {%- if template == 'index' -%}
+      {%- render 'json-ld-organization' -%}
+    {%- endif -%}
+    {%- render 'json-ld-breadcrumb' -%}
 
     {% if request.design_mode %}
       {%- render 'theme-editor' -%}
@@ -133,6 +146,8 @@
     {% if settings.quick_add or settings.mobile_quick_add %}
       {% render 'quick-add-modal' %}
     {% endif %}
+
+    {%- render 'noll-cart-drawer' -%}
 
     <div class="cursor" id="customCursor" aria-hidden="true"></div>
     <div class="page-transition" id="pageTransition" aria-hidden="true"></div>

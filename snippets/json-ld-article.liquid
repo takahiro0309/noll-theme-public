@@ -1,0 +1,35 @@
+{% comment %}
+  noll: Article JSON-LD (Schema.org Article)
+  Renders for blog article pages.
+{% endcomment %}
+{%- if article != blank -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": {{ article.title | json }},
+    "image": [
+      {%- if article.image -%}{{ article.image | image_url: width: 1600 | prepend: 'https:' | json }}{%- else -%}{{ shop.url | append: '/cdn/shop/files/journal_default.jpg' | json }}{%- endif -%}
+    ],
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+    "dateModified": {{ article.updated_at | default: article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+    "author": {
+      "@type": "Person",
+      "name": {{ article.author | default: 'noll Editorial' | json }}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "noll",
+      "logo": {
+        "@type": "ImageObject",
+        "url": {{ shop.url | append: '/cdn/shop/files/noll_logo.svg' | json }}
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": {{ shop.url | append: article.url | json }}
+    },
+    "articleBody": {{ article.content | strip_html | strip_newlines | truncate: 500 | json }}
+  }
+  </script>
+{%- endif -%}

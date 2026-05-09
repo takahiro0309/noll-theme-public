@@ -1,0 +1,87 @@
+{% comment %}
+  noll: SEO meta tags (canonical / hreflang / OGP / Twitter Card)
+  Render after Shopify's default meta-tags snippet for additional polish.
+{% endcomment %}
+
+{%- comment -%}--- Canonical (avoid pagination duplication) ---{%- endcomment -%}
+{%- if canonical_url -%}
+  <link rel="canonical" href="{{ canonical_url }}">
+{%- endif -%}
+
+{%- comment -%}--- hreflang (JP default, EN alternate) ---{%- endcomment -%}
+<link rel="alternate" hreflang="ja-JP" href="{{ canonical_url | default: request.origin | append: request.path }}">
+<link rel="alternate" hreflang="en" href="{{ canonical_url | default: request.origin | append: request.path }}">
+<link rel="alternate" hreflang="x-default" href="{{ canonical_url | default: request.origin | append: request.path }}">
+
+{%- comment -%}--- Dynamic title + description ---{%- endcomment -%}
+{%- capture page_title -%}
+  {%- if template contains 'product' and product -%}{{ product.title }} | noll
+  {%- elsif template contains 'collection' and collection -%}{{ collection.title }} | noll
+  {%- elsif template contains 'article' and article -%}{{ article.title }} | noll Journal
+  {%- elsif template contains 'page' and page -%}{{ page.title }} | noll
+  {%- elsif template contains 'blog' and blog -%}{{ blog.title }} | noll
+  {%- elsif template == 'cart' -%}カート | noll
+  {%- elsif template == 'search' -%}検索 | noll
+  {%- elsif template == '404' -%}ページが見つかりません | noll
+  {%- elsif template == 'index' -%}noll — Performance footgear / 思考を研ぎ澄ますフットギア
+  {%- else -%}{{ page_title | default: shop.name }}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- capture page_description -%}
+  {%- if template contains 'product' and product -%}{{ product.description | strip_html | strip_newlines | truncate: 155 }}
+  {%- elsif template contains 'collection' and collection.description != blank -%}{{ collection.description | strip_html | strip_newlines | truncate: 155 }}
+  {%- elsif template contains 'article' and article -%}{{ article.excerpt_or_content | strip_html | strip_newlines | truncate: 155 }}
+  {%- elsif template contains 'page' and page -%}{{ page.content | strip_html | strip_newlines | truncate: 155 }}
+  {%- else -%}{{ shop.description | default: '思考を研ぎ澄ますパフォーマンス・フットギア。歩行で、思考を、研ぎ澄ます。' }}
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- assign page_description = page_description | strip -%}
+<meta name="description" content="{{ page_description | escape }}">
+
+{%- comment -%}--- OGP (Open Graph) ---{%- endcomment -%}
+<meta property="og:type" content="{% if template contains 'article' %}article{% elsif template contains 'product' %}product{% else %}website{% endif %}">
+<meta property="og:title" content="{{ page_title | strip | escape }}">
+<meta property="og:description" content="{{ page_description | escape }}">
+<meta property="og:url" content="{{ canonical_url | default: request.origin | append: request.path }}">
+<meta property="og:site_name" content="noll">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+{%- if template contains 'product' and product.featured_image -%}
+  <meta property="og:image" content="https:{{ product.featured_image | image_url: width: 1200 }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="1200">
+  <meta property="product:price:amount" content="{{ product.price | money_without_currency | replace: ',', '' }}">
+  <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
+{%- elsif template contains 'article' and article.image -%}
+  <meta property="og:image" content="https:{{ article.image | image_url: width: 1200 }}">
+{%- elsif settings.share_image -%}
+  <meta property="og:image" content="https:{{ settings.share_image | image_url: width: 1200 }}">
+{%- else -%}
+  <meta property="og:image" content="https:{{ 'hero_shoe.jpg' | asset_url }}">
+{%- endif -%}
+
+{%- comment -%}--- Twitter Card ---{%- endcomment -%}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@noll_japan">
+<meta name="twitter:title" content="{{ page_title | strip | escape }}">
+<meta name="twitter:description" content="{{ page_description | escape }}">
+{%- if template contains 'product' and product.featured_image -%}
+  <meta name="twitter:image" content="https:{{ product.featured_image | image_url: width: 1200 }}">
+{%- elsif template contains 'article' and article.image -%}
+  <meta name="twitter:image" content="https:{{ article.image | image_url: width: 1200 }}">
+{%- else -%}
+  <meta name="twitter:image" content="https:{{ 'hero_shoe.jpg' | asset_url }}">
+{%- endif -%}
+
+{%- comment -%}--- Theme color (mobile browser chrome) ---{%- endcomment -%}
+<meta name="theme-color" content="#0e0e0e">
+<meta name="msapplication-TileColor" content="#0e0e0e">
+
+{%- comment -%}--- Robots ---{%- endcomment -%}
+{%- if template == 'search' or template contains 'customers' or template == 'cart' or template == '404' -%}
+  <meta name="robots" content="noindex, follow">
+{%- else -%}
+  <meta name="robots" content="index, follow, max-image-preview:large">
+{%- endif -%}
